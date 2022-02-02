@@ -3,10 +3,10 @@ title: "R Projects"
 description: |
   Welcome to my Blog. Below are a serious projects done entirely in R.
 author:
-  - name: Peter Sullivan
-    url: https://example.com/norajones
-    affiliation: Spacely Sprockets
-    affiliation_url: https://example.com/spacelysprokets
+  - name: Peter
+    #url: https://example.com/norajones
+    #affiliation: 
+    #affiliation_url: https://example.com/spacelysprokets
 date: 02-01-2022
 output:
   distill::distill_article:
