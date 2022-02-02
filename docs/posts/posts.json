@@ -1,11 +1,11 @@
 [
   {
     "path": "posts/welcome/",
-    "title": "Welcome to Peter Sullivan",
-    "description": "Welcome to our new blog, Peter Sullivan. We hope you enjoy \nreading what we have to say!",
+    "title": "R Projects",
+    "description": "Welcome to my Blog. Below are a serious projects done entirely in R.",
     "author": [
       {
-        "name": "Nora Jones",
+        "name": "Peter Sullivan",
         "url": "https://example.com/norajones"
       }
     ],
@@ -13,7 +13,7 @@
     "categories": [],
     "contents": "\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2022-02-01T19:24:02-05:00",
-    "input_file": {}
+    "last_modified": "2022-02-01T19:51:15-05:00",
+    "input_file": "welcome.knit.md"
   }
 ]
