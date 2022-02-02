@@ -6,14 +6,14 @@
       "description": "This blog is created to showcase R skills. For additional questions, please reach out for more info.",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-02-01T19:58:23-05:00"
+      "last_modified": "2022-02-02T14:56:00-05:00"
     },
     {
       "path": "index.html",
       "title": "R Projects",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-02-01T19:58:25-05:00"
+      "last_modified": "2022-02-02T14:56:01-05:00"
     }
   ],
   "collections": ["posts/posts.json"]

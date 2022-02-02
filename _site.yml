@@ -3,6 +3,8 @@ title: "Project List"
 description: |
   Projects
 output_dir: "docs"
+base_url : https://pjsulliv34.github.io/Blog/
+rpository_url: http://Peter.net
 navbar:
   right:
     - text: "Home"
