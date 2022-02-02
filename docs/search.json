@@ -6,14 +6,14 @@
       "description": "Some additional details about the blog",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-02-01T19:24:09-05:00"
+      "last_modified": "2022-02-01T19:28:08-05:00"
     },
     {
       "path": "index.html",
       "title": "Peter Sullivan",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-02-01T19:24:11-05:00"
+      "last_modified": "2022-02-01T19:28:10-05:00"
     }
   ],
   "collections": ["posts/posts.json"]
