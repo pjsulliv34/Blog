@@ -1,0 +1,192 @@
+---
+title: "HW 1 Network Analysis"
+description: |
+  A closer look into Airport Data.
+
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+
+
+library(statnet)
+library(igraph)
+library(igraphdata)
+getwd()
+
+```
+<br />
+
+#### Load in DATA. This is the Airport DATA from the Google drive.
+```{r Load in DATA}
+
+load(file = "C:/Users/pjsul/OneDrive/Desktop/MBA CLASSES/MachineLearning_CLASS/MachineLearning HomeWorks/USAirports.rda")
+```
+
+<br />
+
+#### Looking at Nodes and Edges:
+```{r}
+ls()
+vcount(network_igraph)
+ecount(network_igraph)
+print(network_statnet)
+#print(network_igraph)
+
+```
+
+
+Right off the bat, it looks like the igraph and statnet variables are showing different edges. The network igraph is showing 755 nodes and 23473 edges. The network statnet is showing 755 nodes, and 8228 edges.
+<br />
+
+#### Weighted, Directed, Single Mode Network?
+```{r Weighted, Directed Bipartit}
+
+is_bipartite(network_igraph)
+is_directed(network_igraph)
+is_weighted(network_igraph)
+
+```
+
+Using the Network Igraph set, we have a single mode network, which is directed, and is not weighted. 
+
+<br />
+
+#### Looking at Vertex and Edge Attributes: 
+```{r Vertex and Edge Attributes}
+vertex_attr_names(network_igraph)
+network::list.vertex.attributes(network_statnet)
+edge_attr_names(network_igraph)
+network::list.edge.attributes(network_statnet)
+```
+
+Igraph Attribute Names: `r vertex_attr_names(network_igraph)`
+
+Igraph edge names: `r edge_attr_names(network_igraph)`
+
+Statnet attribute names: `r network::list.vertex.attributes(network_statnet)`
+
+statnet edge names: `r network::list.edge.attributes(network_statnet)`
+
+<br />
+
+#### Accessing Attribute DATA:
+```{r Accessing Attribute Data}
+
+V(network_igraph)$name %>% head()
+V(network_igraph)$City %>% head()
+V(network_igraph)$Position %>% head()
+
+(network_igraph)$Carrier %>% head()
+
+head(network_statnet %v% "vertex.names")
+head(network_statnet %v% "City")
+
+head(network_statnet %e% "weight")
+
+```
+
+<br />
+
+
+#### Summarizing Attribute DATA
+```{r Describing Network}
+
+summary(E(network_igraph)$Distance)
+
+summary(network_statnet %e% "Distance")
+
+```
+
+The way the summary function worked on the statnet set makes me think the statnet dataset is incorrectly set up at the moment.
+<br />
+#### Dyad Census
+```{r Dyad Census}
+dyad.census(network_igraph)
+
+
+sna::dyad.census(network_statnet)
+
+```
+<br />
+
+#### Triad Census
+```{r Triad Census}
+
+triad.census(network_igraph)
+
+sna::triad.census(network_statnet)
+
+```
+<br />
+
+#### Transivity
+```{r Transivity or Global Clustering}
+
+transitivity(network_igraph)
+
+gtrans(network_statnet)
+
+```
+
+The transitivity for igraph and statnet data sets were pretty close.
+<br />
+
+#### Local Transivity
+```{r Local Transivity}
+
+first_five_names <- V(network_igraph)$name %>% head(5)
+first_five_names
+
+first_five_transivity <- transitivity(network_igraph, type = "local", vids = V(network_igraph)[first_five_names])
+
+cbind(first_five_names,first_five_transivity)
+
+transitivity(network_igraph, type = "global")
+transitivity(network_igraph, type = "average")
+
+```
+
+
+LA seems to have low transivity while BGR has the highest at .58.
+
+
+<br />
+
+#### Distances in the Network
+```{r Distances}
+
+distances(network_igraph, "BGR","BOS")
+distances(network_igraph,"BOS", "ANC")
+
+
+average.path.length(network_igraph)
+average.path.length(network_igraph, directed = F)
+
+```
+<br />
+
+#### Identifying Isolates
+```{r}
+
+names(igraph::components(network_igraph))
+components(network_igraph)$no
+components(network_igraph)$csize
+components(network_igraph)$membership %>% head()
+
+#Isolates
+isolates(network_statnet)
+
+
+as.vector(network_statnet %v% "vertex.names")[c(isolates(network_statnet))]
+```
+
+Detroit seems to be the only isolate. 
+
+
+
+
