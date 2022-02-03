@@ -27,7 +27,7 @@ getwd()
 <br />
 
 #### Load in DATA. This is the Airport DATA from the Google drive.
-```{r Load in DATA}
+```{r Load in DATA, include=FALSE}
 
 load(file = "C:/Users/pjsul/OneDrive/Desktop/MBA CLASSES/MachineLearning_CLASS/MachineLearning HomeWorks/USAirports.rda")
 ```
