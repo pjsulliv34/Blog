@@ -1,7 +1,11 @@
 ---
 title: "Intro Message"
 description: |
+<<<<<<< HEAD
   Welcome to my Blog.
+=======
+  Welcome to my Blog..
+>>>>>>> 5252bfd332bf5e6b346a48334405dabc46ae3e27
 author:
   - name: Peter
     #url: https://example.com/norajones

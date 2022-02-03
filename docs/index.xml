@@ -17,10 +17,10 @@
       <pubDate>Thu, 03 Feb 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
-      <title>R Projects</title>
+      <title>Intro Message</title>
       <dc:creator>Peter</dc:creator>
       <link>https://pjsulliv34.github.io/Blog/posts/welcome</link>
-      <description>Welcome to my Blog. Below are a serious projects done entirely in R.</description>
+      <description>Welcome to my Blog.</description>
       <guid>https://pjsulliv34.github.io/Blog/posts/welcome</guid>
       <pubDate>Tue, 01 Feb 2022 00:00:00 +0000</pubDate>
     </item>
