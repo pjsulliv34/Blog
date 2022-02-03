@@ -7,7 +7,15 @@
     <description>Projects
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Tue, 01 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 03 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>NetworkAnalysisHw1</title>
+      <dc:creator>Peter</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/2022-02-03-networkanalysishw1</link>
+      <description>A closer Look into Airport Data.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/2022-02-03-networkanalysishw1</guid>
+      <pubDate>Thu, 03 Feb 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>R Projects</title>
       <dc:creator>Peter</dc:creator>
