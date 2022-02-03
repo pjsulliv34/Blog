@@ -1,7 +1,7 @@
 ---
-title: "R Projects"
+title: "Intro Message"
 description: |
-  Welcome to my Blog. Below are a serious projects done entirely in R.
+  Welcome to my Blog.
 author:
   - name: Peter
     #url: https://example.com/norajones
