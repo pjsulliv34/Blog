@@ -8,10 +8,12 @@ links:
     url: "https://pjsulliv34.github.io/R-Projects/"
   - label: Email
     url: "mailto:pjsulliv34@gmail.com"
+    
 description: |
  TBD
+site: distill::distill_website
 output:
-  postcards::jolla
+  postcards::trestles
 ---
 
 I am an Gas Asset Engineering working in the Gas Distribution Engineering.
