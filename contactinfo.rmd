@@ -3,7 +3,7 @@ title: "Peter Sullivan"
 image: "pic.jpg"
 links:
   - label: LinkedIn
-    url: "www.linkedin.com/in/peter-sullivan/"
+    url: "https://www.linkedin.com/in/peter-sullivan/"
   - label: GitHub
     url: "https://pjsulliv34.github.io/R-Projects/"
   - label: Email

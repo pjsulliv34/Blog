@@ -3,7 +3,8 @@ title: "Tobi Burns"
 image: "pic.jpg"
 links:
   - label: LinkedIn
-    url: "https://linkedin.com/"
+    url:
+    href: "https://linkedin.com/"
   - label: Twitter
     url: "https://twitter.com/"
   - label: GitHub
