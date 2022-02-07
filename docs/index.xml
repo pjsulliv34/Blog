@@ -7,7 +7,16 @@
     <description>Projects
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Fri, 04 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 06 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Looking into Alcohol Data set</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/looking-into-alcohol-data-set</link>
+      <description>Trying to predict alcoholism based on a list of predictors</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/looking-into-alcohol-data-set</guid>
+      <pubDate>Sun, 06 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://pjsulliv34.github.io/Blog/posts/looking-into-alcohol-data-set/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
     <item>
       <title>Crime in the Time of Covid</title>
       <dc:creator>Peter Sullivan</dc:creator>
