@@ -9,6 +9,15 @@
     <generator>Distill</generator>
     <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate>
     <item>
+      <title>Australian Weather Data</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/australian-weather-data</link>
+      <description>A glimpse into 10 years of Austrailian Weather Data</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/australian-weather-data</guid>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://pjsulliv34.github.io/Blog/posts/australian-weather-data/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
       <title>HW 1 Network Analysis</title>
       <dc:creator>Peter Sullivan</dc:creator>
       <link>https://pjsulliv34.github.io/Blog/posts/hw-1-network-analysis</link>
@@ -16,15 +25,6 @@
       <guid>https://pjsulliv34.github.io/Blog/posts/hw-1-network-analysis</guid>
       <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
       <media:content url="https://pjsulliv34.github.io/Blog/posts/hw-1-network-analysis/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
-    </item>
-    <item>
-      <title>Stock Price Predictions</title>
-      <dc:creator>Peter Sullivan</dc:creator>
-      <link>https://pjsulliv34.github.io/Blog/posts/stock-price-predictions</link>
-      <description>Predicting Stock Prices using linear Regression.</description>
-      <guid>https://pjsulliv34.github.io/Blog/posts/stock-price-predictions</guid>
-      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
-      <media:content url="https://pjsulliv34.github.io/Blog/posts/stock-price-predictions/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>HW 5: UFO Search!</title>
@@ -36,13 +36,22 @@
       <media:content url="https://pjsulliv34.github.io/Blog/posts/hw-5-ufo-search/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
-      <title>Australian Weather Data</title>
+      <title>Stock Price Predictions</title>
       <dc:creator>Peter Sullivan</dc:creator>
-      <link>https://pjsulliv34.github.io/Blog/posts/australian-weather-data</link>
-      <description>A glimpse into 10 years of Austrailian Weather Data</description>
-      <guid>https://pjsulliv34.github.io/Blog/posts/australian-weather-data</guid>
+      <link>https://pjsulliv34.github.io/Blog/posts/stock-price-predictions</link>
+      <description>Predicting Stock Prices using linear Regression.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/stock-price-predictions</guid>
       <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
-      <media:content url="https://pjsulliv34.github.io/Blog/posts/australian-weather-data/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+      <media:content url="https://pjsulliv34.github.io/Blog/posts/stock-price-predictions/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
+      <title>Stock Returns</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/stock-returns</link>
+      <description>Manipulating Stock Returns in order to compare companies.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/stock-returns</guid>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://pjsulliv34.github.io/Blog/posts/stock-returns/distill-preview.png" medium="image" type="image/png" width="1248" height="768"/>
     </item>
     <item>
       <title>Networks Hw 2</title>
