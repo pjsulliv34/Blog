@@ -7,7 +7,15 @@
     <description>Projects
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Thu, 10 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Stock Price Predictions</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/2022-02-12-stock-price-predictions</link>
+      <description>Predicting Stock Prices using linear Regression.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/2022-02-12-stock-price-predictions</guid>
+      <pubDate>Sat, 12 Feb 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Networks Hw 2</title>
       <dc:creator>Peter Sullivan</dc:creator>
