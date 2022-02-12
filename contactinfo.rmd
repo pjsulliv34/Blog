@@ -15,7 +15,7 @@ site: distill::distill_website
 output:
   postcards::trestles
 ---
-up
+
 ## Education
 Bachelor of Science Mechanical Engineering – University of Massachusetts Amherst - May 2015<br />
 Master of Engineering Management – University of Massachusetts Amherst - February 2019<br />
