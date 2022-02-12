@@ -16,17 +16,11 @@ output:
   postcards::trestles
 ---
 
-
-## Bio
-I am an Gas Asset Engineering working in the Gas Distribution Engineering.
-
 ## Education
-Bachelor of Science Mechanical Engineering – University of Massachusetts Amherst                              May 2015 Master of Engineering Management – University of Massachusetts Amherst                                     February 2019   Master of Business Administration – University of Massachusetts Amherst                                       Expected 2023                                 Advanced Certificate in Data Analytics
-And Computational Social Science - University of Massachusetts Amherst                                Expected May 2022
-
-##  Experience
-
-ddfd
+Bachelor of Science Mechanical Engineering – University of Massachusetts Amherst - May 2015<br />
+Master of Engineering Management – University of Massachusetts Amherst - February 2019<br />
+Master of Business Administration – University of Massachusetts Amherst - Expected 2023<br />
+Advanced Certificate in Data Analytics And Computational Social Science - University of Massachusetts Amherst - Expected May 2022
  
 ## Technical Skills
 Ability to perform bivariate and multivariate regression analyses in Python and R, Interpret coefficients, statistical significance, and predictive ability of the model (statsmodels, scikit learn), Python and R data analysis and data visualization, SQL hands on experience, Power BI, Oracle SQL Developer, Alteryx, Hands-on experience with Advanced MS Excel, Power Query, automating repetitive tasks through Macros, Tableau, Data Quality & Data Normalization working knowledge, OLAP & OLTP tools user-level knowledge, Logical Relational and Dimensional modeling experience, Matlab, Microsoft Outlook.
