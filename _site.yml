@@ -11,7 +11,17 @@ navbar:
       href: index.html
     - text: "Bio"
       href: contactinfo.html
-    - text: "Shiny Apps"  
+    - text: "Shiny Apps"
+      menu:
+        - text: "Stock Data Analysis"
+          href: https://pjsulliv34.shinyapps.io/StockDataAnalysis/
+        - text: "Regression Plots"
+          href: https://pjsulliv34.shinyapps.io/Regression_Plots/
+        - text: "Regression Plots, Any Stock"
+          href: https://pjsulliv34.shinyapps.io/RegressionApp_2/
+        - text: "Drink Size Calculator"
+          href: https://pjsulliv34.shinyapps.io/DrizeSizeCalculator/
+    - text: "GitHubPage"  
       href: https://pjsulliv34.github.io/R-Projects/
    
 output: distill::distill_article
