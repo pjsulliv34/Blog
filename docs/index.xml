@@ -7,7 +7,15 @@
     <description>Projects
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 12 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 13 Feb 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Machine Learning Hw1</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/machine-learning-hw1</link>
+      <description>A look into Linear and Logistic Regression, and Clustering.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/machine-learning-hw1</guid>
+      <pubDate>Sun, 13 Feb 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Australian Weather Data</title>
       <dc:creator>Peter Sullivan</dc:creator>
