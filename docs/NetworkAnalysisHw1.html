@@ -56,7 +56,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 }
 code span.al { color: #ad0000; } /* Alert */
 code span.an { color: #5e5e5e; } /* Annotation */
-code span.at { color: #20794d; } /* Attribute */
+code span.at { } /* Attribute */
 code span.bn { color: #ad0000; } /* BaseN */
 code span.bu { } /* BuiltIn */
 code span.cf { color: #007ba5; } /* ControlFlow */
@@ -77,13 +77,14 @@ code span.kw { color: #007ba5; } /* Keyword */
 code span.op { color: #5e5e5e; } /* Operator */
 code span.ot { color: #007ba5; } /* Other */
 code span.pp { color: #ad0000; } /* Preprocessor */
-code span.sc { color: #20794d; } /* SpecialChar */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
 code span.ss { color: #20794d; } /* SpecialString */
 code span.st { color: #20794d; } /* String */
 code span.va { color: #111111; } /* Variable */
 code span.vs { color: #20794d; } /* VerbatimString */
 code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 </style>
+
 
   <!--radix_placeholder_meta_tags-->
   <title>Project List: HW 1 Network Analysis</title>
@@ -92,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-03-13"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-03-13"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-03-22"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-03-22"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Project List: HW 1 Network Analysis"/>
@@ -111,7 +112,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output"]}},"value":[{"type":"character","attributes":{},"value":["HW 1 Network Analysis"]},{"type":"character","attributes":{},"value":["A closer look into Airport Data.\n"]},{"type":"character","attributes":{},"value":["2022-03-13"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output"]}},"value":[{"type":"character","attributes":{},"value":["HW 1 Network Analysis"]},{"type":"character","attributes":{},"value":["A closer look into Airport Data.\n"]},{"type":"character","attributes":{},"value":["2022-03-22"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -458,7 +459,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
   </style>
 
-  <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+  <script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
   <link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet"/>
   <link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet"/>
   <script src="site_libs/headroom-0.9.4/headroom.min.js"></script>
@@ -1865,7 +1866,10 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
       // hoverable references
       $('span.citation[data-cites]').each(function() {
-        var refHtml = $('#ref-' + $(this).attr('data-cites')).html();
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
         window.tippy(this, {
           allowHTML: true,
           content: refHtml,
@@ -2036,7 +2040,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </script>
 
   <!--/radix_placeholder_distill-->
-  <script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+  <script src="site_libs/header-attrs-2.13/header-attrs.js"></script>
   <script src="site_libs/popper-2.6.0/popper.min.js"></script>
   <link href="site_libs/tippy-6.2.7/tippy.css" rel="stylesheet" />
   <link href="site_libs/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
@@ -2056,7 +2060,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"HW 1 Network Analysis","description":"A closer look into Airport Data.","authors":[],"publishedDate":"2022-03-13T00:00:00.000-05:00"}
+{"title":"HW 1 Network Analysis","description":"A closer look into Airport Data.","authors":[],"publishedDate":"2022-03-22T00:00:00.000-04:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2102,7 +2106,9 @@ Shiny Apps
 
 <div class="d-article">
 <p><br /></p>
-<h4 id="load-in-data.-this-is-the-airport-data-from-the-google-drive.">Load in DATA. This is the Airport DATA from the Google drive.</h4>
+<h4
+id="load-in-data.-this-is-the-airport-data-from-the-google-drive.">Load
+in DATA. This is the Airport DATA from the Google drive.</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/load.html'>load</a></span><span class='op'>(</span>file <span class='op'>=</span> <span class='st'>"C:/Users/pjsul/OneDrive/Desktop/MBA CLASSES/MachineLearning_CLASS/MachineLearning HomeWorks/USAirports.rda"</span><span class='op'>)</span>
@@ -2159,8 +2165,12 @@ Shiny Apps
 </div>
 <p><img src="NetworkAnalysisHw1_files/figure-html5/unnamed-chunk-1-1.png" width="624" /></p>
 </div>
-<p>Right off the bat, it looks like the igraph and statnet variables are showing different edges. The network igraph is showing 755 nodes and 23473 edges. The network statnet is showing 755 nodes, and 8228 edges. <br /></p>
-<h4 id="weighted-directed-single-mode-network">Weighted, Directed, Single Mode Network?</h4>
+<p>Right off the bat, it looks like the igraph and statnet variables are
+showing different edges. The network igraph is showing 755 nodes and
+23473 edges. The network statnet is showing 755 nodes, and 8228 edges.
+<br /></p>
+<h4 id="weighted-directed-single-mode-network">Weighted, Directed,
+Single Mode Network?</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/make_bipartite_graph.html'>is_bipartite</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span>
@@ -2178,9 +2188,11 @@ Shiny Apps
 </div>
 <pre><code>[1] FALSE</code></pre>
 </div>
-<p>Using the Network Igraph set, we have a single mode network, which is directed, and is not weighted.</p>
+<p>Using the Network Igraph set, we have a single mode network, which is
+directed, and is not weighted.</p>
 <p><br /></p>
-<h4 id="looking-at-vertex-and-edge-attributes">Looking at Vertex and Edge Attributes:</h4>
+<h4 id="looking-at-vertex-and-edge-attributes">Looking at Vertex and
+Edge Attributes:</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/vertex_attr_names.html'>vertex_attr_names</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span>
@@ -2206,31 +2218,33 @@ Shiny Apps
 [6] &quot;Passangers&quot; &quot;Seats&quot;      &quot;weight&quot;    </code></pre>
 </div>
 <p>Igraph Attribute Names: name, City, Position</p>
-<p>Igraph edge names: Carrier, Departures, Seats, Passengers, Aircraft, Distance</p>
+<p>Igraph edge names: Carrier, Departures, Seats, Passengers, Aircraft,
+Distance</p>
 <p>Statnet attribute names: City, Distance, na, vertex.names</p>
-<p>statnet edge names: Aircraft, Carrier, Departures, Distance, na, Passangers, Seats, weight</p>
+<p>statnet edge names: Aircraft, Carrier, Departures, Distance, na,
+Passangers, Seats, weight</p>
 <p><br /></p>
 <h4 id="accessing-attribute-data">Accessing Attribute DATA:</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>name</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>name</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;BGR&quot; &quot;BOS&quot; &quot;ANC&quot; &quot;JFK&quot; &quot;LAS&quot; &quot;MIA&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>City</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>City</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;Bangor, ME&quot;    &quot;Boston, MA&quot;    &quot;Anchorage, AK&quot; &quot;New York, NY&quot; 
 [5] &quot;Las Vegas, NV&quot; &quot;Miami, FL&quot;    </code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Position</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Position</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;N444827 W0684941&quot; &quot;N422152 W0710019&quot; &quot;N611028 W1495947&quot;
 [4] &quot;N403823 W0734644&quot; &quot;N360449 W1150908&quot; &quot;N254736 W0801726&quot;</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Carrier</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>Carrier</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>NULL</code></pre>
@@ -2267,7 +2281,9 @@ Shiny Apps
 <pre><code>   Length     Class      Mode 
      8228 character character </code></pre>
 </div>
-The way the summary function worked on the statnet set makes me think the statnet dataset is incorrectly set up at the moment. <br /> #### Dyad Census
+The way the summary function worked on the statnet set makes me think
+the statnet dataset is incorrectly set up at the moment. <br /> ####
+Dyad Census
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/dyad_census.html'>dyad.census</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span>
@@ -2316,16 +2332,17 @@ $null
 </div>
 <pre><code>[1] 0.3384609</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'>gtrans</span><span class='op'>(</span><span class='va'>network_statnet</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/sna/man/gtrans.html'>gtrans</a></span><span class='op'>(</span><span class='va'>network_statnet</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 0.3266617</code></pre>
 </div>
-<p>The transitivity for igraph and statnet data sets were pretty close. <br /></p>
+<p>The transitivity for igraph and statnet data sets were pretty close.
+<br /></p>
 <h4 id="local-transivity">Local Transivity</h4>
 <div class="layout-chunk" data-layout="l-body">
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>first_five_names</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>name</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>first_five_names</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/igraph/man/V.html'>V</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>name</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
 <span class='va'>first_five_names</span>
 </code></pre>
 </div>
@@ -2399,25 +2416,26 @@ BOS   2</code></pre>
 </div>
 <pre><code>[1] 745   2   2   3   2   1</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/components.html'>components</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>membership</span> <span class='op'>%&gt;%</span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/components.html'>components</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span><span class='op'>$</span><span class='va'>membership</span> <span class='op'><a href='https://rdrr.io/pkg/igraph/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>BGR BOS ANC JFK LAS MIA 
   1   1   1   1   1   1 </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Isolates</span>
-<span class='fu'>isolates</span><span class='op'>(</span><span class='va'>network_statnet</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/sna/man/isolates.html'>isolates</a></span><span class='op'>(</span><span class='va'>network_statnet</span><span class='op'>)</span>
 </code></pre>
 </div>
 <pre><code>[1] 166</code></pre>
 <div class="sourceCode">
-<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>network_statnet</span> <span class='op'>%v%</span> <span class='st'>"vertex.names"</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'>isolates</span><span class='op'>(</span><span class='va'>network_statnet</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span>
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>network_statnet</span> <span class='op'>%v%</span> <span class='st'>"vertex.names"</span><span class='op'>)</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/pkg/sna/man/isolates.html'>isolates</a></span><span class='op'>(</span><span class='va'>network_statnet</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span>
 </code></pre>
 </div>
 <pre><code>[1] &quot;DET&quot;</code></pre>
 </div>
 <p>Detroit seems to be the only isolate.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<div class="sourceCode" id="cb41"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
 <!--radix_placeholder_article_footer-->
 <!--/radix_placeholder_article_footer-->
 </div>
