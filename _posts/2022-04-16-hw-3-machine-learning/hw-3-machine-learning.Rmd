@@ -6,15 +6,17 @@ author:
   - name: Peter Sullivan
     url: {}
 date: 2022-04-16
+preview: preview.png
 output:
   distill::distill_article:
-    self_contained: false
+    self_contained: FALSE
 ---
 
 ,
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
 library(tidyverse)
+getwd()
 ```
 
 
