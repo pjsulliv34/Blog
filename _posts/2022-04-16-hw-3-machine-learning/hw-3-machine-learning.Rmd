@@ -18,8 +18,8 @@ library(tidyverse)
 ```
 
 
-## ISLR Ch. 6,
-Exercise 9e and update 9g (assigned for HW 2), looking back at your HW 2 answers for context
+## ISLR Ch. 6 Exercise 9e and update 9g (assigned for HW 2)
+looking back at your HW 2 answers for context
 
 
 ### A
@@ -261,7 +261,7 @@ unscaled_data%>% filter(Cluster_unscaled==1) %>% select(State) %>% as.list() %>%
 unscaled_data%>% filter(Cluster_unscaled==2) %>% select(State) %>% as.list() %>% kable(caption = "Group 2 States")
 unscaled_data%>% filter(Cluster_unscaled==3) %>% select(State) %>% as.list() %>% kable(caption = "Group 3 States")
 library(DT)
-#datatable(unscaled_data, caption = "States by Cluster")
+datatable(unscaled_data, caption = "States by Cluster")
 
 
 ```
@@ -284,12 +284,13 @@ plot(hc.complete, main = "Complete Linkage",xlab = "", sub = "", cex = .9)
 scaled <-cutree(hc.complete,3)
 Scaled_cluster <- data.frame(scaled) %>% rownames_to_column("State") %>% rename("Cluster_Scaled" = scaled)
 Scaled_cluster %>% group_by(Cluster_Scaled) %>% count()
-#Scaled_cluster %>% datatable(caption = "States by Cluster Scaled")
+Scaled_cluster %>% datatable(caption = "States by Cluster Scaled")
 join <- unscaled_data %>% inner_join(Scaled_cluster, by = "State")
 
-#join %>% datatable(caption = "States by Cluster for Scaled and Unscaled")
+join %>% datatable(caption = "States by Cluster for Scaled and Unscaled")
 
 ```
+
 
 I first checked to make sure that the sd(scale(US Arrests)) is correctly giving us a SD of ~ 1, which it is. The data tables can be accessed in the html version.
 
@@ -373,12 +374,14 @@ PCA and K-means clustering on the data.
 
 
 ### (a) 
+<br />
 Generate a simulated data set with 20 observations in each of
 three classes (i.e. 60 observations total), and 50 variables.
 Hint: There are a number of functions in R that you can use to
 generate data. One example is the rnorm() function; runif() is
 another option. Be sure to add a mean shift to the observations
 in each class so that there are three distinct classes.
+
 ```{r}
 
 set.seed(5)
@@ -705,9 +708,11 @@ pve <-pr.var/sum(pr.var)
 
 ```
 
-
+<br />
 
 Due to lack of space, I only showed the the first 10 of the loading. But the full loading has 65 rows. The biplot is quite difficult to read due to so many vectors. I'm currently not sure how to limit the vectors shown on the biplot. 
+
+
 ```{r}
 
 par (mfrow = c(1, 2))
