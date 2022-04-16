@@ -1,0 +1,732 @@
+---
+title: "Unsupervised Learning"
+description: |
+  A closer look at PCA and Clustering.
+author:
+  - name: Peter Sullivan
+    url: {}
+date: 2022-04-16
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+,
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+```
+
+
+## ISLR Ch. 6,
+Exercise 9e and update 9g (assigned for HW 2), looking back at your HW 2 answers for context
+
+
+### A
+Split the data set into a training set and a test set.
+
+```{r}
+
+library(ISLR2)
+set.seed(1)
+nrow(College)
+train <-  sample(1:nrow(College), round((nrow(College)/4)*3,0))
+College.test <- College[-train,]
+College.response <- College$Apps[-train]
+college.train <- College[train,]
+
+
+```
+
+### B
+Fit a linear model using least squares on the training set, and
+report the test error obtained.
+
+```{r warning=FALSE, message=FALSE}
+attach(College)
+lm.fit <- lm(Apps ~., data = College, subset = train)
+lm.pred <- predict(lm.fit, College.test, type = "response")
+lm_mse <- mean((College.response -lm.pred )^2)
+paste("The Test Error for Least squares is :", lm_mse)
+MSE_dataframe <- data.frame("model" = "Least Square", "MSE" = lm_mse)
+
+
+```
+
+### C
+Fit a ridge regression model on the training set, with λ chosen
+by cross-validation. Report the test error obtained.
+
+
+```{r, warning=FALSE}
+library(glmnet)
+
+
+x <- model.matrix(Apps~.,College)[,-1]
+y <- College$Apps
+grid <- 10^seq(10,-2, length = 100)
+
+ridge.mod <- glmnet(x[train,], y[train], alpha =0, lambda = grid )
+cv.out <- cv.glmnet(x[train,], y[train],alpha = 0)
+plot(cv.out)
+lamda_best <- cv.out$lambda.min
+paste("The minimum lambda: ",lamda_best)
+
+ridge.pred <- predict(ridge.mod, s = lamda_best, newx = x[-train,])
+ridge_mse <- mean((ridge.pred - y[-train])^2)
+MSE_dataframe <- rbind(MSE_dataframe, c("ridge",ridge_mse))
+
+paste("The test Error Rate is : ", mean((ridge.pred - y[-train])^2))
+
+```
+
+### D 
+Fit a lasso model on the training set, with λ chosen by crossvalidation. Report the test error obtained, along with the number of non-zero coefficient estimates.
+
+```{r, preview = TRUE}
+
+lasso.mod <- glmnet(x[train,],y[train],alpha = 1, lambda = grid)
+cv.out <- cv.glmnet(x[train,], y[train], alpha = 1)
+plot(cv.out)
+lamda_best <- cv.out$lambda.min
+lamda_best
+lasso.pred <- predict(lasso.mod, s= lamda_best, newx = x[-train,])
+paste("The test error rate is ",mean((lasso.pred - y[-train])^2))
+lasso_mse <- mean((lasso.pred - y[-train])^2)
+
+out <- glmnet(x,y, alpha = 1 ,lambda = grid)
+lamda.coef <- predict(out, type = "coefficients", s= lamda_best)[1:18,]
+paste("The number of non-zero coeficients:",lamda.coef[lamda.coef !=0] %>% length())
+
+MSE_dataframe <- rbind(MSE_dataframe, c("Lasso",lasso_mse))
+```
+None of the coefficients are zero.
+
+
+### E
+Fit a PCR model on the training set, with M chosen by crossvalidation. Report the test error obtained, along with the value
+of M selected by cross-validation.
+
+
+```{r}
+library(pls)
+set.seed(10)
+
+pcr.fit <- pcr(Apps ~ . , data = College, subset = train, scale = TRUE, validation = "CV")
+validationplot(pcr.fit, val.type = "MSEP")
+pcr.pred <- predict(pcr.fit,College.test, ncomp = 17)
+pcr_mse<- mean((pcr.pred - College.response)^2)
+paste("The MSE error is ", pcr_mse)
+
+summary(pcr.fit)
+
+MSE_dataframe <- rbind(MSE_dataframe, c("PCR",pcr_mse))
+
+
+```
+
+From the validation plot, the lowest MSEP for the number of components is around 16,17, and 18.I decided to use 17 as my value of M.
+
+
+### F
+Fit a PLS model on the training set, with M chosen by crossvalidation. Report the test error obtained, along with the value
+of M selected by cross-validation.
+
+```{r}
+pls.fit <- plsr(Apps~., data = College, subset = train, scale = TRUE, validation = "CV")
+
+validationplot(pls.fit, val.type = "MSEP")
+
+
+pls.pred_7<- predict(pls.fit, College.test, ncomp = 7)
+pls.pred_8 <- predict(pls.fit, College.test, ncomp = 8)
+
+paste("The MSE error using M as 7: ", mean((pls.pred_7- College.response)^2))
+paste("The MSE error using M as 8: ", mean((pls.pred_8- College.response)^2))
+pls_mse <- mean((pls.pred_8- College.response)^2)
+MSE_dataframe <- rbind(MSE_dataframe, c("PLS",pls_mse))
+```
+
+The lowest msep was with the number of components ranging from 7 and greater. For the comparison bar chart, I used the msep of 8.
+
+
+
+### G 
+Comment on the results obtained. How accurately can we predict the number of college applications received? Is there much
+difference among the test errors resulting from these five approaches?
+
+```{r}
+library(knitr)
+MSE_dataframe %>% arrange(MSE) %>% kable()
+MSE_dataframe$MSE <- as.numeric(MSE_dataframe$MSE)
+
+MSE_dataframe %>% ggplot2::ggplot(aes(x = model, y = MSE)) + geom_col(fill = "deepskyblue3")+ theme(axis.text.y = element_blank())+labs(title = "MSE per Model")+geom_text(aes(label = round(as.numeric(MSE),0)), vjust = 2)
+
+```
+
+
+The Ridge regression model had the lowest MSE, with PLS coming up the second lowest MSE, following Lasso and the PCR and Least square in last. There is not too much of a difference between the MSE's, except for the ridge model.
+
+
+
+## ISLR Ch. 12, Exercise 8
+
+In Section 12.2.3, a formula for calculating PVE was given in Equation 12.10. We also saw that the PVE can be obtained using the sdev
+output of the prcomp() function.
+On the USArrests data, calculate PVE in two ways:
+
+(a) Using the sdev output of the prcomp() function, as was done in
+Section 12.2.3.
+
+```{r, preview = TRUE}
+
+pr.out <- prcomp(USArrests, scale = TRUE)
+
+pr.var <- pr.out$sdev^2
+pve<- pr.var/sum(pr.var)
+x<- (pve %>% round(3))
+
+cat("PVE using Prcomp: ",x)
+par(mfrow = c(1,2))
+plot(pve, xlab = "Principle Component", ylab = "Proportion of Variance Explained", ylim = c(0,1), type = "b")
+plot(cumsum(pve), xlab = "Principle component", ylab = "Cumulative Proporition of Variance Explained", ylim = c(0,1), type = "b")
+```
+
+
+
+(b) By applying Equation 12.10 directly. That is, use the prcomp()
+function to compute the principal component loadings. Then,
+use those loadings in Equation 12.10 to obtain the PVE.
+These two approaches should give the same results.
+
+![](pics/Hw3_ch12_8b.png)
+
+
+```{r}
+loadings <- pr.out$rotation
+loadings
+## Need scaled and matrix version of USArrests
+US_mat_scale <- data.matrix(scale(USArrests))
+
+## Getting sum of Sum of squared coefficients in matrix 
+sum_sq <- sum(apply(US_mat_scale^2,2,sum))
+### Top side of 12.10 loadings * matrix coefficients
+top_eq <- apply((US_mat_scale %*% loadings)^2,2,sum)
+cat("PVE using the 12.10 equation: ",top_eq/sum_sq)
+
+
+
+
+```
+
+**At first for the sum of squared coefficients in the bottom of the equation. I only took one sum, and the PVE's did not match the part in A. After closer inspection of equation 12.10, it shows that we take the sum of the squared coefficients of the matrix, and then we take the sum of that as well. When including that in the equation, PVE's in part A match part B.**
+
+
+Hint: You will only obtain the same results in (a) and (b) if the same
+data is used in both cases. For instance, if in (a) you performed
+prcomp() using centered and scaled variables, then you must center
+and scale the variables before applying Equation 12.10 in (b).
+
+
+
+## ISLR Ch. 12, Exercise 9
+
+
+Consider the USArrests data. We will now perform hierarchical clustering on the states.
+### (a) 
+Using hierarchical clustering with complete linkage and
+Euclidean distance, cluster the states.
+
+```{r}
+US_arrest_mat <- data.matrix((USArrests))
+hc.complete <- hclust(dist(US_arrest_mat), method = "complete")
+
+plot(hc.complete, main = "Complete Linkage",xlab = "", sub = "", cex = .9)
+```
+
+
+The plot shows the states clustered.
+
+### (b) Cut the dendrogram at a height that results in three distinct
+clusters. Which states belong to which clusters?
+12.6 Exercises 551
+
+
+```{r}
+
+unscaled <-cutree(hc.complete,3)
+unscaled_data <- data.frame(unscaled) %>% rownames_to_column("State") %>% rename("Cluster_unscaled" = unscaled)
+unscaled_data %>% group_by(Cluster_unscaled) %>% count()
+unscaled_data%>% filter(Cluster_unscaled==1) %>% select(State) %>% as.list() %>% kable(caption = "Group 1 States")
+unscaled_data%>% filter(Cluster_unscaled==2) %>% select(State) %>% as.list() %>% kable(caption = "Group 2 States")
+unscaled_data%>% filter(Cluster_unscaled==3) %>% select(State) %>% as.list() %>% kable(caption = "Group 3 States")
+library(DT)
+#datatable(unscaled_data, caption = "States by Cluster")
+
+
+```
+
+The data table can be accessed in the html version.
+
+
+
+### (c) Hierarchically cluster the states using complete linkage and Euclidean distance, after scaling the variables to have standard deviation one.
+
+
+```{r}
+
+
+US_arrest_mat <- data.matrix(scale(USArrests))
+
+paste("Standard Deviation of Scaled data frame: ",sd(scale(USArrests)))
+hc.complete <- hclust(dist(US_arrest_mat), method = "complete")
+plot(hc.complete, main = "Complete Linkage",xlab = "", sub = "", cex = .9)
+scaled <-cutree(hc.complete,3)
+Scaled_cluster <- data.frame(scaled) %>% rownames_to_column("State") %>% rename("Cluster_Scaled" = scaled)
+Scaled_cluster %>% group_by(Cluster_Scaled) %>% count()
+#Scaled_cluster %>% datatable(caption = "States by Cluster Scaled")
+join <- unscaled_data %>% inner_join(Scaled_cluster, by = "State")
+
+#join %>% datatable(caption = "States by Cluster for Scaled and Unscaled")
+
+```
+
+I first checked to make sure that the sd(scale(US Arrests)) is correctly giving us a SD of ~ 1, which it is. The data tables can be accessed in the html version.
+
+
+
+### (d)
+What effect does scaling the variables have on the hierarchical
+clustering obtained? In your opinion, should the variables be
+scaled before the inter-observation dissimilarities are computed?
+Provide a justification for your answer.
+
+Before answering the question, I will look closer into the cluster results for the scaled and un-scaled clusters.
+
+```{r}
+
+table(scaled)
+table(unscaled)
+
+x <- which(scaled==1)
+y <- which(unscaled==1)
+y <- as.vector(y %>% names())
+x <- as.vector(x %>% names())
+
+
+cat("States that differed in Group 1:    ", paste(c(y[!(y %in% x)],x[!(x%in%y)]),","))
+```
+
+The scaled results group most states into the 3rd group. The un-scaled had an even distribution between group 1 and 2, and the most in group 3.
+
+I've also included that states that differs in group 1 for the scaled and un-scaled. This information is not that helpful.
+
+
+```{r}
+### Scaled
+for (group in 1:3){
+  print(paste("Group: ",group))
+  print(paste("---------------------"))
+  print(which(scaled==group)%>% names())
+  cat("\n")
+
+}
+
+
+#USArrests[c("Alabama","Alaska"),]
+```
+
+
+
+
+```{r}
+### unscalled
+for (group in 1:3){
+  print(paste("Group: ",group))
+  print(paste("---------------------"))
+  print(which(unscaled==group)%>% names())
+  cat("\n")
+}
+
+
+
+```
+
+```{r}
+summary(USArrests)
+
+
+```
+
+We do need to scale our data. From the summary above, we can see that we are looking at Murder, Assault, Urban Pop, Rape. To compare population to crimes, we do need to scale it as they are not similar measures. 
+
+Murder, Assault and Rape are measured in a similar manner (number of crimes commit ed). 
+
+When observing the range which is obtained from the summary Assault seems to have a much higher max than rape and murder. A change in assault will not have as much effect as a change in murder and rape.Therefore, we should scale before clustering for those predictors as well.
+
+
+
+## ISLR Ch. 12, Exercise 10
+
+In this problem, you will generate simulated data, and then perform
+PCA and K-means clustering on the data.
+
+
+### (a) 
+Generate a simulated data set with 20 observations in each of
+three classes (i.e. 60 observations total), and 50 variables.
+Hint: There are a number of functions in R that you can use to
+generate data. One example is the rnorm() function; runif() is
+another option. Be sure to add a mean shift to the observations
+in each class so that there are three distinct classes.
+```{r}
+
+set.seed(5)
+x <- matrix(rnorm(60*50),ncol = 50)
+
+#(rnorm(60*2))
+x[1:20,]<-x[1:20,]+5
+x[21:40,]<-x[21:40,]-6
+x[41:60,] <- x[41:60,]-1
+
+#?rnorm
+
+#summary(x)
+```
+
+
+### (b) 
+Perform PCA on the 60 observations and plot the first two principal component score vectors. Use a different color to indicate
+the observations in each of the three classes. If the three classes
+appear separated in this plot, then continue on to part (c). If
+not, then return to part (a) and modify the simulation so that
+there is greater separation between the three classes. Do not
+continue to part (c) until the three classes show at least some
+separation in the first two principal component score vectors.
+
+
+```{r}
+
+
+pr.out <- prcomp(x)
+
+### The Cols function was used in CH12 of the textbook.
+Cols <- function (vec) {
+ cols <- rainbow( length( unique(vec)))
+ return (cols[as.numeric(as.factor(vec))])
+ }
+ 
+rows = c(rep(1,20), rep(2,20), rep(3,20))
+
+plot(pr.out$x[,1:2], col = Cols(rows), pch = 19, xlab = "PC1", ylab = "PC2")
+
+
+
+
+
+```
+
+
+The three groups are very separated, so I will move onto part c.
+
+
+### (c) 
+Perform K-means clustering of the observations with K = 3.
+How well do the clusters that you obtained in K-means clustering compare to the true class labels?
+
+Hint: You can use the table() function in R to compare the true
+class labels to the class labels obtained by clustering. Be careful
+how you interpret the results: K-means clustering will arbitrarily
+number the clusters, so you cannot simply check whether the true
+class labels and clustering labels are the same.
+
+
+```{r}
+set.seed(30)
+km.out <- kmeans(x,3, nstart = 50)
+
+km.out$cluster
+
+
+
+table(x[,1],km.out$cluster) %>% head() %>%kable(caption = "Incorrect Table")
+
+ plot (x, col = (km.out$cluster+1),
+main = "K- Means Clustering Results with K = 3",
+xlab = "", ylab = "", pch = 19, cex = 2)
+ 
+ rows = c(rep(1,20), rep(2,20), rep(3,20))
+ table(rows,km.out$cluster)
+ 
+ 
+```
+
+The first table was incorrectly comparing the scaled variable to the cluster. To get the correct comparison, I created a rows vector with the correct group by row, using the rep function. For example, the first 20 observations are group 1, so I needed those to be labeled group 1. Each row in the correct table, represents the correct group. The columns 1,2, and 3 represent what the cluster they were categorized in.
+
+All observations were correctly identified, which is shown in the table above.
+
+(d) Perform K-means clustering with K = 2. Describe your results.
+
+
+```{r}
+set.seed(25)
+km.out <- kmeans(x,2, nstart = 50)
+
+ plot (x, col = (km.out$cluster+1),
+main = "K- Means Clustering Results with K = 2",
+xlab = "", ylab = "", pch = 19, cex = 2)
+ 
+ rows = c(rep(1,20), rep(2,20), rep(3,20))
+ table(rows,km.out$cluster)
+ 
+```
+All 20 observations for row 3 were identified as group 2.
+
+
+(e) Now perform K-means clustering with K = 4, and describe your
+results.
+
+```{r}
+set.seed(45)
+km.out <- kmeans(x,4, nstart = 50)
+
+ plot (x, col = (km.out$cluster+1),
+main = "K- Means Clustering Results with K = 4",
+xlab = "", ylab = "", pch = 19, cex = 2)
+ 
+ rows = c(rep(1,20), rep(2,20), rep(3,20))
+ table(rows,km.out$cluster)
+ 
+```
+
+Group 1 and 3 are correctly labeled. Group 2 is split between group 2 and 4.
+
+(f) Now perform K-means clustering with K = 3 on the first two
+principal component score vectors, rather than on the raw data.
+That is, perform K-means clustering on the 60 × 2 matrix of
+which the first column is the first principal component score
+vector, and the second column is the second principal component
+score vector. Comment on the results.
+552 12. Unsupervised Learning
+
+
+```{r}
+
+#summary(pr.out)
+
+set.seed(30)
+km.out <- kmeans(pr.out$x[,1:2],3, nstart = 20)
+km.out$cluster
+ plot (x, col = (km.out$cluster+1),
+main = "K- Means Clustering Results with K = 3",
+xlab = "", ylab = "", pch = 19, cex = 2)
+ 
+ table(rows,km.out$cluster)
+```
+
+
+
+All observations were correctly identified using the just the prinicple components 1 and 2.
+
+
+
+(g) Using the scale() function, perform K-means clustering with
+K = 3 on the data after scaling each variable to have standard
+deviation one. How do these results compare to those obtained
+in (b)? Explain.
+
+
+```{r}
+set.seed(30)
+km.out <- kmeans(scale(x), 3, nstart = 25)
+clusters <- km.out$cluster
+clusters
+table(rows,clusters)
+
+plot (scale(x), col = (km.out$cluster+1),
+main = "K- Means Clustering Results with K = 3",
+xlab = "", ylab = "", pch = 19, cex = 2)
+
+
+
+
+
+```
+
+All observations were correctly identified. There was no difference from part b.
+
+
+
+**Based on reading for this class, what are the main risks of algorithmic models (machine learning) from a fairness and justice perspective?**
+
+From a fairness and justice perspective, machine learning algorithms are both very fair and incredibly not fair. It really depends on the perspective. From a machines point of view, the model is incredibly fair, as the code is doing what it was designed to do. Machine learning algorithms are only as fair as they were designed from a humans perspective. These models will very easily start grouping and stereotyping the observations if the model was created with out really understanding the predictors. Exploratory analysis such as clustering would help identify possible stereotypes that will be utilized if one proceeds with using the model with out understanding the predictors. 
+
+From a justice perspective, machine learning models are cruel, and uncaring. If one understands how a machine learning model works, they have an unfair advantage over others/groups who have less information. For example, if I know that a particular company uses a model to sift through resumes that don't contain these key words (or they may need a certain amount of key words) during their first phase of job hiring/resume accepting. The group that knows of these key words will be able to hack the model, and will rise above others who are more qualified.
+
+**What forms of modeling/learning and/or sorts of data may pose particular risks of harm?**
+
+Linear/Logistic Models can be harmful. In these models we can easily identify the predictors and there direct effect on the response variable. This means that those with the means can directly affect and hack these models to their benefit. When individuals/groups start hacking the models to benefit themselves this can create a snowball effect where the groups with more resources will start to benefit more and faster, while the groups with less resources will be on the other end of the stick. They will feel the negative effects of the model, and the effects will keep getting worse if there is no intervention in the model. A good example of this is determining whether someone gets a loan/capital. Capital allows individuals to grow and make more capital. To be denied that capital has a huge impact on ones future.
+
+
+
+**What general strategies might be employed to mitigate these risks?**
+
+Clustering would be a good way to mitigate this risks. When we cluster our data, we will start to get a better understanding on the data itself. These data points that we are looking at could be individuals who are directly impacted by our machine learning model. If we cluster, we could identify groups of individuals that are being harmed by this model due to external circumstances that were not included in the model.
+ 
+ 
+ 
+**Can you think of any methodological advances that might be pursued by computational and statistical researchers in order to help data analysts make "ethically derived" predictions?**
+
+Clustering and factor analysis will be a good start. Another idea would be to constantly verify and develop an understanding to the input data, the process flow of data and the actual output. Instead of thinking of these models as a black box and trusting the results. Data scientist and the users of the models in their desired applications need to have a thorough understanding of what they are using. This will help avoid issues like stereotyping. This could also help issues where for some reason, we start receiving bad data. If we have bad data, corrupt or just no longer relevant to the model, and we don't identify this issue, then the models outputs will no longer be relevant to the application it was set up for. So data verification of all points in the process would be very beneficial to make ethically derived predictions.
+
+
+
+
+**(Project update) Data Exploration: Use appropriate methods to explore the data you plan to use for your project. (It's okay if you change your mind and use a different data set later; this exercise may help you decide.) Include some form of visualization(s) and indications of the unit of analysis, the levels of measurements (e.g.: "9 categorical features–7 dichotomous and 2 with more than two categories– and 14 numerical/quantitative features, for a total of 23), univariate statistics helping characterize the distribution of the features and of the outcome variable (label) you wish to predict if you will be conducting supervised learning for the project. Convey something about relationships among features (predictors). If you are going to use these for prediction, identify any preprocessing you may need to do and options available for cleaning up/transforming data and/or dimension reduction. (Submit with your group or with explanation of why you must work alone.)**
+
+I've attached my current rough draft of the project which is in the Stock_Analysis Machine Learning RMD file, I will speak to the project here, but the file is attached if needed.
+
+I've decided to continue working with the Stock Price Prediction. I have decided against pairing with my Networks class, as I am unaware of the best way to connect this to network analysis at the moment. I'm using Tidyquant to obtain initial stock price indicators such as close,open, high, low, volume and adjusted. 
+
+```{r}
+library(tidyverse);library(tidyquant)
+library(TTR)
+stock_data <- tq_get("AAPL", get = "stock.prices", from = "2018-01-01", to = Sys.Date())
+stock_data %>% tail() %>% kable(caption = "Initial Indicators")
+summary(stock_data)
+
+```
+
+Above is the initial summary of the Apple price data from 2018 to 4/12/2022. I can change the date to any date I need.
+The summary show that volume is already very different compared to the other variables. This means that it might be useful to scale the volume variable. Especially during the unsupervised analysis of the variables. 
+
+```{r}
+library(ggplot2)
+library(lubridate)
+
+stock_data %>% select(-volume,-symbol) %>% pivot_longer(!date, names_to = "prices") %>% ggplot()+
+  geom_line(aes(x = date, y = value, group = prices, color = prices))+ ylab("$")
+
+stock_data %>% select(-volume,-symbol)%>% filter(year(date)>=2022) %>% pivot_longer(!date, names_to = "prices") %>% ggplot()+
+  geom_line(aes(x = date, y = value, group = prices, color = prices))+ ylab("$")
+
+```
+
+The first plot is a bit hard to read. The second plot shows that all 5 variables are closely related and follow similar patterns.
+
+I then used the TTR package to create other indicators that are reliant on the variable listed above. I ended up creating 63 more variables.
+
+
+```{r}
+ADX<- ADX(stock_data[,c("high","low","close")])
+aroon<- aroon(stock_data[,c("high","low")],n = 20)
+ATR <- ATR(stock_data[,c("high","low","close")],n =14)
+BBands_HLC <- BBands(stock_data[,c("high","low","close")])
+stock_data$CCI <-  CCI(stock_data[,c("high","low","close")])
+stock_data$caikinAD <-chaikinAD(stock_data[,c("high","low","close")],stock_data[,c("volume")])
+stock_data$volatility <- chaikinVolatility(stock_data[,c("high","low")])
+stock_data$clv <- CLV(stock_data[,c("high","low","close")])
+stock_data$CMF <- CMF(stock_data[,c("high","low","close")],stock_data[,c("volume")])
+stock_data$PriceDPO <- DPO(stock_data[,"close"])
+stock_data$volumeDPO <- DPO(stock_data[,'volume'])
+DVI <- DVI(stock_data[,"close"])
+EMV <- EMV(stock_data[,c("high","low")],stock_data[,c("volume")])
+gmma <- GMMA(stock_data[,"close"])
+KST <- KST((stock_data[,"close"]))
+stock_data$OBV <- OBV(stock_data[,"close"], stock_data[,"volume"])
+pbands <- PBands(stock_data[,"close"])
+stock_data$roc <- ROC(stock_data[,"close"])
+stock_data$mom <- momentum(stock_data[,"close"])
+stock_data$RSI <- RSI(stock_data[,"close"])
+stock_data$RSI_MA1 <- RSI(stock_data[,"close"], n = 14, maType="WMA", wts=stock_data[,"volume"])
+stock_data$RSI_MA2 <- RSI(stock_data[,"close"], n = 14, maType=list(maUp=list(EMA),maDown=list(WMA)))
+sar <- SAR(stock_data[,c("high","low")])
+stochOSC <- stoch((stock_data[,c("high","low","close")]))
+stock_data$stochWPR <- WPR(stock_data[,c("high","low","close")])
+tdi <- TDI(stock_data[,"close"], n = 30)
+trix <- TRIX(stock_data[,"close"])
+stock_data$ema <- EMA(stock_data[,"close"],n = 20)
+stock_data$sma <- SMA(stock_data[,"close"],n = 20)
+macd <-MACD(stock_data[,"close"])
+stock_data$ult.osc <- ultimateOscillator(stock_data[,c("high","low","close")])
+stock_data$vhf.close <- VHF(stock_data[,"close"])
+stock_data$vhf.hilow <- VHF(stock_data[,c("high","low","close")])
+ohlc <- stock_data[,c("open","high","low","close")]
+stock_data$vClose <- volatility(ohlc, calc="close")
+stock_data$vClose0 <- volatility(ohlc, calc="close", mean0=TRUE)
+stock_data$vGK <- volatility(ohlc, calc="garman")
+stock_data$vParkinson <- volatility(ohlc, calc="parkinson")
+stock_data$vRS <- volatility(ohlc, calc="rogers")
+stock_data$WilliamsAD <- williamsAD(stock_data[,c("high","low","close")])
+stock_data$zigzag <- ZigZag(stock_data[,c("high", "low")], change =20)
+
+
+
+Technical_data <- stock_data %>% cbind(ADX, aroon, ATR, BBands_HLC[,4],EMV,gmma,KST[,1],macd,sar,stochOSC,tdi,trix[,1])
+Technical_data %>% tail()
+cat("Dimensions of data set: ",Technical_data %>% dim())
+
+
+```
+
+I had to cbind some of the variables due to some variables creating nested lists in their column, which messed up the data frame. Cbind was an easy way to bring that in. In order to avoid more issues, I also had to rename some of the columns that were brought in.
+
+Right now all of my variables are numeric.
+
+For pre-processing, I'll need to remove the date field when predicting. I'll plan to use each row as a case. Since I'm going to be predicting for multiple dates. I will have to create multiple training and test sets for each specific date I'm predicting. I'll also have to remove any NA's that are in the testing and training sets before running the models.
+
+I used PCA to look at the Principle components, most of the predictors in the components had similar weights, this is due to most of my current predictors being based off of the prices listed. For dimension reduction, I'll look into using different models that will tell me the optimal predictors/trees/shrinkage to be used when predicting price. The models I'm currently using are Least Squares, ridge, lasso, pls, pcr, boosting and bagging. 
+
+Here is the current PCA analysis I have. To see the supervised learning process I have going at the moment, please look at the other RMD file.
+
+
+
+```{r}
+
+techincal_indicators <- Technical_data %>% select(-symbol,-zigzag,-PriceDPO,-volumeDPO)
+
+
+### get rid of the NA's
+complete_data <- techincal_indicators[complete.cases(techincal_indicators),]
+pr.out <- prcomp((complete_data[-1]), scale. = TRUE)
+names(pr.out)
+#pr.out$center
+#pr.out$scale
+pr.out$rotation[1:10,1:2]
+pr.out$rotation %>% dim()
+
+biplot(pr.out,scale =0)
+
+
+pr.var <- pr.out$sdev^2
+pve <-pr.var/sum(pr.var)
+
+
+
+```
+
+
+
+Due to lack of space, I only showed the the first 10 of the loading. But the full loading has 65 rows. The biplot is quite difficult to read due to so many vectors. I'm currently not sure how to limit the vectors shown on the biplot. 
+```{r}
+
+par (mfrow = c(1, 2))
+plot (pve , xlab = " Principal Component ",
+ylab = " Proportion of Variance Explained ", ylim = c(0, 1),
+type = "b")
+plot ( cumsum (pve), xlab = " Principal Component ",
+ylab = " Cumulative Proportion of Variance Explained ",
+ylim = c(0, 1), type = "b")
+
+
+paste("Variance Explained by the top 10 Components: ",pve %>% round(3) %>% as.data.frame()%>% slice(1:10) %>% sum())
+
+```
+
+The first 10 components account for 92% of variance explained by the model. The PCA unsupervised analysis may not be necessary since I will be running a PCR and PLS model for predictions (please see current project attached for analysis).
+
+
+For next steps in the process. At the recommendation of the professor, I will bring in addition time based indicators. Specifically, I will look at general economic indicators. Once I bring in this additional information, I will re run the PCA analysis, and I will also look into clustering. I'm curious to see if I may be able to identify certain times where the data would cluster together. For example is there was a recession going on at the time, would the cluster analysis reflect that.'
+
+I plan to also look into setting up training and test sets for time series models. Since I had to create a new training and test set for prediction, I'm a bit unsure how I can compare each predication to each other, since they'll be running from different samples.
+

@@ -7,7 +7,15 @@
     <description>Projects
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Mon, 04 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 16 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Unsupervised Learning</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/2022-04-16-hw-3-machine-learning</link>
+      <description>A closer look at PCA and Clustering.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/2022-04-16-hw-3-machine-learning</guid>
+      <pubDate>Sat, 16 Apr 2022 00:00:00 +0000</pubDate>
+    </item>
     <item>
       <title>Network Analysis: Monk Data Set</title>
       <dc:creator>Peter Sullivan</dc:creator>

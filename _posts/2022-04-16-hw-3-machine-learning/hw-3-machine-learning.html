@@ -1,0 +1,3029 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Unsupervised Learning</title>
+
+  <meta property="description" itemprop="description" content="A closer look at PCA and Clustering."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-04-16"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-04-16"/>
+  <meta name="article:author" content="Peter Sullivan"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Unsupervised Learning"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="A closer look at PCA and Clustering."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Unsupervised Learning"/>
+  <meta property="twitter:description" content="A closer look at PCA and Clustering."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","output"]}},"value":[{"type":"character","attributes":{},"value":["Unsupervised Learning"]},{"type":"character","attributes":{},"value":["A closer look at PCA and Clustering.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Peter Sullivan"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2022-04-16"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["hw-3-machine-learning_files/anchor-4.2.2/anchor.min.js","hw-3-machine-learning_files/bowser-1.9.3/bowser.min.js","hw-3-machine-learning_files/distill-2.2.21/template.v2.js","hw-3-machine-learning_files/figure-html5/unnamed-chunk-10-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-12-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-18-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-19-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-20-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-21-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-22-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-23-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-25-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-25-2.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-27-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-28-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-3-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-4-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-5-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-6-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-7-1.png","hw-3-machine-learning_files/figure-html5/unnamed-chunk-8-1.png","hw-3-machine-learning_files/header-attrs-2.13/header-attrs.js","hw-3-machine-learning_files/jquery-3.6.0/jquery-3.6.0.js","hw-3-machine-learning_files/jquery-3.6.0/jquery-3.6.0.min.js","hw-3-machine-learning_files/jquery-3.6.0/jquery-3.6.0.min.map","hw-3-machine-learning_files/popper-2.6.0/popper.min.js","hw-3-machine-learning_files/tippy-6.2.7/tippy-bundle.umd.min.js","hw-3-machine-learning_files/tippy-6.2.7/tippy-light-border.css","hw-3-machine-learning_files/tippy-6.2.7/tippy.css","hw-3-machine-learning_files/tippy-6.2.7/tippy.umd.min.js","hw-3-machine-learning_files/webcomponents-2.0.0/webcomponents.js"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="hw-3-machine-learning_files/header-attrs-2.13/header-attrs.js"></script>
+  <script src="hw-3-machine-learning_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="hw-3-machine-learning_files/popper-2.6.0/popper.min.js"></script>
+  <link href="hw-3-machine-learning_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="hw-3-machine-learning_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="hw-3-machine-learning_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="hw-3-machine-learning_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="hw-3-machine-learning_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="hw-3-machine-learning_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="hw-3-machine-learning_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Unsupervised Learning","description":"A closer look at PCA and Clustering.","authors":[{"author":"Peter Sullivan","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-04-16T00:00:00.000-04:00","citationText":"Sullivan, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Unsupervised Learning</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>A closer look at PCA and Clustering.</p></p>
+</div>
+
+<div class="d-byline">
+  Peter Sullivan true 
+  
+<br/>2022-04-16
+</div>
+
+<div class="d-article">
+<p>,</p>
+<h2 id="islr-ch.-6">ISLR Ch. 6,</h2>
+<p>Exercise 9e and update 9g (assigned for HW 2), looking back at your
+HW 2 answers for context</p>
+<h3 id="a">A</h3>
+<p>Split the data set into a training set and a test set.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.statlearning.com'>ISLR2</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>College</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 777</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>train</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/r/base/sample.html'>sample</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>College</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/nrow.html'>nrow</a></span><span class='op'>(</span><span class='va'>College</span><span class='op'>)</span><span class='op'>/</span><span class='fl'>4</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>3</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>College.test</span> <span class='op'>&lt;-</span> <span class='va'>College</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span>,<span class='op'>]</span>
+<span class='va'>College.response</span> <span class='op'>&lt;-</span> <span class='va'>College</span><span class='op'>$</span><span class='va'>Apps</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span><span class='op'>]</span>
+<span class='va'>college.train</span> <span class='op'>&lt;-</span> <span class='va'>College</span><span class='op'>[</span><span class='va'>train</span>,<span class='op'>]</span>
+</code></pre>
+</div>
+</div>
+<h3 id="b">B</h3>
+<p>Fit a linear model using least squares on the training set, and
+report the test error obtained.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/attach.html'>attach</a></span><span class='op'>(</span><span class='va'>College</span><span class='op'>)</span>
+<span class='va'>lm.fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>Apps</span> <span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>College</span>, subset <span class='op'>=</span> <span class='va'>train</span><span class='op'>)</span>
+<span class='va'>lm.pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>lm.fit</span>, <span class='va'>College.test</span>, type <span class='op'>=</span> <span class='st'>"response"</span><span class='op'>)</span>
+<span class='va'>lm_mse</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>College.response</span> <span class='op'>-</span><span class='va'>lm.pred</span> <span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The Test Error for Least squares is :"</span>, <span class='va'>lm_mse</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The Test Error for Least squares is : 1389123.27022729&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>MSE_dataframe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='st'>"model"</span> <span class='op'>=</span> <span class='st'>"Least Square"</span>, <span class='st'>"MSE"</span> <span class='op'>=</span> <span class='va'>lm_mse</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<h3 id="c">C</h3>
+<p>Fit a ridge regression model on the training set, with λ chosen by
+cross-validation. Report the test error obtained.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://glmnet.stanford.edu'>glmnet</a></span><span class='op'>)</span>
+
+
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/model.matrix.html'>model.matrix</a></span><span class='op'>(</span><span class='va'>Apps</span><span class='op'>~</span><span class='va'>.</span>,<span class='va'>College</span><span class='op'>)</span><span class='op'>[</span>,<span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='va'>College</span><span class='op'>$</span><span class='va'>Apps</span>
+<span class='va'>grid</span> <span class='op'>&lt;-</span> <span class='fl'>10</span><span class='op'>^</span><span class='fu'><a href='https://rdrr.io/r/base/seq.html'>seq</a></span><span class='op'>(</span><span class='fl'>10</span>,<span class='op'>-</span><span class='fl'>2</span>, length <span class='op'>=</span> <span class='fl'>100</span><span class='op'>)</span>
+
+<span class='va'>ridge.mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span><span class='va'>train</span>,<span class='op'>]</span>, <span class='va'>y</span><span class='op'>[</span><span class='va'>train</span><span class='op'>]</span>, alpha <span class='op'>=</span><span class='fl'>0</span>, lambda <span class='op'>=</span> <span class='va'>grid</span> <span class='op'>)</span>
+<span class='va'>cv.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glmnet.stanford.edu/reference/cv.glmnet.html'>cv.glmnet</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span><span class='va'>train</span>,<span class='op'>]</span>, <span class='va'>y</span><span class='op'>[</span><span class='va'>train</span><span class='op'>]</span>,alpha <span class='op'>=</span> <span class='fl'>0</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cv.out</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-3-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lamda_best</span> <span class='op'>&lt;-</span> <span class='va'>cv.out</span><span class='op'>$</span><span class='va'>lambda.min</span>
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The minimum lambda: "</span>,<span class='va'>lamda_best</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The minimum lambda:  364.338366117653&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ridge.pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>ridge.mod</span>, s <span class='op'>=</span> <span class='va'>lamda_best</span>, newx <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span>,<span class='op'>]</span><span class='op'>)</span>
+<span class='va'>ridge_mse</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>ridge.pred</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span><span class='op'>]</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>MSE_dataframe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>MSE_dataframe</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"ridge"</span>,<span class='va'>ridge_mse</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The test Error Rate is : "</span>, <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>ridge.pred</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span><span class='op'>]</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The test Error Rate is :  1204431.39092091&quot;</code></pre>
+</div>
+<h3 id="d">D</h3>
+<p>Fit a lasso model on the training set, with λ chosen by
+crossvalidation. Report the test error obtained, along with the number
+of non-zero coefficient estimates.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lasso.mod</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span><span class='va'>train</span>,<span class='op'>]</span>,<span class='va'>y</span><span class='op'>[</span><span class='va'>train</span><span class='op'>]</span>,alpha <span class='op'>=</span> <span class='fl'>1</span>, lambda <span class='op'>=</span> <span class='va'>grid</span><span class='op'>)</span>
+<span class='va'>cv.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glmnet.stanford.edu/reference/cv.glmnet.html'>cv.glmnet</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span><span class='va'>train</span>,<span class='op'>]</span>, <span class='va'>y</span><span class='op'>[</span><span class='va'>train</span><span class='op'>]</span>, alpha <span class='op'>=</span> <span class='fl'>1</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>cv.out</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-4-1.png" width="624" data-distill-preview=1 />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lamda_best</span> <span class='op'>&lt;-</span> <span class='va'>cv.out</span><span class='op'>$</span><span class='va'>lambda.min</span>
+<span class='va'>lamda_best</span>
+</code></pre>
+</div>
+<pre><code>[1] 2.133937</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lasso.pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>lasso.mod</span>, s<span class='op'>=</span> <span class='va'>lamda_best</span>, newx <span class='op'>=</span> <span class='va'>x</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span>,<span class='op'>]</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The test error rate is "</span>,<span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>lasso.pred</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span><span class='op'>]</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The test error rate is  1374692.34765744&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lasso_mse</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>lasso.pred</span> <span class='op'>-</span> <span class='va'>y</span><span class='op'>[</span><span class='op'>-</span><span class='va'>train</span><span class='op'>]</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+
+<span class='va'>out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://glmnet.stanford.edu/reference/glmnet.html'>glmnet</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span>, alpha <span class='op'>=</span> <span class='fl'>1</span> ,lambda <span class='op'>=</span> <span class='va'>grid</span><span class='op'>)</span>
+<span class='va'>lamda.coef</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>out</span>, type <span class='op'>=</span> <span class='st'>"coefficients"</span>, s<span class='op'>=</span> <span class='va'>lamda_best</span><span class='op'>)</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>18</span>,<span class='op'>]</span>
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The number of non-zero coeficients:"</span>,<span class='va'>lamda.coef</span><span class='op'>[</span><span class='va'>lamda.coef</span> <span class='op'>!=</span><span class='fl'>0</span><span class='op'>]</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The number of non-zero coeficients: 18&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>MSE_dataframe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>MSE_dataframe</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"Lasso"</span>,<span class='va'>lasso_mse</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>None of the coefficients are zero.</p>
+<h3 id="e">E</h3>
+<p>Fit a PCR model on the training set, with M chosen by
+crossvalidation. Report the test error obtained, along with the value of
+M selected by cross-validation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/khliland/pls'>pls</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>10</span><span class='op'>)</span>
+
+<span class='va'>pcr.fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/pls/man/mvr.html'>pcr</a></span><span class='op'>(</span><span class='va'>Apps</span> <span class='op'>~</span> <span class='va'>.</span> , data <span class='op'>=</span> <span class='va'>College</span>, subset <span class='op'>=</span> <span class='va'>train</span>, scale <span class='op'>=</span> <span class='cn'>TRUE</span>, validation <span class='op'>=</span> <span class='st'>"CV"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/validationplot.html'>validationplot</a></span><span class='op'>(</span><span class='va'>pcr.fit</span>, val.type <span class='op'>=</span> <span class='st'>"MSEP"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-5-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pcr.pred</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>pcr.fit</span>,<span class='va'>College.test</span>, ncomp <span class='op'>=</span> <span class='fl'>17</span><span class='op'>)</span>
+<span class='va'>pcr_mse</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>pcr.pred</span> <span class='op'>-</span> <span class='va'>College.response</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The MSE error is "</span>, <span class='va'>pcr_mse</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The MSE error is  1389123.27022729&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>pcr.fit</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Data:   X dimension: 583 17 
+    Y dimension: 583 1
+Fit method: svdpc
+Number of components considered: 17
+
+VALIDATION: RMSEP
+Cross-validated using 10 random segments.
+       (Intercept)  1 comps  2 comps  3 comps  4 comps  5 comps
+CV            3859     3788     2101     2110     1777     1665
+adjCV         3859     3788     2096     2107     1760     1648
+       6 comps  7 comps  8 comps  9 comps  10 comps  11 comps
+CV        1659     1657     1612     1553      1550      1554
+adjCV     1653     1652     1603     1548      1545      1549
+       12 comps  13 comps  14 comps  15 comps  16 comps  17 comps
+CV         1559      1565      1569      1509      1203      1141
+adjCV      1555      1561      1565      1494      1192      1132
+
+TRAINING: % variance explained
+      1 comps  2 comps  3 comps  4 comps  5 comps  6 comps  7 comps
+X      32.234    57.24    64.47    70.25    75.57    80.51    84.26
+Apps    5.038    71.82    71.83    80.10    82.98    83.03    83.15
+      8 comps  9 comps  10 comps  11 comps  12 comps  13 comps
+X       87.58    90.56     92.82     94.93     96.73     97.81
+Apps    84.46    84.98     85.20     85.20     85.20     85.34
+      14 comps  15 comps  16 comps  17 comps
+X        98.69     99.35     99.82    100.00
+Apps     85.44     89.94     92.83     93.36</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>MSE_dataframe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>MSE_dataframe</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"PCR"</span>,<span class='va'>pcr_mse</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>From the validation plot, the lowest MSEP for the number of
+components is around 16,17, and 18.I decided to use 17 as my value of
+M.</p>
+<h3 id="f">F</h3>
+<p>Fit a PLS model on the training set, with M chosen by
+crossvalidation. Report the test error obtained, along with the value of
+M selected by cross-validation.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pls.fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/pls/man/mvr.html'>plsr</a></span><span class='op'>(</span><span class='va'>Apps</span><span class='op'>~</span><span class='va'>.</span>, data <span class='op'>=</span> <span class='va'>College</span>, subset <span class='op'>=</span> <span class='va'>train</span>, scale <span class='op'>=</span> <span class='cn'>TRUE</span>, validation <span class='op'>=</span> <span class='st'>"CV"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/pkg/pls/man/validationplot.html'>validationplot</a></span><span class='op'>(</span><span class='va'>pls.fit</span>, val.type <span class='op'>=</span> <span class='st'>"MSEP"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-6-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pls.pred_7</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>pls.fit</span>, <span class='va'>College.test</span>, ncomp <span class='op'>=</span> <span class='fl'>7</span><span class='op'>)</span>
+<span class='va'>pls.pred_8</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/predict.html'>predict</a></span><span class='op'>(</span><span class='va'>pls.fit</span>, <span class='va'>College.test</span>, ncomp <span class='op'>=</span> <span class='fl'>8</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The MSE error using M as 7: "</span>, <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>pls.pred_7</span><span class='op'>-</span> <span class='va'>College.response</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The MSE error using M as 7:  1336641.93400001&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"The MSE error using M as 8: "</span>, <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>pls.pred_8</span><span class='op'>-</span> <span class='va'>College.response</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;The MSE error using M as 8:  1362535.73332994&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pls_mse</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/mean.html'>mean</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>pls.pred_8</span><span class='op'>-</span> <span class='va'>College.response</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>MSE_dataframe</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>MSE_dataframe</span>, <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"PLS"</span>,<span class='va'>pls_mse</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+<p>The lowest msep was with the number of components ranging from 7 and
+greater. For the comparison bar chart, I used the msep of 8.</p>
+<h3 id="g">G</h3>
+<p>Comment on the results obtained. How accurately can we predict the
+number of college applications received? Is there much difference among
+the test errors resulting from these five approaches?</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://yihui.org/knitr/'>knitr</a></span><span class='op'>)</span>
+<span class='va'>MSE_dataframe</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>MSE</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">model</th>
+<th style="text-align: left;">MSE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">ridge</td>
+<td style="text-align: left;">1204431.39092091</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PLS</td>
+<td style="text-align: left;">1362535.73332994</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Lasso</td>
+<td style="text-align: left;">1374692.34765744</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Least Square</td>
+<td style="text-align: left;">1389123.27022729</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">PCR</td>
+<td style="text-align: left;">1389123.27022729</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>MSE_dataframe</span><span class='op'>$</span><span class='va'>MSE</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>MSE_dataframe</span><span class='op'>$</span><span class='va'>MSE</span><span class='op'>)</span>
+
+<span class='va'>MSE_dataframe</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>ggplot2</span><span class='fu'>::</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>model</span>, y <span class='op'>=</span> <span class='va'>MSE</span><span class='op'>)</span><span class='op'>)</span> <span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_bar.html'>geom_col</a></span><span class='op'>(</span>fill <span class='op'>=</span> <span class='st'>"deepskyblue3"</span><span class='op'>)</span><span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/theme.html'>theme</a></span><span class='op'>(</span>axis.text.y <span class='op'>=</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/element.html'>element_blank</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>labs</a></span><span class='op'>(</span>title <span class='op'>=</span> <span class='st'>"MSE per Model"</span><span class='op'>)</span><span class='op'>+</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_text.html'>geom_text</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>label <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='va'>MSE</span><span class='op'>)</span>,<span class='fl'>0</span><span class='op'>)</span><span class='op'>)</span>, vjust <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-7-1.png" width="624" /></p>
+</div>
+<p>The Ridge regression model had the lowest MSE, with PLS coming up the
+second lowest MSE, following Lasso and the PCR and Least square in last.
+There is not too much of a difference between the MSE’s, except for the
+ridge model.</p>
+<h2 id="islr-ch.-12-exercise-8">ISLR Ch. 12, Exercise 8</h2>
+<p>In Section 12.2.3, a formula for calculating PVE was given in
+Equation 12.10. We also saw that the PVE can be obtained using the sdev
+output of the prcomp() function. On the USArrests data, calculate PVE in
+two ways:</p>
+<ol type="a">
+<li>Using the sdev output of the prcomp() function, as was done in
+Section 12.2.3.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pr.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='va'>USArrests</span>, scale <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+
+<span class='va'>pr.var</span> <span class='op'>&lt;-</span> <span class='va'>pr.out</span><span class='op'>$</span><span class='va'>sdev</span><span class='op'>^</span><span class='fl'>2</span>
+<span class='va'>pve</span><span class='op'>&lt;-</span> <span class='va'>pr.var</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pr.var</span><span class='op'>)</span>
+<span class='va'>x</span><span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>pve</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"PVE using Prcomp: "</span>,<span class='va'>x</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>PVE using Prcomp:  0.62 0.247 0.089 0.043</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span><span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>pve</span>, xlab <span class='op'>=</span> <span class='st'>"Principle Component"</span>, ylab <span class='op'>=</span> <span class='st'>"Proportion of Variance Explained"</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span><span class='op'>(</span><span class='va'>pve</span><span class='op'>)</span>, xlab <span class='op'>=</span> <span class='st'>"Principle component"</span>, ylab <span class='op'>=</span> <span class='st'>"Cumulative Proporition of Variance Explained"</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-8-1.png" width="624" data-distill-preview=1 /></p>
+</div>
+<ol start="2" type="a">
+<li>By applying Equation 12.10 directly. That is, use the prcomp()
+function to compute the principal component loadings. Then, use those
+loadings in Equation 12.10 to obtain the PVE. These two approaches
+should give the same results.</li>
+</ol>
+<p><img src="pics/Hw3_ch12_8b.png" /></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>loadings</span> <span class='op'>&lt;-</span> <span class='va'>pr.out</span><span class='op'>$</span><span class='va'>rotation</span>
+<span class='va'>loadings</span>
+</code></pre>
+</div>
+<pre><code>                PC1        PC2        PC3         PC4
+Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
+Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
+UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
+Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>## Need scaled and matrix version of USArrests</span>
+<span class='va'>US_mat_scale</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.matrix.html'>data.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='co'>## Getting sum of Sum of squared coefficients in matrix </span>
+<span class='va'>sum_sq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='va'>US_mat_scale</span><span class='op'>^</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='va'>sum</span><span class='op'>)</span><span class='op'>)</span>
+<span class='co'>### Top side of 12.10 loadings * matrix coefficients</span>
+<span class='va'>top_eq</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/apply.html'>apply</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>US_mat_scale</span> <span class='op'><a href='https://rdrr.io/pkg/Matrix/man/matrix-products.html'>%*%</a></span> <span class='va'>loadings</span><span class='op'>)</span><span class='op'>^</span><span class='fl'>2</span>,<span class='fl'>2</span>,<span class='va'>sum</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"PVE using the 12.10 equation: "</span>,<span class='va'>top_eq</span><span class='op'>/</span><span class='va'>sum_sq</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>PVE using the 12.10 equation:  0.6200604 0.2474413 0.0891408 0.04335752</code></pre>
+</div>
+<p><strong>At first for the sum of squared coefficients in the bottom of
+the equation. I only took one sum, and the PVE’s did not match the part
+in A. After closer inspection of equation 12.10, it shows that we take
+the sum of the squared coefficients of the matrix, and then we take the
+sum of that as well. When including that in the equation, PVE’s in part
+A match part B.</strong></p>
+<p>Hint: You will only obtain the same results in (a) and (b) if the
+same data is used in both cases. For instance, if in (a) you performed
+prcomp() using centered and scaled variables, then you must center and
+scale the variables before applying Equation 12.10 in (b).</p>
+<h2 id="islr-ch.-12-exercise-9">ISLR Ch. 12, Exercise 9</h2>
+<p>Consider the USArrests data. We will now perform hierarchical
+clustering on the states. ### (a) Using hierarchical clustering with
+complete linkage and Euclidean distance, cluster the states.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>US_arrest_mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.matrix.html'>data.matrix</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>hc.complete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>US_arrest_mat</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"complete"</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>hc.complete</span>, main <span class='op'>=</span> <span class='st'>"Complete Linkage"</span>,xlab <span class='op'>=</span> <span class='st'>""</span>, sub <span class='op'>=</span> <span class='st'>""</span>, cex <span class='op'>=</span> <span class='fl'>.9</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-10-1.png" width="624" /></p>
+</div>
+<p>The plot shows the states clustered.</p>
+<h3
+id="b-cut-the-dendrogram-at-a-height-that-results-in-three-distinct">(b)
+Cut the dendrogram at a height that results in three distinct</h3>
+<p>clusters. Which states belong to which clusters? 12.6 Exercises
+551</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>unscaled</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/cutree.html'>cutree</a></span><span class='op'>(</span><span class='va'>hc.complete</span>,<span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>unscaled_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>unscaled</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames_to_column</a></span><span class='op'>(</span><span class='st'>"State"</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='st'>"Cluster_unscaled"</span> <span class='op'>=</span> <span class='va'>unscaled</span><span class='op'>)</span>
+<span class='va'>unscaled_data</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Cluster_unscaled</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 x 2
+# Groups:   Cluster_unscaled [3]
+  Cluster_unscaled     n
+             &lt;int&gt; &lt;int&gt;
+1                1    16
+2                2    14
+3                3    20</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>unscaled_data</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Cluster_unscaled</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>State</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"Group 1 States"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table class="kable_wrapper">
+<caption>
+<span id="tab:unnamed-chunk-11">Table 1: </span>Group 1 States
+</caption>
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Alabama</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Alaska</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Arizona</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">California</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Delaware</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Florida</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Illinois</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Louisiana</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Maryland</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Michigan</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Mississippi</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Nevada</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">New Mexico</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New York</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North Carolina</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South Carolina</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>unscaled_data</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Cluster_unscaled</span><span class='op'>==</span><span class='fl'>2</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>State</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"Group 2 States"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table class="kable_wrapper">
+<caption>
+<span id="tab:unnamed-chunk-11">Table 1: </span>Group 2 States
+</caption>
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Arkansas</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Colorado</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Georgia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Massachusetts</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Missouri</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New Jersey</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Oklahoma</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Oregon</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Rhode Island</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Tennessee</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Texas</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Virginia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Washington</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wyoming</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>unscaled_data</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>Cluster_unscaled</span><span class='op'>==</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>State</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/list.html'>as.list</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"Group 3 States"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table class="kable_wrapper">
+<caption>
+<span id="tab:unnamed-chunk-11">Table 1: </span>Group 3 States
+</caption>
+<tbody>
+<tr>
+<td>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: left;">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Connecticut</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Hawaii</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Idaho</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Indiana</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Iowa</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Kansas</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Kentucky</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Maine</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Minnesota</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Montana</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Nebraska</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">New Hampshire</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">North Dakota</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Ohio</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Pennsylvania</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">South Dakota</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Utah</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Vermont</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">West Virginia</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Wisconsin</td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/rstudio/DT'>DT</a></span><span class='op'>)</span>
+<span class='co'>#datatable(unscaled_data, caption = "States by Cluster")</span>
+</code></pre>
+</div>
+</div>
+<p>The data table can be accessed in the html version.</p>
+<h3
+id="c-hierarchically-cluster-the-states-using-complete-linkage-and-euclidean-distance-after-scaling-the-variables-to-have-standard-deviation-one.">(c)
+Hierarchically cluster the states using complete linkage and Euclidean
+distance, after scaling the variables to have standard deviation
+one.</h3>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>US_arrest_mat</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.matrix.html'>data.matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Standard Deviation of Scaled data frame: "</span>,<span class='fu'><a href='https://rdrr.io/r/stats/sd.html'>sd</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;Standard Deviation of Scaled data frame:  0.99243368701167&quot;</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>hc.complete</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/hclust.html'>hclust</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='va'>US_arrest_mat</span><span class='op'>)</span>, method <span class='op'>=</span> <span class='st'>"complete"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>hc.complete</span>, main <span class='op'>=</span> <span class='st'>"Complete Linkage"</span>,xlab <span class='op'>=</span> <span class='st'>""</span>, sub <span class='op'>=</span> <span class='st'>""</span>, cex <span class='op'>=</span> <span class='fl'>.9</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-12-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>scaled</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/r/stats/cutree.html'>cutree</a></span><span class='op'>(</span><span class='va'>hc.complete</span>,<span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>Scaled_cluster</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span><span class='va'>scaled</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://tibble.tidyverse.org/reference/rownames.html'>rownames_to_column</a></span><span class='op'>(</span><span class='st'>"State"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/rename.html'>rename</a></span><span class='op'>(</span><span class='st'>"Cluster_Scaled"</span> <span class='op'>=</span> <span class='va'>scaled</span><span class='op'>)</span>
+<span class='va'>Scaled_cluster</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/group_by.html'>group_by</a></span><span class='op'>(</span><span class='va'>Cluster_Scaled</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/count.html'>count</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code># A tibble: 3 x 2
+# Groups:   Cluster_Scaled [3]
+  Cluster_Scaled     n
+           &lt;int&gt; &lt;int&gt;
+1              1     8
+2              2    11
+3              3    31</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Scaled_cluster %&gt;% datatable(caption = "States by Cluster Scaled")</span>
+<span class='va'>join</span> <span class='op'>&lt;-</span> <span class='va'>unscaled_data</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/mutate-joins.html'>inner_join</a></span><span class='op'>(</span><span class='va'>Scaled_cluster</span>, by <span class='op'>=</span> <span class='st'>"State"</span><span class='op'>)</span>
+
+<span class='co'>#join %&gt;% datatable(caption = "States by Cluster for Scaled and Unscaled")</span>
+</code></pre>
+</div>
+</div>
+<p>I first checked to make sure that the sd(scale(US Arrests)) is
+correctly giving us a SD of ~ 1, which it is. The data tables can be
+accessed in the html version.</p>
+<h3 id="d-1">(d)</h3>
+<p>What effect does scaling the variables have on the hierarchical
+clustering obtained? In your opinion, should the variables be scaled
+before the inter-observation dissimilarities are computed? Provide a
+justification for your answer.</p>
+<p>Before answering the question, I will look closer into the cluster
+results for the scaled and un-scaled clusters.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>scaled</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>scaled
+ 1  2  3 
+ 8 11 31 </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>unscaled</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>unscaled
+ 1  2  3 
+16 14 20 </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>scaled</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>unscaled</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>y</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/vector.html'>as.vector</a></span><span class='op'>(</span><span class='va'>x</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+
+
+<span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"States that differed in Group 1:    "</span>, <span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='va'>y</span><span class='op'>[</span><span class='op'>!</span><span class='op'>(</span><span class='va'>y</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>x</span><span class='op'>)</span><span class='op'>]</span>,<span class='va'>x</span><span class='op'>[</span><span class='op'>!</span><span class='op'>(</span><span class='va'>x</span><span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span><span class='va'>y</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>,<span class='st'>","</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>States that differed in Group 1:     Arizona , California , Delaware , Florida , Illinois , Maryland , Michigan , Nevada , New Mexico , New York , Georgia , Tennessee ,</code></pre>
+</div>
+<p>The scaled results group most states into the 3rd group. The
+un-scaled had an even distribution between group 1 and 2, and the most
+in group 3.</p>
+<p>I’ve also included that states that differs in group 1 for the scaled
+and un-scaled. This information is not that helpful.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>### Scaled</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>group</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Group: "</span>,<span class='va'>group</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"---------------------"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>scaled</span><span class='op'>==</span><span class='va'>group</span><span class='op'>)</span><span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"\n"</span><span class='op'>)</span>
+
+<span class='op'>}</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;Group:  1&quot;
+[1] &quot;---------------------&quot;
+[1] &quot;Alabama&quot;        &quot;Alaska&quot;         &quot;Georgia&quot;       
+[4] &quot;Louisiana&quot;      &quot;Mississippi&quot;    &quot;North Carolina&quot;
+[7] &quot;South Carolina&quot; &quot;Tennessee&quot;     
+
+[1] &quot;Group:  2&quot;
+[1] &quot;---------------------&quot;
+ [1] &quot;Arizona&quot;    &quot;California&quot; &quot;Colorado&quot;   &quot;Florida&quot;    &quot;Illinois&quot;  
+ [6] &quot;Maryland&quot;   &quot;Michigan&quot;   &quot;Nevada&quot;     &quot;New Mexico&quot; &quot;New York&quot;  
+[11] &quot;Texas&quot;     
+
+[1] &quot;Group:  3&quot;
+[1] &quot;---------------------&quot;
+ [1] &quot;Arkansas&quot;      &quot;Connecticut&quot;   &quot;Delaware&quot;      &quot;Hawaii&quot;       
+ [5] &quot;Idaho&quot;         &quot;Indiana&quot;       &quot;Iowa&quot;          &quot;Kansas&quot;       
+ [9] &quot;Kentucky&quot;      &quot;Maine&quot;         &quot;Massachusetts&quot; &quot;Minnesota&quot;    
+[13] &quot;Missouri&quot;      &quot;Montana&quot;       &quot;Nebraska&quot;      &quot;New Hampshire&quot;
+[17] &quot;New Jersey&quot;    &quot;North Dakota&quot;  &quot;Ohio&quot;          &quot;Oklahoma&quot;     
+[21] &quot;Oregon&quot;        &quot;Pennsylvania&quot;  &quot;Rhode Island&quot;  &quot;South Dakota&quot; 
+[25] &quot;Utah&quot;          &quot;Vermont&quot;       &quot;Virginia&quot;      &quot;Washington&quot;   
+[29] &quot;West Virginia&quot; &quot;Wisconsin&quot;     &quot;Wyoming&quot;      </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#USArrests[c("Alabama","Alaska"),]</span>
+</code></pre>
+</div>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>### unscalled</span>
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>group</span> <span class='kw'>in</span> <span class='fl'>1</span><span class='op'>:</span><span class='fl'>3</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Group: "</span>,<span class='va'>group</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"---------------------"</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/which.html'>which</a></span><span class='op'>(</span><span class='va'>unscaled</span><span class='op'>==</span><span class='va'>group</span><span class='op'>)</span><span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"\n"</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;Group:  1&quot;
+[1] &quot;---------------------&quot;
+ [1] &quot;Alabama&quot;        &quot;Alaska&quot;         &quot;Arizona&quot;       
+ [4] &quot;California&quot;     &quot;Delaware&quot;       &quot;Florida&quot;       
+ [7] &quot;Illinois&quot;       &quot;Louisiana&quot;      &quot;Maryland&quot;      
+[10] &quot;Michigan&quot;       &quot;Mississippi&quot;    &quot;Nevada&quot;        
+[13] &quot;New Mexico&quot;     &quot;New York&quot;       &quot;North Carolina&quot;
+[16] &quot;South Carolina&quot;
+
+[1] &quot;Group:  2&quot;
+[1] &quot;---------------------&quot;
+ [1] &quot;Arkansas&quot;      &quot;Colorado&quot;      &quot;Georgia&quot;       &quot;Massachusetts&quot;
+ [5] &quot;Missouri&quot;      &quot;New Jersey&quot;    &quot;Oklahoma&quot;      &quot;Oregon&quot;       
+ [9] &quot;Rhode Island&quot;  &quot;Tennessee&quot;     &quot;Texas&quot;         &quot;Virginia&quot;     
+[13] &quot;Washington&quot;    &quot;Wyoming&quot;      
+
+[1] &quot;Group:  3&quot;
+[1] &quot;---------------------&quot;
+ [1] &quot;Connecticut&quot;   &quot;Hawaii&quot;        &quot;Idaho&quot;         &quot;Indiana&quot;      
+ [5] &quot;Iowa&quot;          &quot;Kansas&quot;        &quot;Kentucky&quot;      &quot;Maine&quot;        
+ [9] &quot;Minnesota&quot;     &quot;Montana&quot;       &quot;Nebraska&quot;      &quot;New Hampshire&quot;
+[13] &quot;North Dakota&quot;  &quot;Ohio&quot;          &quot;Pennsylvania&quot;  &quot;South Dakota&quot; 
+[17] &quot;Utah&quot;          &quot;Vermont&quot;       &quot;West Virginia&quot; &quot;Wisconsin&quot;    </code></pre>
+</div>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>USArrests</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     Murder          Assault         UrbanPop          Rape      
+ Min.   : 0.800   Min.   : 45.0   Min.   :32.00   Min.   : 7.30  
+ 1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50   1st Qu.:15.07  
+ Median : 7.250   Median :159.0   Median :66.00   Median :20.10  
+ Mean   : 7.788   Mean   :170.8   Mean   :65.54   Mean   :21.23  
+ 3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75   3rd Qu.:26.18  
+ Max.   :17.400   Max.   :337.0   Max.   :91.00   Max.   :46.00  </code></pre>
+</div>
+<p>We do need to scale our data. From the summary above, we can see that
+we are looking at Murder, Assault, Urban Pop, Rape. To compare
+population to crimes, we do need to scale it as they are not similar
+measures.</p>
+<p>Murder, Assault and Rape are measured in a similar manner (number of
+crimes commit ed).</p>
+<p>When observing the range which is obtained from the summary Assault
+seems to have a much higher max than rape and murder. A change in
+assault will not have as much effect as a change in murder and
+rape.Therefore, we should scale before clustering for those predictors
+as well.</p>
+<h2 id="islr-ch.-12-exercise-10">ISLR Ch. 12, Exercise 10</h2>
+<p>In this problem, you will generate simulated data, and then perform
+PCA and K-means clustering on the data.</p>
+<h3 id="a-1">(a)</h3>
+Generate a simulated data set with 20 observations in each of three
+classes (i.e. 60 observations total), and 50 variables. Hint: There are
+a number of functions in R that you can use to generate data. One
+example is the rnorm() function; runif() is another option. Be sure to
+add a mean shift to the observations in each class so that there are
+three distinct classes.
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>5</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/matrix.html'>matrix</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/Normal.html'>rnorm</a></span><span class='op'>(</span><span class='fl'>60</span><span class='op'>*</span><span class='fl'>50</span><span class='op'>)</span>,ncol <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
+
+<span class='co'>#(rnorm(60*2))</span>
+<span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>,<span class='op'>]</span><span class='op'>&lt;-</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>20</span>,<span class='op'>]</span><span class='op'>+</span><span class='fl'>5</span>
+<span class='va'>x</span><span class='op'>[</span><span class='fl'>21</span><span class='op'>:</span><span class='fl'>40</span>,<span class='op'>]</span><span class='op'>&lt;-</span><span class='va'>x</span><span class='op'>[</span><span class='fl'>21</span><span class='op'>:</span><span class='fl'>40</span>,<span class='op'>]</span><span class='op'>-</span><span class='fl'>6</span>
+<span class='va'>x</span><span class='op'>[</span><span class='fl'>41</span><span class='op'>:</span><span class='fl'>60</span>,<span class='op'>]</span> <span class='op'>&lt;-</span> <span class='va'>x</span><span class='op'>[</span><span class='fl'>41</span><span class='op'>:</span><span class='fl'>60</span>,<span class='op'>]</span><span class='op'>-</span><span class='fl'>1</span>
+
+<span class='co'>#?rnorm</span>
+
+<span class='co'>#summary(x)</span>
+</code></pre>
+</div>
+</div>
+<h3 id="b-1">(b)</h3>
+<p>Perform PCA on the 60 observations and plot the first two principal
+component score vectors. Use a different color to indicate the
+observations in each of the three classes. If the three classes appear
+separated in this plot, then continue on to part (c). If not, then
+return to part (a) and modify the simulation so that there is greater
+separation between the three classes. Do not continue to part (c) until
+the three classes show at least some separation in the first two
+principal component score vectors.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pr.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>
+
+<span class='co'>### The Cols function was used in CH12 of the textbook.</span>
+<span class='va'>Cols</span> <span class='op'>&lt;-</span> <span class='kw'>function</span> <span class='op'>(</span><span class='va'>vec</span><span class='op'>)</span> <span class='op'>{</span>
+ <span class='va'>cols</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/grDevices/palettes.html'>rainbow</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/length.html'>length</a></span><span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/unique.html'>unique</a></span><span class='op'>(</span><span class='va'>vec</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='kw'><a href='https://rdrr.io/r/base/function.html'>return</a></span> <span class='op'>(</span><span class='va'>cols</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/base/numeric.html'>as.numeric</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/factor.html'>as.factor</a></span><span class='op'>(</span><span class='va'>vec</span><span class='op'>)</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+ <span class='op'>}</span>
+ 
+<span class='va'>rows</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>pr.out</span><span class='op'>$</span><span class='va'>x</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>, col <span class='op'>=</span> <span class='fu'>Cols</span><span class='op'>(</span><span class='va'>rows</span><span class='op'>)</span>, pch <span class='op'>=</span> <span class='fl'>19</span>, xlab <span class='op'>=</span> <span class='st'>"PC1"</span>, ylab <span class='op'>=</span> <span class='st'>"PC2"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-18-1.png" width="624" /></p>
+</div>
+<p>The three groups are very separated, so I will move onto part c.</p>
+<h3 id="c-1">(c)</h3>
+<p>Perform K-means clustering of the observations with K = 3. How well
+do the clusters that you obtained in K-means clustering compare to the
+true class labels?</p>
+<p>Hint: You can use the table() function in R to compare the true class
+labels to the class labels obtained by clustering. Be careful how you
+interpret the results: K-means clustering will arbitrarily number the
+clusters, so you cannot simply check whether the true class labels and
+clustering labels are the same.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>km.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/kmeans.html'>kmeans</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='fl'>3</span>, nstart <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
+
+<span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span>
+</code></pre>
+</div>
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2
+[34] 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/DT/man/DT-imports.html'>%&gt;%</a></span><span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"Incorrect Table"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table>
+<caption><span id="tab:unnamed-chunk-19">Table 2: </span>Incorrect Table</caption>
+<thead>
+<tr class="header">
+<th style="text-align: left;"></th>
+<th style="text-align: right;">1</th>
+<th style="text-align: right;">2</th>
+<th style="text-align: right;">3</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">-8.00047273863795</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-7.76218587245206</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-7.00953264596257</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-6.852795440002</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">-6.65708209448566</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">-6.29348184870245</td>
+<td style="text-align: right;">0</td>
+<td style="text-align: right;">1</td>
+<td style="text-align: right;">0</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"> <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>x</span>, col <span class='op'>=</span> <span class='op'>(</span><span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>,
+main <span class='op'>=</span> <span class='st'>"K- Means Clustering Results with K = 3"</span>,
+xlab <span class='op'>=</span> <span class='st'>""</span>, ylab <span class='op'>=</span> <span class='st'>""</span>, pch <span class='op'>=</span> <span class='fl'>19</span>, cex <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-19-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"> <span class='va'>rows</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>rows</span>,<span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    
+rows  1  2  3
+   1 20  0  0
+   2  0 20  0
+   3  0  0 20</code></pre>
+</div>
+<p>The first table was incorrectly comparing the scaled variable to the
+cluster. To get the correct comparison, I created a rows vector with the
+correct group by row, using the rep function. For example, the first 20
+observations are group 1, so I needed those to be labeled group 1. Each
+row in the correct table, represents the correct group. The columns 1,2,
+and 3 represent what the cluster they were categorized in.</p>
+<p>All observations were correctly identified, which is shown in the
+table above.</p>
+<ol start="4" type="a">
+<li>Perform K-means clustering with K = 2. Describe your results.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>25</span><span class='op'>)</span>
+<span class='va'>km.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/kmeans.html'>kmeans</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='fl'>2</span>, nstart <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
+
+ <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>x</span>, col <span class='op'>=</span> <span class='op'>(</span><span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>,
+main <span class='op'>=</span> <span class='st'>"K- Means Clustering Results with K = 2"</span>,
+xlab <span class='op'>=</span> <span class='st'>""</span>, ylab <span class='op'>=</span> <span class='st'>""</span>, pch <span class='op'>=</span> <span class='fl'>19</span>, cex <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-20-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"> <span class='va'>rows</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>rows</span>,<span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    
+rows  1  2
+   1 20  0
+   2  0 20
+   3  0 20</code></pre>
+</div>
+<p>All 20 observations for row 3 were identified as group 2.</p>
+<ol start="5" type="a">
+<li>Now perform K-means clustering with K = 4, and describe your
+results.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>45</span><span class='op'>)</span>
+<span class='va'>km.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/kmeans.html'>kmeans</a></span><span class='op'>(</span><span class='va'>x</span>,<span class='fl'>4</span>, nstart <span class='op'>=</span> <span class='fl'>50</span><span class='op'>)</span>
+
+ <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>x</span>, col <span class='op'>=</span> <span class='op'>(</span><span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>,
+main <span class='op'>=</span> <span class='st'>"K- Means Clustering Results with K = 4"</span>,
+xlab <span class='op'>=</span> <span class='st'>""</span>, ylab <span class='op'>=</span> <span class='st'>""</span>, pch <span class='op'>=</span> <span class='fl'>19</span>, cex <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-21-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"> <span class='va'>rows</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>20</span><span class='op'>)</span>, <span class='fu'><a href='https://rdrr.io/r/base/rep.html'>rep</a></span><span class='op'>(</span><span class='fl'>3</span>,<span class='fl'>20</span><span class='op'>)</span><span class='op'>)</span>
+ <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>rows</span>,<span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    
+rows  1  2  3  4
+   1  0  0 20  0
+   2  0 14  0  6
+   3 20  0  0  0</code></pre>
+</div>
+<p>Group 1 and 3 are correctly labeled. Group 2 is split between group 2
+and 4.</p>
+<ol start="6" type="a">
+<li>Now perform K-means clustering with K = 3 on the first two principal
+component score vectors, rather than on the raw data. That is, perform
+K-means clustering on the 60 × 2 matrix of which the first column is the
+first principal component score vector, and the second column is the
+second principal component score vector. Comment on the results. 552 12.
+Unsupervised Learning</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#summary(pr.out)</span>
+
+<span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>km.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/kmeans.html'>kmeans</a></span><span class='op'>(</span><span class='va'>pr.out</span><span class='op'>$</span><span class='va'>x</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>,<span class='fl'>3</span>, nstart <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span>
+</code></pre>
+</div>
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2
+[34] 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"> <span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>x</span>, col <span class='op'>=</span> <span class='op'>(</span><span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>,
+main <span class='op'>=</span> <span class='st'>"K- Means Clustering Results with K = 3"</span>,
+xlab <span class='op'>=</span> <span class='st'>""</span>, ylab <span class='op'>=</span> <span class='st'>""</span>, pch <span class='op'>=</span> <span class='fl'>19</span>, cex <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-22-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"> <span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>rows</span>,<span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    
+rows  1  2  3
+   1 20  0  0
+   2  0 20  0
+   3  0  0 20</code></pre>
+</div>
+<p>All observations were correctly identified using the just the
+prinicple components 1 and 2.</p>
+<ol start="7" type="a">
+<li>Using the scale() function, perform K-means clustering with K = 3 on
+the data after scaling each variable to have standard deviation one. How
+do these results compare to those obtained in (b)? Explain.</li>
+</ol>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/Random.html'>set.seed</a></span><span class='op'>(</span><span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>km.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/kmeans.html'>kmeans</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, <span class='fl'>3</span>, nstart <span class='op'>=</span> <span class='fl'>25</span><span class='op'>)</span>
+<span class='va'>clusters</span> <span class='op'>&lt;-</span> <span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span>
+<span class='va'>clusters</span>
+</code></pre>
+</div>
+<pre><code> [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2
+[34] 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/table.html'>table</a></span><span class='op'>(</span><span class='va'>rows</span>,<span class='va'>clusters</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    clusters
+rows  1  2  3
+   1 20  0  0
+   2  0 20  0
+   3  0  0 20</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/scale.html'>scale</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>)</span>, col <span class='op'>=</span> <span class='op'>(</span><span class='va'>km.out</span><span class='op'>$</span><span class='va'>cluster</span><span class='op'>+</span><span class='fl'>1</span><span class='op'>)</span>,
+main <span class='op'>=</span> <span class='st'>"K- Means Clustering Results with K = 3"</span>,
+xlab <span class='op'>=</span> <span class='st'>""</span>, ylab <span class='op'>=</span> <span class='st'>""</span>, pch <span class='op'>=</span> <span class='fl'>19</span>, cex <span class='op'>=</span> <span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-23-1.png" width="624" /></p>
+</div>
+<p>All observations were correctly identified. There was no difference
+from part b.</p>
+<p><strong>Based on reading for this class, what are the main risks of
+algorithmic models (machine learning) from a fairness and justice
+perspective?</strong></p>
+<p>From a fairness and justice perspective, machine learning algorithms
+are both very fair and incredibly not fair. It really depends on the
+perspective. From a machines point of view, the model is incredibly
+fair, as the code is doing what it was designed to do. Machine learning
+algorithms are only as fair as they were designed from a humans
+perspective. These models will very easily start grouping and
+stereotyping the observations if the model was created with out really
+understanding the predictors. Exploratory analysis such as clustering
+would help identify possible stereotypes that will be utilized if one
+proceeds with using the model with out understanding the predictors.</p>
+<p>From a justice perspective, machine learning models are cruel, and
+uncaring. If one understands how a machine learning model works, they
+have an unfair advantage over others/groups who have less information.
+For example, if I know that a particular company uses a model to sift
+through resumes that don’t contain these key words (or they may need a
+certain amount of key words) during their first phase of job
+hiring/resume accepting. The group that knows of these key words will be
+able to hack the model, and will rise above others who are more
+qualified.</p>
+<p><strong>What forms of modeling/learning and/or sorts of data may pose
+particular risks of harm?</strong></p>
+<p>Linear/Logistic Models can be harmful. In these models we can easily
+identify the predictors and there direct effect on the response
+variable. This means that those with the means can directly affect and
+hack these models to their benefit. When individuals/groups start
+hacking the models to benefit themselves this can create a snowball
+effect where the groups with more resources will start to benefit more
+and faster, while the groups with less resources will be on the other
+end of the stick. They will feel the negative effects of the model, and
+the effects will keep getting worse if there is no intervention in the
+model. A good example of this is determining whether someone gets a
+loan/capital. Capital allows individuals to grow and make more capital.
+To be denied that capital has a huge impact on ones future.</p>
+<p><strong>What general strategies might be employed to mitigate these
+risks?</strong></p>
+<p>Clustering would be a good way to mitigate this risks. When we
+cluster our data, we will start to get a better understanding on the
+data itself. These data points that we are looking at could be
+individuals who are directly impacted by our machine learning model. If
+we cluster, we could identify groups of individuals that are being
+harmed by this model due to external circumstances that were not
+included in the model.</p>
+<p><strong>Can you think of any methodological advances that might be
+pursued by computational and statistical researchers in order to help
+data analysts make “ethically derived” predictions?</strong></p>
+<p>Clustering and factor analysis will be a good start. Another idea
+would be to constantly verify and develop an understanding to the input
+data, the process flow of data and the actual output. Instead of
+thinking of these models as a black box and trusting the results. Data
+scientist and the users of the models in their desired applications need
+to have a thorough understanding of what they are using. This will help
+avoid issues like stereotyping. This could also help issues where for
+some reason, we start receiving bad data. If we have bad data, corrupt
+or just no longer relevant to the model, and we don’t identify this
+issue, then the models outputs will no longer be relevant to the
+application it was set up for. So data verification of all points in the
+process would be very beneficial to make ethically derived
+predictions.</p>
+<p><strong>(Project update) Data Exploration: Use appropriate methods to
+explore the data you plan to use for your project. (It’s okay if you
+change your mind and use a different data set later; this exercise may
+help you decide.) Include some form of visualization(s) and indications
+of the unit of analysis, the levels of measurements (e.g.: “9
+categorical features–7 dichotomous and 2 with more than two categories–
+and 14 numerical/quantitative features, for a total of 23), univariate
+statistics helping characterize the distribution of the features and of
+the outcome variable (label) you wish to predict if you will be
+conducting supervised learning for the project. Convey something about
+relationships among features (predictors). If you are going to use these
+for prediction, identify any preprocessing you may need to do and
+options available for cleaning up/transforming data and/or dimension
+reduction. (Submit with your group or with explanation of why you must
+work alone.)</strong></p>
+<p>I’ve attached my current rough draft of the project which is in the
+Stock_Analysis Machine Learning RMD file, I will speak to the project
+here, but the file is attached if needed.</p>
+<p>I’ve decided to continue working with the Stock Price Prediction. I
+have decided against pairing with my Networks class, as I am unaware of
+the best way to connect this to network analysis at the moment. I’m
+using Tidyquant to obtain initial stock price indicators such as
+close,open, high, low, volume and adjusted.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://tidyverse.tidyverse.org'>tidyverse</a></span><span class='op'>)</span>;<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/business-science/tidyquant'>tidyquant</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://github.com/joshuaulrich/TTR'>TTR</a></span><span class='op'>)</span>
+<span class='va'>stock_data</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/tidyquant/man/tq_get.html'>tq_get</a></span><span class='op'>(</span><span class='st'>"AAPL"</span>, get <span class='op'>=</span> <span class='st'>"stock.prices"</span>, from <span class='op'>=</span> <span class='st'>"2018-01-01"</span>, to <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Sys.time.html'>Sys.Date</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stock_data</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/pkg/knitr/man/kable.html'>kable</a></span><span class='op'>(</span>caption <span class='op'>=</span> <span class='st'>"Initial Indicators"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<table>
+<caption><span id="tab:unnamed-chunk-24">Table 3: </span>Initial Indicators</caption>
+<colgroup>
+<col style="width: 10%" />
+<col style="width: 17%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 10%" />
+<col style="width: 14%" />
+<col style="width: 14%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">symbol</th>
+<th style="text-align: left;">date</th>
+<th style="text-align: right;">open</th>
+<th style="text-align: right;">high</th>
+<th style="text-align: right;">low</th>
+<th style="text-align: right;">close</th>
+<th style="text-align: right;">volume</th>
+<th style="text-align: right;">adjusted</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AAPL</td>
+<td style="text-align: left;">2022-04-07</td>
+<td style="text-align: right;">171.16</td>
+<td style="text-align: right;">173.36</td>
+<td style="text-align: right;">169.85</td>
+<td style="text-align: right;">172.14</td>
+<td style="text-align: right;">77594700</td>
+<td style="text-align: right;">172.14</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AAPL</td>
+<td style="text-align: left;">2022-04-08</td>
+<td style="text-align: right;">171.78</td>
+<td style="text-align: right;">171.78</td>
+<td style="text-align: right;">169.20</td>
+<td style="text-align: right;">170.09</td>
+<td style="text-align: right;">76515900</td>
+<td style="text-align: right;">170.09</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AAPL</td>
+<td style="text-align: left;">2022-04-11</td>
+<td style="text-align: right;">168.71</td>
+<td style="text-align: right;">169.03</td>
+<td style="text-align: right;">165.50</td>
+<td style="text-align: right;">165.75</td>
+<td style="text-align: right;">72246700</td>
+<td style="text-align: right;">165.75</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AAPL</td>
+<td style="text-align: left;">2022-04-12</td>
+<td style="text-align: right;">168.02</td>
+<td style="text-align: right;">169.87</td>
+<td style="text-align: right;">166.64</td>
+<td style="text-align: right;">167.66</td>
+<td style="text-align: right;">79265200</td>
+<td style="text-align: right;">167.66</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AAPL</td>
+<td style="text-align: left;">2022-04-13</td>
+<td style="text-align: right;">167.39</td>
+<td style="text-align: right;">171.04</td>
+<td style="text-align: right;">166.77</td>
+<td style="text-align: right;">170.40</td>
+<td style="text-align: right;">70618900</td>
+<td style="text-align: right;">170.40</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AAPL</td>
+<td style="text-align: left;">2022-04-14</td>
+<td style="text-align: right;">170.62</td>
+<td style="text-align: right;">171.27</td>
+<td style="text-align: right;">165.04</td>
+<td style="text-align: right;">165.29</td>
+<td style="text-align: right;">75237500</td>
+<td style="text-align: right;">165.29</td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>    symbol               date                 open       
+ Length:1080        Min.   :2018-01-02   Min.   : 35.99  
+ Class :character   1st Qu.:2019-01-29   1st Qu.: 49.06  
+ Mode  :character   Median :2020-02-25   Median : 71.42  
+                    Mean   :2020-02-23   Mean   : 89.53  
+                    3rd Qu.:2021-03-22   3rd Qu.:128.89  
+                    Max.   :2022-04-14   Max.   :182.63  
+      high             low             close       
+ Min.   : 36.43   Min.   : 35.50   Min.   : 35.55  
+ 1st Qu.: 49.63   1st Qu.: 48.44   1st Qu.: 48.91  
+ Median : 72.94   Median : 71.07   Median : 72.26  
+ Mean   : 90.57   Mean   : 88.54   Mean   : 89.60  
+ 3rd Qu.:130.47   3rd Qu.:127.08   3rd Qu.:129.00  
+ Max.   :182.94   Max.   :179.12   Max.   :182.01  
+     volume             adjusted     
+ Min.   : 41000000   Min.   : 34.46  
+ 1st Qu.: 83736500   1st Qu.: 47.75  
+ Median :107158650   Median : 71.28  
+ Mean   :122012055   Mean   : 88.56  
+ 3rd Qu.:143015200   3rd Qu.:127.97  
+ Max.   :426510000   Max.   :181.78  </code></pre>
+</div>
+<p>Above is the initial summary of the Apple price data from 2018 to
+4/12/2022. I can change the date to any date I need. The summary show
+that volume is already very different compared to the other variables.
+This means that it might be useful to scale the volume variable.
+Especially during the unsupervised analysis of the variables.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://ggplot2.tidyverse.org'>ggplot2</a></span><span class='op'>)</span>
+<span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://lubridate.tidyverse.org'>lubridate</a></span><span class='op'>)</span>
+
+<span class='va'>stock_data</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>volume</span>,<span class='op'>-</span><span class='va'>symbol</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='op'>!</span><span class='va'>date</span>, names_to <span class='op'>=</span> <span class='st'>"prices"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>date</span>, y <span class='op'>=</span> <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>prices</span>, color <span class='op'>=</span> <span class='va'>prices</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"$"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-25-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>stock_data</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>volume</span>,<span class='op'>-</span><span class='va'>symbol</span><span class='op'>)</span><span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='fu'><a href='https://lubridate.tidyverse.org/reference/year.html'>year</a></span><span class='op'>(</span><span class='va'>date</span><span class='op'>)</span><span class='op'>&gt;=</span><span class='fl'>2022</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://tidyr.tidyverse.org/reference/pivot_longer.html'>pivot_longer</a></span><span class='op'>(</span><span class='op'>!</span><span class='va'>date</span>, names_to <span class='op'>=</span> <span class='st'>"prices"</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/ggplot.html'>ggplot</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>+</span>
+  <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/geom_path.html'>geom_line</a></span><span class='op'>(</span><span class='fu'><a href='https://ggplot2.tidyverse.org/reference/aes.html'>aes</a></span><span class='op'>(</span>x <span class='op'>=</span> <span class='va'>date</span>, y <span class='op'>=</span> <span class='va'>value</span>, group <span class='op'>=</span> <span class='va'>prices</span>, color <span class='op'>=</span> <span class='va'>prices</span><span class='op'>)</span><span class='op'>)</span><span class='op'>+</span> <span class='fu'><a href='https://ggplot2.tidyverse.org/reference/labs.html'>ylab</a></span><span class='op'>(</span><span class='st'>"$"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-25-2.png" width="624" /></p>
+</div>
+<p>The first plot is a bit hard to read. The second plot shows that all
+5 variables are closely related and follow similar patterns.</p>
+<p>I then used the TTR package to create other indicators that are
+reliant on the variable listed above. I ended up creating 63 more
+variables.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>ADX</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/ADX.html'>ADX</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>aroon</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/aroon.html'>aroon</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span><span class='op'>)</span><span class='op'>]</span>,n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>ATR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/ATR.html'>ATR</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span>,n <span class='op'>=</span><span class='fl'>14</span><span class='op'>)</span>
+<span class='va'>BBands_HLC</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/bollingerBands.html'>BBands</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>CCI</span> <span class='op'>&lt;-</span>  <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/CCI.html'>CCI</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>caikinAD</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/pkg/TTR/man/chaikinAD.html'>chaikinAD</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span>,<span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"volume"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>volatility</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/chaikinVolatility.html'>chaikinVolatility</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>clv</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/CLV.html'>CLV</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>CMF</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/CMF.html'>CMF</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span>,<span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"volume"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>PriceDPO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/DPO.html'>DPO</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>volumeDPO</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/DPO.html'>DPO</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>'volume'</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>DVI</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/DVI.html'>DVI</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>EMV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/EMV.html'>EMV</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span><span class='op'>)</span><span class='op'>]</span>,<span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"volume"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>gmma</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/GMMA.html'>GMMA</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>KST</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/KST.html'>KST</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>OBV</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/OBV.html'>OBV</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span>, <span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"volume"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>pbands</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/priceBands.html'>PBands</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>roc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/changes.html'>ROC</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>mom</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/changes.html'>momentum</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>RSI</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/RSI.html'>RSI</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>RSI_MA1</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/RSI.html'>RSI</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span>, n <span class='op'>=</span> <span class='fl'>14</span>, maType<span class='op'>=</span><span class='st'>"WMA"</span>, wts<span class='op'>=</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"volume"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>RSI_MA2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/RSI.html'>RSI</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span>, n <span class='op'>=</span> <span class='fl'>14</span>, maType<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span>maUp<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>EMA</span><span class='op'>)</span>,maDown<span class='op'>=</span><span class='fu'><a href='https://rdrr.io/r/base/list.html'>list</a></span><span class='op'>(</span><span class='va'>WMA</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>sar</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/SAR.html'>SAR</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stochOSC</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/stochastics.html'>stoch</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>stochWPR</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/WPR.html'>WPR</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>tdi</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/TDI.html'>TDI</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span>, n <span class='op'>=</span> <span class='fl'>30</span><span class='op'>)</span>
+<span class='va'>trix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/TRIX.html'>TRIX</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>ema</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/MovingAverages.html'>EMA</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span>,n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>sma</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/MovingAverages.html'>SMA</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span>,n <span class='op'>=</span> <span class='fl'>20</span><span class='op'>)</span>
+<span class='va'>macd</span> <span class='op'>&lt;-</span><span class='fu'><a href='https://rdrr.io/pkg/TTR/man/MACD.html'>MACD</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>ult.osc</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/ultimateOscillator.html'>ultimateOscillator</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>vhf.close</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/VHF.html'>VHF</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='st'>"close"</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>vhf.hilow</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/VHF.html'>VHF</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>ohlc</span> <span class='op'>&lt;-</span> <span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"open"</span>,<span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>vClose</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/volatility.html'>volatility</a></span><span class='op'>(</span><span class='va'>ohlc</span>, calc<span class='op'>=</span><span class='st'>"close"</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>vClose0</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/volatility.html'>volatility</a></span><span class='op'>(</span><span class='va'>ohlc</span>, calc<span class='op'>=</span><span class='st'>"close"</span>, mean0<span class='op'>=</span><span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>vGK</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/volatility.html'>volatility</a></span><span class='op'>(</span><span class='va'>ohlc</span>, calc<span class='op'>=</span><span class='st'>"garman"</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>vParkinson</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/volatility.html'>volatility</a></span><span class='op'>(</span><span class='va'>ohlc</span>, calc<span class='op'>=</span><span class='st'>"parkinson"</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>vRS</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/volatility.html'>volatility</a></span><span class='op'>(</span><span class='va'>ohlc</span>, calc<span class='op'>=</span><span class='st'>"rogers"</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>WilliamsAD</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/williamsAD.html'>williamsAD</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>,<span class='st'>"low"</span>,<span class='st'>"close"</span><span class='op'>)</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>stock_data</span><span class='op'>$</span><span class='va'>zigzag</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/pkg/TTR/man/ZigZag.html'>ZigZag</a></span><span class='op'>(</span><span class='va'>stock_data</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='st'>"high"</span>, <span class='st'>"low"</span><span class='op'>)</span><span class='op'>]</span>, change <span class='op'>=</span><span class='fl'>20</span><span class='op'>)</span>
+
+
+
+<span class='va'>Technical_data</span> <span class='op'>&lt;-</span> <span class='va'>stock_data</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>ADX</span>, <span class='va'>aroon</span>, <span class='va'>ATR</span>, <span class='va'>BBands_HLC</span><span class='op'>[</span>,<span class='fl'>4</span><span class='op'>]</span>,<span class='va'>EMV</span>,<span class='va'>gmma</span>,<span class='va'>KST</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span>,<span class='va'>macd</span>,<span class='va'>sar</span>,<span class='va'>stochOSC</span>,<span class='va'>tdi</span>,<span class='va'>trix</span><span class='op'>[</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+<span class='va'>Technical_data</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/utils/head.html'>tail</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     symbol       date   open   high    low  close   volume adjusted
+1075   AAPL 2022-04-07 171.16 173.36 169.85 172.14 77594700   172.14
+1076   AAPL 2022-04-08 171.78 171.78 169.20 170.09 76515900   170.09
+1077   AAPL 2022-04-11 168.71 169.03 165.50 165.75 72246700   165.75
+1078   AAPL 2022-04-12 168.02 169.87 166.64 167.66 79265200   167.66
+1079   AAPL 2022-04-13 167.39 171.04 166.77 170.40 70618900   170.40
+1080   AAPL 2022-04-14 170.62 171.27 165.04 165.29 75237500   165.29
+           CCI   caikinAD  volatility        clv       CMF PriceDPO
+1075  30.76443 5332294217 -0.18457198  0.3048412 0.2980788       NA
+1076  12.44864 5308568256 -0.16148337 -0.3100788 0.3368096       NA
+1077 -37.50007 5246554802 -0.14323658 -0.8583569 0.3542440       NA
+1078 -36.20482 5217352141 -0.09773150 -0.3684172 0.2972747       NA
+1079 -29.05147 5266801888 -0.01491211  0.7002339 0.2808814       NA
+1080 -79.15384 5197602700  0.11862902 -0.9197433 0.2068932       NA
+     volumeDPO        OBV          roc       mom      RSI  RSI_MA1
+1075        NA 2848428200  0.001802466  0.309997 53.20987 63.19102
+1076        NA 2771912300 -0.011980408 -2.050003 50.02667 57.74470
+1077        NA 2699665600 -0.025847056 -4.339996 44.02233 46.88903
+1078        NA 2778930800  0.011457514  1.910004 47.03520 47.17787
+1079        NA 2849549700  0.016210436  2.739990 51.10116 44.06507
+1080        NA 2774312200 -0.030447115 -5.110001 44.27480 37.33494
+      RSI_MA2  stochWPR      ema      sma  ult.osc vhf.close
+1075 49.49968 0.4500000 171.0684 168.8275 53.57478 0.3715260
+1076 42.67319 0.6476195 170.9752 169.5955 52.55162 0.3708939
+1077 32.55327 0.9822821 170.4776 170.3520 49.25463 0.3661973
+1078 38.20065 0.8469168 170.2092 170.9805 47.24924 0.3588705
+1079 45.88849 0.6527290 170.2274 171.5210 46.22569 0.3603307
+1080 35.21704 0.9828415 169.7572 171.7545 41.91386 0.3547379
+     vhf.hilow    vClose   vClose0       vGK vParkinson       vRS
+1075 0.3868640 0.2545168 0.2560820 0.1783655  0.1867755 0.1680521
+1076 0.3862058 0.2564217 0.2634813 0.1769035  0.1872174 0.1664821
+1077 0.3813153 0.2413001 0.2818854 0.1785024  0.1868448 0.1688485
+1078 0.3736861 0.2643839 0.2868434 0.1879066  0.1903925 0.1808082
+1079 0.3752065 0.2796668 0.2834864 0.1927481  0.1993515 0.1834448
+1080 0.3693828 0.3165469 0.3322602 0.2067391  0.2205364 0.1931955
+     WilliamsAD zigzag      DIp      DIn         DX      ADX aroonUp
+1075   109.6326     NA 26.01623 25.80385  0.4098398 18.69673      70
+1076   107.5826     NA 24.67990 25.61407  1.8574155 17.49392      65
+1077   103.2426     NA 22.71795 29.98601 13.7903369 17.22938      60
+1078   105.1526     NA 22.55171 27.84618 10.5053538 16.74909      55
+1079   108.7826     NA 22.90941 25.79191  5.9187302 15.97550      50
+1080   102.8026     NA 20.52971 25.99728 11.7513830 15.67377      45
+     aroonDn oscillator       tr      atr trueHigh trueLow
+1075      10         60 3.509995 4.176717   173.36  169.85
+1076       5         60 2.940002 4.088380   172.14  169.20
+1077       0         60 4.589996 4.124210   170.09  165.50
+1078       0         55 4.119995 4.123909   169.87  165.75
+1079       0         50 4.269989 4.134343   171.04  166.77
+1080       0         45 6.230011 4.284034   171.27  165.04
+     BBands_HLC[, 4]           emv         maEMV short lag 3
+1075       0.6006326 -0.0001243969 -0.0001059528    173.0066
+1076       0.5388931 -0.0003759632 -0.0001408474    171.5483
+1077       0.3848170 -0.0015757455 -0.0004282978    168.6491
+1078       0.3883671  0.0004034164 -0.0004002282    168.1546
+1079       0.4103300  0.0003930250 -0.0002806273    169.2773
+1080       0.2479574 -0.0006210345 -0.0002332015    167.2836
+     short lag 5 short lag 8 short lag 10 short lag 12 short lag 15
+1075    173.6849    173.7160     173.3547     172.8769     172.1293
+1076    172.4866    172.9102     172.7611     172.4482     171.8744
+1077    170.2411    171.3191     171.4864     171.4177     171.1089
+1078    169.3807    170.5059     170.7907     170.8396     170.6778
+1079    169.7205    170.4824     170.7196     170.7719     170.6430
+1080    168.2436    169.3285     169.7324     169.9286     169.9739
+     long lag 30 long lag 35 long lag 40 long lag 45 long lag 50
+1075    169.7762    169.3929    169.0921    168.8309    168.5826
+1076    169.7965    169.4316    169.1408    168.8856    168.6418
+1077    169.5354    169.2271    168.9754    168.7493    168.5283
+1078    169.4144    169.1400    168.9112    168.7019    168.4943
+1079    169.4780    169.2100    168.9838    168.7757    168.5690
+1080    169.2078    168.9923    168.8036    168.6242    168.4404
+     long lag 60 KST[, 1]      macd    signal      sar      fastK
+1075    168.0704 58.56463 1.5818153 1.4517555 179.6100 0.55000004
+1076    168.1366 59.78672 1.3340655 1.4282175 179.2196 0.35238048
+1077    168.0584 58.00537 0.9230439 1.3271828 178.6184 0.01771793
+1078    168.0453 53.95755 0.6788351 1.1975132 177.5690 0.15308319
+1079    168.1225 52.07081 0.6076970 1.0795500 176.6034 0.34727099
+1080    168.0297 47.28807 0.3056435 0.9247687 175.7152 0.01715854
+         fastD     slowD     tdi        di  trix[, 1]
+1075 0.6503514 0.7634155 -179.32 -62.07001 0.07582647
+1076 0.5034804 0.6462254 -195.69 -46.15002 0.08680848
+1077 0.3066995 0.4868437 -203.04 -38.45001 0.09226573
+1078 0.1743939 0.3281912 -217.93 -24.12000 0.09440946
+1079 0.1726907 0.2179280 -220.29 -17.03999 0.09538640
+1080 0.1725042 0.1731963 -218.44 -17.98000 0.09274961</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/cat.html'>cat</a></span><span class='op'>(</span><span class='st'>"Dimensions of data set: "</span>,<span class='va'>Technical_data</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>Dimensions of data set:  1080 70</code></pre>
+</div>
+<p>I had to cbind some of the variables due to some variables creating
+nested lists in their column, which messed up the data frame. Cbind was
+an easy way to bring that in. In order to avoid more issues, I also had
+to rename some of the columns that were brought in.</p>
+<p>Right now all of my variables are numeric.</p>
+<p>For pre-processing, I’ll need to remove the date field when
+predicting. I’ll plan to use each row as a case. Since I’m going to be
+predicting for multiple dates. I will have to create multiple training
+and test sets for each specific date I’m predicting. I’ll also have to
+remove any NA’s that are in the testing and training sets before running
+the models.</p>
+<p>I used PCA to look at the Principle components, most of the
+predictors in the components had similar weights, this is due to most of
+my current predictors being based off of the prices listed. For
+dimension reduction, I’ll look into using different models that will
+tell me the optimal predictors/trees/shrinkage to be used when
+predicting price. The models I’m currently using are Least Squares,
+ridge, lasso, pls, pcr, boosting and bagging.</p>
+<p>Here is the current PCA analysis I have. To see the supervised
+learning process I have going at the moment, please look at the other
+RMD file.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>techincal_indicators</span> <span class='op'>&lt;-</span> <span class='va'>Technical_data</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>symbol</span>,<span class='op'>-</span><span class='va'>zigzag</span>,<span class='op'>-</span><span class='va'>PriceDPO</span>,<span class='op'>-</span><span class='va'>volumeDPO</span><span class='op'>)</span>
+
+
+<span class='co'>### get rid of the NA's</span>
+<span class='va'>complete_data</span> <span class='op'>&lt;-</span> <span class='va'>techincal_indicators</span><span class='op'>[</span><span class='fu'><a href='https://rdrr.io/r/stats/complete.cases.html'>complete.cases</a></span><span class='op'>(</span><span class='va'>techincal_indicators</span><span class='op'>)</span>,<span class='op'>]</span>
+<span class='va'>pr.out</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/prcomp.html'>prcomp</a></span><span class='op'>(</span><span class='op'>(</span><span class='va'>complete_data</span><span class='op'>[</span><span class='op'>-</span><span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>, scale. <span class='op'>=</span> <span class='cn'>TRUE</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/names.html'>names</a></span><span class='op'>(</span><span class='va'>pr.out</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;sdev&quot;     &quot;rotation&quot; &quot;center&quot;   &quot;scale&quot;    &quot;x&quot;       </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#pr.out$center</span>
+<span class='co'>#pr.out$scale</span>
+<span class='va'>pr.out</span><span class='op'>$</span><span class='va'>rotation</span><span class='op'>[</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span>,<span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>]</span>
+</code></pre>
+</div>
+<pre><code>                    PC1         PC2
+open        0.194856508 -0.02020812
+high        0.194958375 -0.01977279
+low         0.194675395 -0.02203853
+close       0.194763953 -0.02167978
+volume     -0.042421035  0.08369591
+adjusted    0.194771787 -0.02135314
+CCI        -0.014447667 -0.21435392
+caikinAD    0.185214697 -0.01878782
+volatility  0.003844347  0.02905770
+clv        -0.006402930 -0.05074345</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pr.out</span><span class='op'>$</span><span class='va'>rotation</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 65 65</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/biplot.html'>biplot</a></span><span class='op'>(</span><span class='va'>pr.out</span>,scale <span class='op'>=</span><span class='fl'>0</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-27-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>pr.var</span> <span class='op'>&lt;-</span> <span class='va'>pr.out</span><span class='op'>$</span><span class='va'>sdev</span><span class='op'>^</span><span class='fl'>2</span>
+<span class='va'>pve</span> <span class='op'>&lt;-</span><span class='va'>pr.var</span><span class='op'>/</span><span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='va'>pr.var</span><span class='op'>)</span>
+</code></pre>
+</div>
+</div>
+Due to lack of space, I only showed the the first 10 of the loading. But
+the full loading has 65 rows. The biplot is quite difficult to read due
+to so many vectors. I’m currently not sure how to limit the vectors
+shown on the biplot.
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/par.html'>par</a></span> <span class='op'>(</span>mfrow <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>1</span>, <span class='fl'>2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span><span class='va'>pve</span> , xlab <span class='op'>=</span> <span class='st'>" Principal Component "</span>,
+ylab <span class='op'>=</span> <span class='st'>" Proportion of Variance Explained "</span>, ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>,
+type <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span> <span class='op'>(</span> <span class='fu'><a href='https://rdrr.io/r/base/cumsum.html'>cumsum</a></span> <span class='op'>(</span><span class='va'>pve</span><span class='op'>)</span>, xlab <span class='op'>=</span> <span class='st'>" Principal Component "</span>,
+ylab <span class='op'>=</span> <span class='st'>" Cumulative Proportion of Variance Explained "</span>,
+ylim <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/c.html'>c</a></span><span class='op'>(</span><span class='fl'>0</span>, <span class='fl'>1</span><span class='op'>)</span>, type <span class='op'>=</span> <span class='st'>"b"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<img src="hw-3-machine-learning_files/figure-html5/unnamed-chunk-28-1.png" width="624" />
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='st'>"Variance Explained by the top 10 Components: "</span>,<span class='va'>pve</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='fl'>3</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/as.data.frame.html'>as.data.frame</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>10</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/pkg/tidyquant/man/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/sum.html'>sum</a></span><span class='op'>(</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] &quot;Variance Explained by the top 10 Components:  0.924&quot;</code></pre>
+</div>
+<p>The first 10 components account for 92% of variance explained by the
+model. The PCA unsupervised analysis may not be necessary since I will
+be running a PCR and PLS model for predictions (please see current
+project attached for analysis).</p>
+<p>For next steps in the process. At the recommendation of the
+professor, I will bring in addition time based indicators. Specifically,
+I will look at general economic indicators. Once I bring in this
+additional information, I will re run the PCA analysis, and I will also
+look into clustering. I’m curious to see if I may be able to identify
+certain times where the data would cluster together. For example is
+there was a recession going on at the time, would the cluster analysis
+reflect that.’</p>
+<p>I plan to also look into setting up training and test sets for time
+series models. Since I had to create a new training and test set for
+prediction, I’m a bit unsure how I can compare each predication to each
+other, since they’ll be running from different samples.</p>
+<div class="sourceCode" id="cb39"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>
