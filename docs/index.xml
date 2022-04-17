@@ -18,6 +18,15 @@
       <media:content url="https://pjsulliv34.github.io/Blog/posts/2022-04-16-hw-3-machine-learning/preview.png" medium="image" type="image/png" width="900" height="588"/>
     </item>
     <item>
+      <title>Supervised Learning</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/2022-04-16-supervised-learning</link>
+      <description>A closer look at classification and regression analysis.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/2022-04-16-supervised-learning</guid>
+      <pubDate>Sat, 16 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://pjsulliv34.github.io/Blog/posts/2022-04-16-supervised-learning/preview.png" medium="image" type="image/png" width="900" height="588"/>
+    </item>
+    <item>
       <title>Network Analysis: Monk Data Set</title>
       <dc:creator>Peter Sullivan</dc:creator>
       <link>https://pjsulliv34.github.io/Blog/posts/network-analysis-monk-data-set</link>
@@ -32,14 +41,6 @@
       <description>A Network Analysis of Florentine Families</description>
       <guid>https://pjsulliv34.github.io/Blog/posts/florentine-families-network-analysis</guid>
       <pubDate>Tue, 22 Mar 2022 00:00:00 +0000</pubDate>
-    </item>
-    <item>
-      <title>Machine Learning Analysis</title>
-      <dc:creator>Peter Sullivan</dc:creator>
-      <link>https://pjsulliv34.github.io/Blog/posts/machine-learning-analysis</link>
-      <description>A closer look into regression and classification models</description>
-      <guid>https://pjsulliv34.github.io/Blog/posts/machine-learning-analysis</guid>
-      <pubDate>Sun, 13 Mar 2022 00:00:00 +0000</pubDate>
     </item>
     <item>
       <title>Monk Monastery Network</title>

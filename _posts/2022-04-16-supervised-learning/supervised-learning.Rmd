@@ -1,0 +1,1258 @@
+---
+title: "Supervised Learning"
+description: |
+  A closer look at classification and regression analysis.
+author:
+  - name: Peter Sullivan
+    url: {}
+date: 2022-04-16
+preview: preview.png
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE, warning=FALSE, message=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(ISLR2); library(tidyverse);library(knitr)
+
+```
+
+
+
+# ISLR Ch. 4, Exercise 16
+Using the Boston data set, fit classification models in order to predict
+whether a given census tract has a crime rate above or below the median. Explore logistic regression, LDA, naive Bayes, and KNN models
+using various subsets of the predictors. Describe your findings.
+Hint: You will have to create the response variable yourself, using the
+variables that are contained in the Boston data set.
+
+```{r}
+summary(Boston$crim)
+
+Boston$response <- as.factor(ifelse(Boston$crim > median(Boston$crim),"Above","Below"))
+Boston %>% filter(response=="Above") %>% head()
+```
+
+
+### Set up Training and Test Sets
+```{r}
+set.seed(2)
+
+train <- sample(1:nrow(Boston), round((nrow(Boston)/4)*3,0))
+
+Boston.test <- Boston[-train,]
+boston.response <- Boston$response[-train]
+boston.train <- Boston[train,]
+
+```
+
+### Logistic Regression
+```{r}
+
+
+
+glm.fits <- glm(response ~ zn + indus+chas+nox+rm+age+dis+rad+tax, family = binomial, data = Boston, subset = train)
+summary(glm.fits)
+#coef(glm.fits)
+#summary(glm.fits)$coef
+
+
+glm.probs <-predict(glm.fits, type = "response", Boston.test)
+#glm.probs %>% head()
+
+contrasts(Boston$response)
+#length(glm.probs)
+#dim(Boston)
+glm.pred <- rep("Above",126)
+glm.pred[glm.probs >.5 ] = "Below"
+#Boston$response %>% length()
+table(glm.pred,boston.response)
+mean(glm.pred==boston.response)
+acc <- mean(glm.pred==boston.response)
+
+Prediction_Accuracy <- tibble("Model" = "Logistic Regression", "Accuracy" = acc)
+
+
+```
+
+This means we were correct 87% of the time using the logistic analysis in predicting whether the crime level would be above the median using the variables chosen.
+
+
+### LDA (Linear Discriminant Analysis)
+```{r}
+library(MASS)
+
+lda.fit <- lda(response ~ zn + indus+chas+nox+rm+age+dis+rad+tax, data = Boston)
+#summary(lda.fit)
+lda.fit
+
+lda.pred <- predict(lda.fit,Boston)
+lda.class <- lda.pred$class
+
+table(lda.class,Boston$response)
+mean(lda.class==Boston$response)
+
+acc <- mean(lda.class==Boston$response)
+
+Prediction_Accuracy <- rbind(Prediction_Accuracy,  c("LDA", acc))
+
+
+```
+For LDA, 86% of predictions were correct.
+<br />
+
+### Naive Bayes
+
+
+```{r}
+
+library(e1071)
+
+nb.fit <- naiveBayes(response ~ zn + indus+chas+nox+rm+age+dis+rad+tax, family = binomial, data = Boston, subset = train)
+#nb.fit
+
+nb.class <- predict(nb.fit, Boston.test)
+table(nb.class, boston.response)
+mean(nb.class == boston.response)
+
+
+acc <- mean(lda.class==Boston$response)
+
+Prediction_Accuracy <- rbind(Prediction_Accuracy, c("Naive Bayes", acc))
+
+```
+Using Naive Bayes, we were able to get a prediction accuracy of 78%.
+<br />
+
+### K nearest Neighbors
+
+```{r message = FALSE}
+library(class)
+attach(Boston)
+set.seed(2)
+#Boston %>% dim()
+train.x <- Boston[train,colnames(Boston) %in% c("zn","indus","chas","nox","rm","age","dis","rad","tax")]
+
+test.x <- Boston[-train,colnames(Boston) %in% c("zn","indus","chas","nox","rm","age","dis","rad","tax")]
+train.response <- Boston$response[train]
+test.response <- Boston$response[-train]
+#train.x %>% dim()
+#test.x %>% dim()
+#train.response %>% length()
+
+knn.pred <- knn(train.x,test.x, train.response, k =1)
+#knn.pred %>% length()
+#test.response %>% length()
+#knn.pred %>% length()
+#test.response %>% length()
+
+table(knn.pred,test.response)
+paste("Percent Accuracy with K = 1",mean(knn.pred == test.response))
+
+knn.pred <- knn(train.x,test.x, train.response, k =3)
+paste("Percent Accuracy with K =3",mean(knn.pred == test.response))
+
+knn.pred <- knn(train.x,test.x, train.response, k =5)
+paste("Percent Accuracy with K = 5",mean(knn.pred == test.response))
+
+
+x<- NULL
+y <- NULL
+for(i in 1:100){
+  knn.pred <- knn(train.x,test.x, train.response, k =i)
+  x<- rbind(x,mean(knn.pred == test.response))
+  y <- rbind(y,paste(i))
+}
+data.frame("Kvalue" = y, "Accuracy" = x) %>% arrange(desc(x)) %>% head() %>% kable()
+
+knn.pred <- knn(train.x,test.x, train.response, k =3)
+acc <- mean(knn.pred == test.response)
+
+Prediction_Accuracy <- rbind(Prediction_Accuracy, c("KNN", acc))
+
+
+
+```
+In order to set up the KNN model, I needed to create 4 data sets. A training and Testing data set, and a test response, and training response. I then decided to run the model and use various values of K. The first bit of code is a bit inefficient in deciding the best value of K. This can be seen in the first 3 predictions for K = 1, 3, and 5.
+
+
+In order to find the best value of K, I decided to create a loop that would try every K value from 1 to 100 and store the models % accuracy in a vector named x. I then created a dataframe to visualize the x values and the corresponding K values used.
+
+Using KNN, I created 100 models with a k value form 1 to 100. The top 6 are listed above. The K value of 3 was the best value for K.
+
+
+
+```{r}
+
+Prediction_Accuracy %>% arrange(desc(Accuracy)) %>% kable()
+
+
+
+```
+
+I would recommend using the KNN to predict whether a crime level will be higher than the median for the Boston data set. It has the highest accuracy at 97%.
+
+<br />
+
+# ISLR Ch. 5, Exercise 3  (or substitute advanced: Exercise 2)
+
+![](pics/problem3.png)
+
+
+### A.
+
+K fold is implemented by dividing the set of cases into a number of groups which is dictated by K. Each group will have an equal length. 
+
+The first group is the validation set. The model is trained on the other groups. So if we had a value of 10 for K. Group 1 would be the validation set and the 9 other groups would be the training groups. A Mean squared error is calculated for the group. This process will be carried out for each group. At the end we will have a MSE for each group. Finally, we take the average of all the MSE's and that gives us the k fold CV estimate.
+
+### B.
+
+The Validation Set Approach:
+
+If K is set to low, then it approaches the same as using the validation set approach. Test Error rate will most likely be higher in the validation approach when compared to kfold validation.
+
+Validation set approach will most likely have a high bias and cause over fitting when compared to the k fold approach.
+
+
+LOOCV:
+
+Computation advantage when using kfold versus LOOCV. K fold will require less computation/resources/time, then compared to the LOOCV. 
+
+LOOCV has less bias, which means less overfitting when applied to other datasets, but will have more variance when compared to K fold and when compared to the validation set approach.
+
+
+<br />
+
+# ISLR Ch. 5, Exercise 5
+
+![](pics/5_3_A.png)
+![](pics/problem5_b.png)
+```{r}
+set.seed(5)
+
+Data <- Default
+#Data %>% head()
+#Data %>% names()
+
+train <-  sample(1:nrow(Data), round((nrow(Data)/4)*3,0))
+#train %>% length()
+#Data %>% dim()
+
+
+### Create training Sets
+Data.test <- Data[-train,]
+Data.response <- Data$default[-train]
+
+
+# Fit model
+glm.fits <- glm(default ~ income+balance, family = binomial, data = Data, subset = train)
+#summary(glm.fits)
+#coef(glm.fits)
+#summary(glm.fits)$coef
+glm.probs <-predict(glm.fits, type = "response", Data.test)
+
+
+contrasts(Data$default)
+#length(glm.probs)
+#dim(Data.test)
+glm.pred <- rep("No",2500)
+glm.pred[glm.probs >.5 ] = "Yes"
+
+table(glm.pred,Data.response)
+mean(glm.pred==Data.response)
+
+paste0("The test Error Rate is : ",(1-(mean(glm.pred==Data.response)))*100,"%" )
+
+
+```
+![](pics/problem5_c.png)
+<br />
+
+For this problem, we will run the sample function 3 times to get a different training set. I will fit the model, and then I will calculate the test error rate again. For ease, I will create a loop. I create a new seed each time I run the loop.
+
+
+```{r}
+
+for(i in 1:3){
+set.seed(i)
+train <-  sample(1:nrow(Data), round((nrow(Data)/4)*3,0))
+# Create training Sets
+Data.test <- Data[-train,]
+Data.response <- Data$default[-train]
+# Fit model
+glm.fits <- glm(default ~ income+balance, family = binomial, data = Data, subset = train)
+glm.probs <-predict(glm.fits, type = "response", Data.test)
+glm.pred <- rep("No",2500)
+glm.pred[glm.probs >.5 ] = "Yes"
+mean(glm.pred==Data.response)
+print(paste0("The test Error Rate is : ",(1-(mean(glm.pred==Data.response)))*100,"%" ))
+}
+
+```
+
+When Running the model with 3 different seeds. I saw that the error rate fluctuated from 2.12 % up to 2.6%.
+
+![](pics/prob5_d.png)
+
+
+```{r}
+
+
+glm.fits <- glm(default ~ ., family = binomial, data = Data, subset = train)
+glm.probs <-predict(glm.fits, type = "response", Data.test)
+glm.pred <- rep("No",2500)
+glm.pred[glm.probs >.5 ] = "Yes"
+
+table(glm.pred,Data.response)
+mean(glm.pred==Data.response)
+
+paste0("The test Error Rate is : ",(1-(mean(glm.pred==Data.response)))*100,"%" )
+
+```
+
+Using the dummy variable is about the same as the last error rate calculated in part c (2.68). I'm comparing it to that result, since the current sample seed is the one used in that loop.
+
+<br />
+
+# ISLR Ch. 5, Exercise 9
+
+![](pics/prob9_a.png)
+
+```{r}
+
+u_ <- Boston$medv %>% mean()
+paste("The population mean of the medv:",u_)
+
+
+```
+![](pics/prob9_b.png)
+
+```{r}
+
+sd_error <- Boston$medv%>%sd()/(length(Boston)^(1/2))
+
+paste("The Standard error of the sample mean is:", sd_error)
+
+```
+![](pics/prob9_c.png)
+```{r}
+library(boot)
+
+alpha.fn <- function(data, index){
+  medv <-data$medv[index]
+  mean_1 <- mean(medv)
+ 
+}
+
+```
+
+```{r}
+
+#Boston$medv %>% length()
+
+
+boot(Boston, alpha.fn,10000)
+
+```
+
+The standard error is lower using the Bootstrap when compared to the answer from part c.
+
+![](pics/prob9_d.png)
+
+```{r}
+
+t.test(Boston$medv)
+
+mean_boot <- 22.53281
+std.boot <- .4137494
+
+upperbound <- mean_boot + 2*std.boot
+lowerbound <- mean_boot -2*std.boot
+
+paste0("The confidence interval using the boot: [",lowerbound," , ",upperbound,"]")
+
+```
+<br />
+
+The boot and the t test confidence intervals are very close, almost identical.
+
+<br />
+
+![](pics/prob9_e.png)
+```{r}
+paste("The median value of medv in the population", Boston$medv %>% median())
+```
+
+![](pics/prob9_f.png)
+
+```{r}
+
+
+alpha.median <- function(data, index){
+  medv <-data$medv[index]
+  median_1 <- median(medv)
+
+}
+
+boot(Boston, alpha.median, 10000)
+
+
+```
+
+The standard error of the median is .3768. This standard error is very small for the original median of 21.2.
+
+
+![](pics/prob9_g.png)
+
+
+
+```{r}
+
+quantile(Boston$medv, probs = c(.1,.2,.5,.75,.9))
+
+paste("The 10th percentile is :", quantile(Boston$medv, probs = .1),"%")
+
+```
+
+![](pics/prob9_h.png)
+
+```{r}
+
+alpha.quantile <- function(data, index){
+  medv <-data$medv[index]
+  perc_10 <- quantile(medv, probs = .1)
+
+}
+
+boot(Boston, alpha.quantile, 10000)
+detach(Boston)
+
+```
+
+
+
+The standard error for the 10% quantile is .5 for a original value of 12.75. 
+
+<br />
+
+
+# ISLR Ch. 6, Exercise 2
+
+Referenced Article: https://towardsdatascience.com/understanding-the-bias-variance-tradeoff-165e6942b229
+
+I found this article helpful in understanding accuracy with reference to bias/variance tradeoff.
+
+Figure 2.7 in Textbook also helped with flexibility of different models.
+
+![](pics/prob6.png)
+
+
+
+### A.
+
+#### I
+
+More flexible and hence will give improved prediction accuracy when its increase in bias is less than its decrease in
+variance.
+
+Incorrect. Lasso is less flexible than Least squares.
+
+#### II 
+
+More flexible and hence will give improved prediction accuracy when its increase in variance is less than its decrease
+in bias.
+
+Incorrect - less flexible than OLS
+
+#### III
+
+Less flexible and hence will give improved prediction accuracy when its increase in bias is less than its decrease in
+variance.
+
+Correct -  Low bias and high variance will cause overfitting, but will have a higher prediction accuracy than underfitting the data. since the variance is not increasing, we will have more coefficents that explain the response being measuared, and lamda will not go to zero for those predictors.
+
+
+#### IV
+Less flexible and hence will give improved prediction accuracy when its increase in variance is less than its decrease
+in bias.
+
+Incorrect - Increase in variance < then decrease in bias would give a situation of high variance and high bias.
+
+Also this is not how the lasso works, lambda will get rid of the variables that have high variance, by setting their cofficents to 
+
+
+### B 
+Repeat (a) for ridge regression relative to least squares.
+
+#### i
+Incorrect - Less Flexible
+
+#### II 
+Incorrect - Less Flexible
+
+#### III
+
+Correct - 
+As lamda increases bias, flexibility  decreases, which means we get a decreased variance and increased bias.
+
+Slight increase in bias with less variance increases prediction accuracy.
+
+#### IV
+
+Incorrect. Larger increase in varriance associated with smaller decrease in bias would not improve prediction accuracy.
+
+### C 
+Repeat (a) for non-linear methods relative to least squares.
+
+#### i
+Correct - 
+More flexible model, Slight increase in bias with less variance increases prediction accuracy.
+
+#### ii-iV
+Incorrect.
+
+<br />
+
+
+# ISLR Ch. 6, Exercise 9 
+(omit e & f) (requires time and effort; please collaborate & use Piazza)
+
+In this exercise, we will predict the number of applications received
+using the other variables in the College data set.
+
+### A
+Split the data set into a training set and a test set.
+
+```{r}
+
+library(ISLR2)
+
+set.seed(1)
+
+#College %>% dim()
+#College %>% names()
+#College %>% head()
+#?College
+
+train <-  sample(1:nrow(College), round((nrow(College)/4)*3,0))
+#train %>% length()
+#train %>% head()
+
+
+
+# Create Test actuals and training Sets
+
+College.test <- College[-train,]
+College.response <- College$Apps[-train]
+college.train <- College[train,]
+
+
+
+
+
+
+```
+
+
+After looking into College data set, I identified that our response variable will be the column Apps. The training set will be the college dataframe filtered on the train index.
+
+
+### B
+Fit a linear model using least squares on the training set, and
+report the test error obtained.
+
+```{r warning=FALSE, message=FALSE}
+attach(College)
+lm.fit <- lm(Apps ~., data = College, subset = train)
+lm.pred <- predict(lm.fit, College.test, type = "response")
+lm_mse <- mean((College.response -lm.pred )^2)
+lm_mse
+MSE_dataframe <- data.frame("model" = "Least Square", "MSE" = lm_mse)
+
+
+```
+
+### C
+Fit a ridge regression model on the training set, with λ chosen
+by cross-validation. Report the test error obtained.
+
+
+```{r, warning=FALSE}
+library(glmnet)
+
+
+x <- model.matrix(Apps~.,College)[,-1]
+y <- College$Apps
+grid <- 10^seq(10,-2, length = 100)
+
+ridge.mod <- glmnet(x[train,], y[train], alpha =0, lambda = grid )
+cv.out <- cv.glmnet(x[train,], y[train],alpha = 0)
+plot(cv.out)
+lamda_best <- cv.out$lambda.min
+lamda_best
+
+ridge.pred <- predict(ridge.mod, s = lamda_best, newx = x[-train,])
+ridge_mse <- mean((ridge.pred - y[-train])^2)
+MSE_dataframe <- rbind(MSE_dataframe, c("ridge",ridge_mse))
+
+paste("The test Error Rate is : ", mean((ridge.pred - y[-train])^2))
+
+```
+
+### D 
+Fit a lasso model on the training set, with λ chosen by crossvalidation. Report the test error obtained, along with the number of non-zero coefficient estimates.
+
+```{r, preview = TRUE}
+
+lasso.mod <- glmnet(x[train,],y[train],alpha = 1, lambda = grid)
+cv.out <- cv.glmnet(x[train,], y[train], alpha = 1)
+plot(cv.out)
+lamda_best <- cv.out$lambda.min
+lamda_best
+lasso.pred <- predict(lasso.mod, s= lamda_best, newx = x[-train,])
+paste("The test error rate is ",mean((lasso.pred - y[-train])^2))
+lasso_mse <- mean((lasso.pred - y[-train])^2)
+
+out <- glmnet(x,y, alpha = 1 ,lambda = grid)
+lamda.coef <- predict(out, type = "coefficients", s= lamda_best)[1:18,]
+paste("The number of non-zero coeficients:",lamda.coef[lamda.coef !=0] %>% length())
+
+MSE_dataframe <- rbind(MSE_dataframe, c("Lasso",lasso_mse))
+```
+None of the coefficients are zero.
+
+
+### E
+Fit a PCR model on the training set, with M chosen by crossvalidation. Report the test error obtained, along with the value
+of M selected by cross-validation.
+
+
+```{r}
+library(pls)
+set.seed(10)
+pcr.fit <- pcr(Apps ~ . , data = College, subset = train, scale = TRUE, validation = "CV")
+validationplot(pcr.fit, val.type = "MSEP")
+pcr.pred <- predict(pcr.fit,College.test, ncomp = 17)
+pcr_mse<- mean((pcr.pred - College.response)^2)
+paste("The MSE error is ", pcr_mse)
+MSE_dataframe <- rbind(MSE_dataframe, c("PCR",pcr_mse))
+
+```
+
+From the validation plot, the lowest MSEP for the number of components is around 16,17, and 18.I decided to use 17 as my value of M.
+
+
+### F
+Fit a PLS model on the training set, with M chosen by crossvalidation. Report the test error obtained, along with the value
+of M selected by cross-validation.
+
+```{r}
+pls.fit <- plsr(Apps~., data = College, subset = train, scale = TRUE, validation = "CV")
+
+validationplot(pls.fit, val.type = "MSEP")
+
+
+pls.pred_7<- predict(pls.fit, College.test, ncomp = 7)
+pls.pred_8 <- predict(pls.fit, College.test, ncomp = 8)
+
+paste("The MSE error using M as 7: ", mean((pls.pred_7- College.response)^2))
+paste("The MSE error using M as 8: ", mean((pls.pred_8- College.response)^2))
+pls_mse <- mean((pls.pred_8- College.response)^2)
+MSE_dataframe <- rbind(MSE_dataframe, c("PLS",pls_mse))
+```
+
+The number of components ranges from 7 to 8. I will predict using both values of M.
+
+
+
+### G 
+Comment on the results obtained. How accurately can we predict the number of college applications received? Is there much
+difference among the test errors resulting from these five approaches?
+
+```{r}
+
+MSE_dataframe %>% arrange(MSE) %>% kable()
+MSE_dataframe$MSE <- as.numeric(MSE_dataframe$MSE)
+
+MSE_dataframe %>% ggplot2::ggplot(aes(x = model, y = MSE)) + geom_col(fill = "deepskyblue3")+ theme(axis.text.y = element_blank())+labs(title = "MSE per Model")+geom_text(aes(label = round(as.numeric(MSE),0)), vjust = 2)
+
+```
+
+
+The Ridge regression model had the lowest MSE, with PLS coming up the second lowest MSE, following Lasso and the PCR and Least square in last. There is not too much of a difference between the MSE's, it looks larger due to the scale on the graph. 
+
+
+<br />
+
+
+# ISLR Ch. 8, Exercise 4
+
+![](pics/prob8_4.png)
+
+### A.
+
+![](pics/prob8_4a.jpg)
+
+### B
+![](pics/prob8_4b.jpg)
+
+<br />
+
+# ISLR Ch. 8, Exercise 7
+
+![](pics/prob8_7.png)
+
+
+
+```{r}
+library(randomForest); library(ggplot2)
+set.seed(1)
+train <- sample (1: nrow (Boston), (nrow (Boston) / 4)*3)
+boston.response_test <- Boston$medv[-train]
+df <- tibble("predictors" = c(),"ntree" = double(), "MSE" = double())
+
+
+for(i in seq(1, 13,2)){
+  for(x in seq(1, 600,25)){
+  bag.boston <- randomForest(medv ~., data = Boston, subset = train, mtry = i,ntree = x)
+yhat.bag <- predict(bag.boston, newdata = Boston[-train,])
+mse_1 <- (mean((yhat.bag- boston.response_test)^2))
+df <-df %>% add_row(predictors = as.character(i),ntree = x, MSE = mse_1)
+  }
+}
+
+plot<- df %>% ggplot()+geom_line(aes(x = ntree, y = MSE, group = predictors,color = predictors, linetype = predictors))
+
+plotly::ggplotly(plot)
+
+
+
+
+
+
+```
+
+When starting off with less trees, we see that the MSE's for model is higher. As we increase trees, the MSE drops significantly for all Models. The model that only uses one predictor seems to have the highest MSE ranging from 30 - 25. The models with 3, 5 and 7 seem to have the lowest amount of MSE. Theres no need to have more than 100 Ntrees to get the lowest MSE.
+
+<br />
+
+
+# ISLR Ch. 8, Exercise 9
+
+### A
+
+<br />
+
+Create a training set containing a random sample of 800 observations, and a test set containing the remaining observations.
+
+
+```{r}
+## OJ dataset
+library(ISLR2)
+set.seed(1)
+
+train <- sample(1:nrow(OJ), 800)
+#train %>% length()
+OJ.test <- OJ[-train,]
+OJ.response <- OJ$Purchase[-train]
+OJ.train <- OJ[train,]
+OJ.train.response <- OJ$Purchase[train]
+
+
+#OJ.test %>% dim()
+#OJ.train %>% dim()
+#OJ %>% dim()
+#OJ.response %>% length()
+#OJ.train.response %>% length()
+```
+
+### B
+
+Fit a tree to the training data, with Purchase as the response
+and the other variables as predictors. Use the summary() function
+to produce summary statistics about the tree, and describe the
+results obtained. What is the training error rate? How many
+terminal nodes does the tree have?
+
+
+```{r, message=FALSE}
+library(tree)
+attach(OJ)
+tree.oj <- tree(Purchase ~.,data = OJ, subset = train)
+summary(tree.oj)
+
+
+```
+
+The training error rate is 16% There are 8 terminal nodes for this tree. The residual mean deviance is 75%.
+
+
+### C
+Type in the name of the tree object in order to get a detailed
+text output. Pick one of the terminal nodes, and interpret the
+information displayed.
+
+```{r}
+
+tree.oj
+
+
+```
+
+
+The terminal nodes are shown by the asterix at the end. Lets look at branch 7. This ends in a terminal node. The split is LoyaCH > .764572. There are 123.80 observations in this branch. The prediction for this branch is CH.
+
+
+### D
+Create a plot of the tree, and interpret the results.
+
+
+```{r}
+
+plot(tree.oj)
+text(tree.oj, pretty = 0)
+
+```
+
+The criteria most used are loyal CH and price diff. 
+
+### e
+Predict the response on the test data, and produce a confusion
+matrix comparing the test labels to the predicted test labels.
+What is the test error rate?
+
+
+```{r}
+
+tree.pred <- predict(tree.oj, OJ.test, type = "class")
+x <- table(tree.pred, OJ.response)
+
+
+table(tree.pred,OJ.response) %>% kable()
+
+paste("The Test error rate is :", round(1-(x[1,1]+x[2,2])/sum(x),4),"%")
+
+
+
+
+
+```
+
+### F, G, H
+Apply the cv.tree() function to the training set in order to
+determine the optimal tree size.
+
+Produce a plot with tree size on the x-axis and cross-validated
+classification error rate on the y-axis.
+
+Which tree size corresponds to the lowest cross-validated classification error rate?
+
+
+```{r}
+
+cv.oj <- cv.tree(tree.oj, FUN = prune.misclass )
+
+
+par(mfrow = c(1,2))
+plot(cv.oj$size, cv.oj$dev, type = "b", xlab = "Number of Trees", ylab = "Crossvalidation Error")
+plot(cv.oj$k, cv.oj$dev, type = "b", xlab = "Cross complexity Parameter", ylab = "Crossvalidation Error")
+```
+
+
+According to the figure above, the Crossvalidation error was the lowest with the number of trees at 8.
+
+### I
+Produce a pruned tree corresponding to the optimal tree size
+obtained using cross-validation. If cross-validation does not lead
+to selection of a pruned tree, then create a pruned tree with five
+terminal nodes.
+
+
+```{r}
+
+prune.oj <- prune.misclass(tree.oj, best = 8)
+plot(prune.oj)
+text(prune.oj, pretty = 0)
+```
+
+
+### J
+Compare the training error rates between the pruned and unpruned trees. Which is higher?
+
+```{r}
+
+prune.oj.pred <- predict(prune.oj, OJ.train, type = "class")
+prune.oj.pred %>% length()
+OJ.train.response %>% length()
+x<- table(prune.oj.pred,OJ.train.response)
+
+
+
+ table(prune.oj.pred,OJ.train.response)%>% kable()
+
+paste("The Test error rate is :", round(1-(x[1,1]+x[2,2])/sum(x),3),"%")
+
+
+
+
+```
+
+The training error rate is slightly less at 15% compared to the 16 % shown in the original training set.
+
+
+### K
+Compare the test error rates between the pruned and unpruned
+trees. Which is higher?
+
+
+```{r}
+prune.test.pred <- predict(prune.oj, OJ.test, type = "class")
+
+x<- table(prune.test.pred,OJ.response)
+
+
+
+ table(prune.test.pred,OJ.response)%>% kable()
+
+paste("The Test error rate is :", round(1-(x[1,1]+x[2,2])/sum(x),4),"%")
+
+
+```
+
+
+The test error from the pruned tree is the same as the unpruned tree. We only removed one branch from the original 9 and the CV error rates looked pretty similar for both.
+
+<br />
+
+# ISLR Ch. 8, Exercise 10
+We now use boosting to predict Salary in the Hitters data set.
+
+### A
+Remove the observations for whom the salary information is
+unknown, and then log-transform the salaries.
+
+```{r}
+
+Hitters %>% filter(is.na(Hitters$Salary)) %>% count()
+Hitters %>% dim()
+
+Hitters_new <- Hitters %>% filter(!is.na(Hitters$Salary))
+Hitters_new %>% dim()
+
+```
+Using !is.na(), I filtered the dataset to filter out all rows with an NA salary.
+
+Next we will log transform the Salaries
+
+```{r}
+
+Hitters_new$Salary <- log(Hitters_new$Salary)
+Hitters_new %>% head()
+
+```
+
+
+### B
+
+Create a training set consisting of the first 200 observations, and
+a test set consisting of the remaining observations.
+
+```{r}
+
+set.seed(10)
+
+train <- sample(1:nrow(Hitters_new), 200)
+#train %>% length()
+
+Hitters.test <- Hitters_new[-train,]
+Hitters.response <- Hitters_new$Salary[-train]
+Hitters.train <- Hitters_new[train,]
+Hitters.train.response <- Hitters_new$Salary[train]
+
+
+#Hitters.test %>% dim()
+#Hitters_new %>% dim()
+#Hitters.train.response%>% length()
+#Hitters.response %>% length()
+```
+
+
+### C
+Perform boosting on the training set with 1,000 trees for a range
+of values of the shrinkage parameter λ. Produce a plot with
+different shrinkage values on the x-axis and the corresponding
+training set MSE on the y-axis.
+
+
+
+```{r}
+library(gbm)
+
+## Example Boost function, summary, and way to calculate MSE
+boost.Hitters <- gbm(Salary~.,data = Hitters_new[train,],
+                     distribution = "gaussian", n.trees = 1000,
+                     interaction.depth = 4, shrinkage = .001)
+
+summary(boost.Hitters)
+
+yhat.boost <- predict(boost.Hitters, newdata = Hitters_new[-train,], n.trees = 1000)
+yhat.boost %>% length()
+
+paste("The MSE test error rate is",mean((yhat.boost- Hitters.response)^2))
+
+```
+
+
+Using the method above, I can now calculate the MSE using the boost model, yhat predictions and the actual results on the training set. Next I will create a loop that will run through multiple values of shrinage and add the calculated MSE's to a dataframe. I will then plot those values.
+
+
+```{r}
+
+boost_df <- tibble("Shrinkage" = double(), "MSE" = double())
+
+
+for(i in seq(.0001, .25,.01)){
+  
+  boost.Hitters <- gbm(Salary~.,data = Hitters_new[train,],
+                     distribution = "gaussian", n.trees = 1000,
+                     interaction.depth = 4, shrinkage = i)
+  yhat.boost <- predict(boost.Hitters, newdata = Hitters_new[train,], n.trees = 1000)
+mse_1 <- mean((yhat.boost- Hitters.train.response)^2)
+
+
+boost_df <- boost_df %>% add_row(Shrinkage = i, MSE = mse_1)
+  
+}
+
+
+
+
+
+
+
+
+
+plot<- boost_df %>% ggplot()+geom_line(aes(x = Shrinkage, y = MSE))+xlab("Shrinkage (lambda)")
+
+plotly::ggplotly(plot)
+
+
+```
+
+
+
+### D
+Produce a plot with different shrinkage values on the x-axis and
+the corresponding test set MSE on the y-axis.
+
+For this, I will do the exact steps as done in part C, but I will use the test set instead of the training set when making predicitons.
+
+```{r}
+
+
+boost_df_test <- tibble("Shrinkage" = double(), "MSE" = double())
+
+
+for(i in seq(.0001, .25,.01)){
+  
+  boost.Hitters <- gbm(Salary~.,data = Hitters_new[train,],
+                     distribution = "gaussian", n.trees = 1000,
+                     interaction.depth = 4, shrinkage = i)
+  yhat.boost <- predict(boost.Hitters, newdata = Hitters_new[-train,], n.trees = 1000)
+mse_1 <- mean((yhat.boost- Hitters.test$Salary)^2)
+
+boost_df_test <- boost_df_test %>% add_row(Shrinkage = i, MSE = mse_1)
+  
+}
+
+
+plot<- boost_df_test %>% ggplot()+geom_line(aes(x = Shrinkage, y = MSE))+xlab("Shrinkage (lambda)")
+
+plotly::ggplotly(plot)
+
+boost_df_test %>% summarise(min(MSE))
+which.min(boost_df_test$MSE)
+boost_df_test[which.min(boost_df_test$MSE),]
+
+```
+
+Min MSE can be found at .0101 Lamda.
+
+
+### E
+Compare the test MSE of boosting to the test MSE that results
+from applying two of the regression approaches seen in
+Chapters 3 and 6.
+
+For this I decided to use multiple models from ch. 3 and ch. 6. See below:
+
+
+```{r}
+library(ggplot2)
+
+## Linear Model
+
+Hitters_new %>% head()
+
+lm.fit <- lm(Salary ~., data = Hitters_new, subset = train)
+lm.pred <- predict(lm.fit, Hitters_new[-train,], type = "response")
+lm_mse <- mean((lm.pred - Hitters.response)^2)
+paste("The Linear Model MSE is: ",lm_mse)
+MSE_dataframe <- data.frame("model" = "Least Square", "MSE" = lm_mse)
+
+
+
+## Boost
+ boost.Hitters <- gbm(Salary~.,data = Hitters_new[train,],
+                     distribution = "gaussian", n.trees = 1000,
+                     interaction.depth = 4, shrinkage = .0101)
+  yhat.boost <- predict(boost.Hitters, newdata = Hitters_new[-train,], n.trees = 1000)
+mse_1 <- mean((yhat.boost- Hitters.response)^2)
+
+
+MSE_dataframe <- rbind(MSE_dataframe, c("Boosting",mse_1))
+
+paste("The test Error Rate for Boosting is : ", mean((yhat.boost - Hitters.response)^2))
+
+
+
+## Ridge
+set.seed(10)
+x <- model.matrix(Salary~.,Hitters_new)[,-1]
+y <- Hitters_new$Salary
+grid <- 10^seq(10,-2, length = 100)
+
+ridge.mod <- glmnet(x[train,], y[train], alpha =0, lambda = grid )
+cv.out <- cv.glmnet(x[train,], y[train],alpha = 0)
+lamda_best <- cv.out$lambda.min
+ridge.pred <- predict(ridge.mod, s = lamda_best, newx = x[-train,])
+ridge_mse <- mean((ridge.pred - y[-train])^2)
+MSE_dataframe <- rbind(MSE_dataframe, c("ridge",ridge_mse))
+
+paste("The test Error Rate for Ridge is : ", mean((ridge.pred - y[-train])^2))
+
+
+## Lasso
+
+lasso.mod <- glmnet(x[train,],y[train],alpha = 1, lambda = grid)
+cv.out <- cv.glmnet(x[train,], y[train], alpha = 1)
+lamda_best <- cv.out$lambda.min
+lasso.pred <- predict(lasso.mod, s= lamda_best, newx = x[-train,])
+paste("The test error rate for lasso ",mean((lasso.pred - y[-train])^2))
+lasso_mse <- mean((lasso.pred - y[-train])^2)
+MSE_dataframe <- rbind(MSE_dataframe, c("Lasso",lasso_mse))
+
+
+
+## PCR
+
+pcr.fit <- pcr(Salary ~ . , data = Hitters_new, subset = train, scale = TRUE, validation = "CV")
+validationplot(pcr.fit,val.type = "MSEP")
+pcr.pred <- predict(pcr.fit,Hitters.test, ncomp = 10)
+pcr_mse<- mean((pcr.pred - Hitters.response)^2)
+# lowest MSEP at 10 componenets.
+paste("The MSE error for PCR is ", pcr_mse)
+MSE_dataframe <- rbind(MSE_dataframe, c("PCR",pcr_mse))
+
+
+
+## PLS
+
+pls.fit <- plsr(Salary~., data = Hitters_new, subset = train, scale = TRUE, validation = "CV")
+validationplot(pls.fit, val.type = "MSEP")
+# Lowest  MSEP at 5 components
+pls.pred_7<- predict(pls.fit, Hitters.test, ncomp = 5)
+paste("The MSE error using M as 5: ", mean((pls.pred_7- Hitters.response)^2))
+pls_mse <- mean((pls.pred_7- Hitters.response)^2)
+MSE_dataframe <- rbind(MSE_dataframe, c("PLS",pls_mse))
+
+
+
+
+#MSE_dataframe %>% arrange(MSE)
+MSE_dataframe$MSE <- as.numeric(MSE_dataframe$MSE)
+
+MSE_dataframe %>% ggplot2::ggplot(aes(x = model, y = MSE)) + geom_col(fill = "deepskyblue3")+theme(axis.text.y = element_blank())+labs(title = "MSE per Model")+geom_text(aes(label = round(as.numeric(MSE),3)), vjust = 2)
+
+```
+
+
+Boosting the model will give us the lowest MSE, with PCR in second place. Boosting is the model of choice by far compared to the other models.
+
+
+### F
+Which variables appear to be the most important predictors in
+the boosted model?
+
+```{r}
+
+summary(boost.Hitters)
+
+```
+
+
+
+At bat and runs have the most influence.
+
+
+### G
+Now apply bagging to the training set. What is the test set MSE
+for this approach?
+
+```{r}
+set.seed(1)
+
+
+bag_data <- tibble("predictors" = c(),"ntree" = double(), "MSE" = double())
+
+
+
+for(i in seq(1, 19,2)){
+  for(x in seq(1, 600,100)){
+  bag.hitters <- randomForest(Salary ~., data = Hitters.train, mtry = i,ntree = x)
+yhat.bag <- predict(bag.hitters, newdata = Hitters.test)
+mse_1 <- (mean((yhat.bag- Hitters.response)^2))
+bag_data <-bag_data %>% add_row(predictors = as.character(i),ntree = x, MSE = mse_1)
+  }
+}
+
+plot<- bag_data %>% ggplot()+geom_line(aes(x = ntree, y = MSE, group = predictors,color = predictors, linetype = predictors))
+
+plotly::ggplotly(plot)
+
+
+
+
+```
+
+Based on the plot, we should use 13 predictors and 100 trees.
+
+
+```{r}
+
+
+ bag.hitters <- randomForest(Salary ~., data = Hitters.train, mtry = 13,ntree = 100)
+yhat.bag <- predict(bag.hitters, newdata = Hitters.test)
+paste("The MSE for bagging is : ",(mean((yhat.bag- Hitters.response)^2)))
+```
+The .3622 is slightly lower than the boosting MSE of .38.
+
+
+
+## Final Project IDEAS
+
+Identify a data set that you plan to use for your project/poster and your likely collaborators. What outcome of interest do will you attempt to predict? Why do you expect that the available features (variables), or some subset of them, should help predict this outcome?
+
+
+For the project, I plan to work alone. If I do stumble on certain problems, I will reach out via Piazza or I will go in for office hours. 
+
+For my dataset I went to Kaggle.com. I'm not entirely sure what data set I will use. I found the following data sets that I could possibly use:
+
+For a descrete analysis I could use the Amazon seller dataset from Kagle. This data set is trying to predict whether an amazon order will go through. https://www.kaggle.com/pranalibose/amazon-seller-order-status-prediction 
+This data set was created with the purpose of predicting order sucesses. 
+
+I'd also like to possibly use stock data and indicators to predict whether a stock will increase or decrease, and to predict future prices. I know that a lot of people use technical indicators to make buy and sell decisions. I'd like to give that an attempt as well.
+
+I also found another data set that was interesting from Kagle. This data set looks at wind power. This data set is trying to predict how much wind is generated by the windmill in the following 15 days.
+https://www.kaggle.com/theforcecoder/wind-power-forecasting
