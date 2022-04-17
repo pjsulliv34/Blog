@@ -1,0 +1,2407 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge,chrome=1"/>
+  <meta name="generator" content="distill" />
+
+  <style type="text/css">
+  /* Hide doc at startup (prevent jankiness while JS renders/transforms) */
+  body {
+    visibility: hidden;
+  }
+  </style>
+
+ <!--radix_placeholder_import_source-->
+ <!--/radix_placeholder_import_source-->
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ad0000; } /* Alert */
+code span.an { color: #5e5e5e; } /* Annotation */
+code span.at { } /* Attribute */
+code span.bn { color: #ad0000; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007ba5; } /* ControlFlow */
+code span.ch { color: #20794d; } /* Char */
+code span.cn { color: #8f5902; } /* Constant */
+code span.co { color: #5e5e5e; } /* Comment */
+code span.cv { color: #5e5e5e; font-style: italic; } /* CommentVar */
+code span.do { color: #5e5e5e; font-style: italic; } /* Documentation */
+code span.dt { color: #ad0000; } /* DataType */
+code span.dv { color: #ad0000; } /* DecVal */
+code span.er { color: #ad0000; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #ad0000; } /* Float */
+code span.fu { color: #4758ab; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #5e5e5e; } /* Information */
+code span.kw { color: #007ba5; } /* Keyword */
+code span.op { color: #5e5e5e; } /* Operator */
+code span.ot { color: #007ba5; } /* Other */
+code span.pp { color: #ad0000; } /* Preprocessor */
+code span.sc { color: #5e5e5e; } /* SpecialChar */
+code span.ss { color: #20794d; } /* SpecialString */
+code span.st { color: #20794d; } /* String */
+code span.va { color: #111111; } /* Variable */
+code span.vs { color: #20794d; } /* VerbatimString */
+code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
+</style>
+
+
+  <!--radix_placeholder_meta_tags-->
+  <title>Linear and Logistic Regression Analysis</title>
+
+  <meta property="description" itemprop="description" content="A short description of the post."/>
+
+
+  <!--  https://schema.org/Article -->
+  <meta property="article:published" itemprop="datePublished" content="2022-04-17"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-04-17"/>
+  <meta name="article:author" content="Peter Sullivan"/>
+
+  <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
+  <meta property="og:title" content="Linear and Logistic Regression Analysis"/>
+  <meta property="og:type" content="article"/>
+  <meta property="og:description" content="A short description of the post."/>
+  <meta property="og:locale" content="en_US"/>
+
+  <!--  https://dev.twitter.com/cards/types/summary -->
+  <meta property="twitter:card" content="summary"/>
+  <meta property="twitter:title" content="Linear and Logistic Regression Analysis"/>
+  <meta property="twitter:description" content="A short description of the post."/>
+
+  <!--/radix_placeholder_meta_tags-->
+  <!--radix_placeholder_rmarkdown_metadata-->
+
+  <script type="text/json" id="radix-rmarkdown-metadata">
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","author","date","preview","output"]}},"value":[{"type":"character","attributes":{},"value":["Linear and Logistic Regression Analysis"]},{"type":"character","attributes":{},"value":["A short description of the post.\n"]},{"type":"list","attributes":{},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["name","url"]}},"value":[{"type":"character","attributes":{},"value":["Peter Sullivan"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":[]}},"value":[]}]}]},{"type":"character","attributes":{},"value":["2022-04-17"]},{"type":"character","attributes":{},"value":["preview.png"]},{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["distill::distill_article"]}},"value":[{"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["self_contained"]}},"value":[{"type":"logical","attributes":{},"value":[false]}]}]}]}
+  </script>
+  <!--/radix_placeholder_rmarkdown_metadata-->
+  
+  <script type="text/json" id="radix-resource-manifest">
+  {"type":"character","attributes":{},"value":["linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-15-1.png","linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-4-1.png","linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-1.png","linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-2.png","linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-3.png","linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-4.png","preview.png"]}
+  </script>
+  <!--radix_placeholder_navigation_in_header-->
+  <!--/radix_placeholder_navigation_in_header-->
+  <!--radix_placeholder_distill-->
+
+  <style type="text/css">
+
+  body {
+    background-color: white;
+  }
+
+  .pandoc-table {
+    width: 100%;
+  }
+
+  .pandoc-table>caption {
+    margin-bottom: 10px;
+  }
+
+  .pandoc-table th:not([align]) {
+    text-align: left;
+  }
+
+  .pagedtable-footer {
+    font-size: 15px;
+  }
+
+  d-byline .byline {
+    grid-template-columns: 2fr 2fr;
+  }
+
+  d-byline .byline h3 {
+    margin-block-start: 1.5em;
+  }
+
+  d-byline .byline .authors-affiliations h3 {
+    margin-block-start: 0.5em;
+  }
+
+  .authors-affiliations .orcid-id {
+    width: 16px;
+    height:16px;
+    margin-left: 4px;
+    margin-right: 4px;
+    vertical-align: middle;
+    padding-bottom: 2px;
+  }
+
+  d-title .dt-tags {
+    margin-top: 1em;
+    grid-column: text;
+  }
+
+  .dt-tags .dt-tag {
+    text-decoration: none;
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0em 0.4em;
+    margin-right: 0.5em;
+    margin-bottom: 0.4em;
+    font-size: 70%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  d-article table.gt_table td,
+  d-article table.gt_table th {
+    border-bottom: none;
+  }
+
+  .html-widget {
+    margin-bottom: 2.0em;
+  }
+
+  .l-screen-inset {
+    padding-right: 16px;
+  }
+
+  .l-screen .caption {
+    margin-left: 10px;
+  }
+
+  .shaded {
+    background: rgb(247, 247, 247);
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .html-widget {
+    margin-bottom: 0;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .shaded .shaded-content {
+    background: white;
+  }
+
+  .text-output {
+    margin-top: 0;
+    line-height: 1.5em;
+  }
+
+  .hidden {
+    display: none !important;
+  }
+
+  d-article {
+    padding-top: 2.5rem;
+    padding-bottom: 30px;
+  }
+
+  d-appendix {
+    padding-top: 30px;
+  }
+
+  d-article>p>img {
+    width: 100%;
+  }
+
+  d-article h2 {
+    margin: 1rem 0 1.5rem 0;
+  }
+
+  d-article h3 {
+    margin-top: 1.5rem;
+  }
+
+  d-article iframe {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    margin-bottom: 2.0em;
+    width: 100%;
+  }
+
+  /* Tweak code blocks */
+
+  d-article div.sourceCode code,
+  d-article pre code {
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+  }
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: auto;
+  }
+
+  d-article div.sourceCode {
+    background-color: white;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 10px;
+    font-size: 12px;
+    border-left: 2px solid rgba(0,0,0,0.1);
+  }
+
+  d-article pre {
+    font-size: 12px;
+    color: black;
+    background: none;
+    margin-top: 0;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  d-article pre a {
+    border-bottom: none;
+  }
+
+  d-article pre a:hover {
+    border-bottom: none;
+    text-decoration: underline;
+  }
+
+  d-article details {
+    grid-column: text;
+    margin-bottom: 0.8em;
+  }
+
+  @media(min-width: 768px) {
+
+  d-article pre,
+  d-article div.sourceCode,
+  d-article div.sourceCode pre {
+    overflow: visible !important;
+  }
+
+  d-article div.sourceCode pre {
+    padding-left: 18px;
+    font-size: 14px;
+  }
+
+  d-article pre {
+    font-size: 14px;
+  }
+
+  }
+
+  figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  /* CSS for d-contents */
+
+  .d-contents {
+    grid-column: text;
+    color: rgba(0,0,0,0.8);
+    font-size: 0.9em;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+    padding-bottom: 0.5em;
+    margin-bottom: 1em;
+    padding-left: 0.25em;
+    justify-self: start;
+  }
+
+  @media(min-width: 1000px) {
+    .d-contents.d-contents-float {
+      height: 0;
+      grid-column-start: 1;
+      grid-column-end: 4;
+      justify-self: center;
+      padding-right: 3em;
+      padding-left: 2em;
+    }
+  }
+
+  .d-contents nav h3 {
+    font-size: 18px;
+    margin-top: 0;
+    margin-bottom: 1em;
+  }
+
+  .d-contents li {
+    list-style-type: none
+  }
+
+  .d-contents nav > ul {
+    padding-left: 0;
+  }
+
+  .d-contents ul {
+    padding-left: 1em
+  }
+
+  .d-contents nav ul li {
+    margin-top: 0.6em;
+    margin-bottom: 0.2em;
+  }
+
+  .d-contents nav a {
+    font-size: 13px;
+    border-bottom: none;
+    text-decoration: none
+    color: rgba(0, 0, 0, 0.8);
+  }
+
+  .d-contents nav a:hover {
+    text-decoration: underline solid rgba(0, 0, 0, 0.6)
+  }
+
+  .d-contents nav > ul > li > a {
+    font-weight: 600;
+  }
+
+  .d-contents nav > ul > li > ul {
+    font-weight: inherit;
+  }
+
+  .d-contents nav > ul > li > ul > li {
+    margin-top: 0.2em;
+  }
+
+
+  .d-contents nav ul {
+    margin-top: 0;
+    margin-bottom: 0.25em;
+  }
+
+  .d-article-with-toc h2:nth-child(2) {
+    margin-top: 0;
+  }
+
+
+  /* Figure */
+
+  .figure {
+    position: relative;
+    margin-bottom: 2.5em;
+    margin-top: 1.5em;
+  }
+
+  .figure img {
+    width: 100%;
+  }
+
+  .figure .caption {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    line-height: 1.5em;
+  }
+
+  .figure img.external {
+    background: white;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.1);
+    padding: 18px;
+    box-sizing: border-box;
+  }
+
+  .figure .caption a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  .figure .caption b,
+  .figure .caption strong, {
+    font-weight: 600;
+    color: rgba(0, 0, 0, 1.0);
+  }
+
+  /* Citations */
+
+  d-article .citation {
+    color: inherit;
+    cursor: inherit;
+  }
+
+  div.hanging-indent{
+    margin-left: 1em; text-indent: -1em;
+  }
+
+  /* Citation hover box */
+
+  .tippy-box[data-theme~=light-border] {
+    background-color: rgba(250, 250, 250, 0.95);
+  }
+
+  .tippy-content > p {
+    margin-bottom: 0;
+    padding: 2px;
+  }
+
+
+  /* Tweak 1000px media break to show more text */
+
+  @media(min-width: 1000px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 80px [middle-start] 50px [text-start kicker-end] 65px 65px 65px 65px 65px 65px 65px 65px [text-end gutter-start] 65px [middle-end] 65px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 16px;
+    }
+
+    .grid {
+      grid-column-gap: 16px;
+    }
+
+    d-article {
+      font-size: 1.06rem;
+      line-height: 1.7em;
+    }
+    figure .caption, .figure .caption, figure figcaption {
+      font-size: 13px;
+    }
+  }
+
+  @media(min-width: 1180px) {
+    .base-grid,
+    distill-header,
+    d-title,
+    d-abstract,
+    d-article,
+    d-appendix,
+    distill-appendix,
+    d-byline,
+    d-footnote-list,
+    d-citation-list,
+    distill-footer {
+      grid-template-columns: [screen-start] 1fr [page-start kicker-start] 60px [middle-start] 60px [text-start kicker-end] 60px 60px 60px 60px 60px 60px 60px 60px [text-end gutter-start] 60px [middle-end] 60px [page-end gutter-end] 1fr [screen-end];
+      grid-column-gap: 32px;
+    }
+
+    .grid {
+      grid-column-gap: 32px;
+    }
+  }
+
+
+  /* Get the citation styles for the appendix (not auto-injected on render since
+     we do our own rendering of the citation appendix) */
+
+  d-appendix .citation-appendix,
+  .d-appendix .citation-appendix {
+    font-size: 11px;
+    line-height: 15px;
+    border-left: 1px solid rgba(0, 0, 0, 0.1);
+    padding-left: 18px;
+    border: 1px solid rgba(0,0,0,0.1);
+    background: rgba(0, 0, 0, 0.02);
+    padding: 10px 18px;
+    border-radius: 3px;
+    color: rgba(150, 150, 150, 1);
+    overflow: hidden;
+    margin-top: -12px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+  }
+
+  /* Include appendix styles here so they can be overridden */
+
+  d-appendix {
+    contain: layout style;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-top: 60px;
+    margin-bottom: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    color: rgba(0,0,0,0.5);
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+
+  d-appendix h3 {
+    grid-column: page-start / text-start;
+    font-size: 15px;
+    font-weight: 500;
+    margin-top: 1em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.65);
+  }
+
+  d-appendix h3 + * {
+    margin-top: 1em;
+  }
+
+  d-appendix ol {
+    padding: 0 0 0 15px;
+  }
+
+  @media (min-width: 768px) {
+    d-appendix ol {
+      padding: 0 0 0 30px;
+      margin-left: -30px;
+    }
+  }
+
+  d-appendix li {
+    margin-bottom: 1em;
+  }
+
+  d-appendix a {
+    color: rgba(0, 0, 0, 0.6);
+  }
+
+  d-appendix > * {
+    grid-column: text;
+  }
+
+  d-appendix > d-footnote-list,
+  d-appendix > d-citation-list,
+  d-appendix > distill-appendix {
+    grid-column: screen;
+  }
+
+  /* Include footnote styles here so they can be overridden */
+
+  d-footnote-list {
+    contain: layout style;
+  }
+
+  d-footnote-list > * {
+    grid-column: text;
+  }
+
+  d-footnote-list a.footnote-backlink {
+    color: rgba(0,0,0,0.3);
+    padding-left: 0.5em;
+  }
+
+
+
+  /* Anchor.js */
+
+  .anchorjs-link {
+    /*transition: all .25s linear; */
+    text-decoration: none;
+    border-bottom: none;
+  }
+  *:hover > .anchorjs-link {
+    margin-left: -1.125em !important;
+    text-decoration: none;
+    border-bottom: none;
+  }
+
+  /* Social footer */
+
+  .social_footer {
+    margin-top: 30px;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.67);
+  }
+
+  .disqus-comments {
+    margin-right: 30px;
+  }
+
+  .disqus-comment-count {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+    cursor: pointer;
+  }
+
+  #disqus_thread {
+    margin-top: 30px;
+  }
+
+  .article-sharing a {
+    border-bottom: none;
+    margin-right: 8px;
+  }
+
+  .article-sharing a:hover {
+    border-bottom: none;
+  }
+
+  .sidebar-section.subscribe {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .subscribe p {
+    margin-bottom: 0.5em;
+  }
+
+
+  .article-footer .subscribe {
+    font-size: 15px;
+    margin-top: 45px;
+  }
+
+
+  .sidebar-section.custom {
+    font-size: 12px;
+    line-height: 1.6em;
+  }
+
+  .custom p {
+    margin-bottom: 0.5em;
+  }
+
+  /* Styles for listing layout (hide title) */
+  .layout-listing d-title, .layout-listing .d-title {
+    display: none;
+  }
+
+  /* Styles for posts lists (not auto-injected) */
+
+
+  .posts-with-sidebar {
+    padding-left: 45px;
+    padding-right: 45px;
+  }
+
+  .posts-list .description h2,
+  .posts-list .description p {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+  }
+
+  .posts-list .description h2 {
+    font-weight: 700;
+    border-bottom: none;
+    padding-bottom: 0;
+  }
+
+  .posts-list h2.post-tag {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+    padding-bottom: 12px;
+  }
+  .posts-list {
+    margin-top: 60px;
+    margin-bottom: 24px;
+  }
+
+  .posts-list .post-preview {
+    text-decoration: none;
+    overflow: hidden;
+    display: block;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    padding: 24px 0;
+  }
+
+  .post-preview-last {
+    border-bottom: none !important;
+  }
+
+  .posts-list .posts-list-caption {
+    grid-column: screen;
+    font-weight: 400;
+  }
+
+  .posts-list .post-preview h2 {
+    margin: 0 0 6px 0;
+    line-height: 1.2em;
+    font-style: normal;
+    font-size: 24px;
+  }
+
+  .posts-list .post-preview p {
+    margin: 0 0 12px 0;
+    line-height: 1.4em;
+    font-size: 16px;
+  }
+
+  .posts-list .post-preview .thumbnail {
+    box-sizing: border-box;
+    margin-bottom: 24px;
+    position: relative;
+    max-width: 500px;
+  }
+  .posts-list .post-preview img {
+    width: 100%;
+    display: block;
+  }
+
+  .posts-list .metadata {
+    font-size: 12px;
+    line-height: 1.4em;
+    margin-bottom: 18px;
+  }
+
+  .posts-list .metadata > * {
+    display: inline-block;
+  }
+
+  .posts-list .metadata .publishedDate {
+    margin-right: 2em;
+  }
+
+  .posts-list .metadata .dt-authors {
+    display: block;
+    margin-top: 0.3em;
+    margin-right: 2em;
+  }
+
+  .posts-list .dt-tags {
+    display: block;
+    line-height: 1em;
+  }
+
+  .posts-list .dt-tags .dt-tag {
+    display: inline-block;
+    color: rgba(0,0,0,0.6);
+    padding: 0.3em 0.4em;
+    margin-right: 0.2em;
+    margin-bottom: 0.4em;
+    font-size: 60%;
+    border: 1px solid rgba(0,0,0,0.2);
+    border-radius: 3px;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  .posts-list img {
+    opacity: 1;
+  }
+
+  .posts-list img[data-src] {
+    opacity: 0;
+  }
+
+  .posts-more {
+    clear: both;
+  }
+
+
+  .posts-sidebar {
+    font-size: 16px;
+  }
+
+  .posts-sidebar h3 {
+    font-size: 16px;
+    margin-top: 0;
+    margin-bottom: 0.5em;
+    font-weight: 400;
+    text-transform: uppercase;
+  }
+
+  .sidebar-section {
+    margin-bottom: 30px;
+  }
+
+  .categories ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .categories li {
+    color: rgba(0, 0, 0, 0.8);
+    margin-bottom: 0;
+  }
+
+  .categories li>a {
+    border-bottom: none;
+  }
+
+  .categories li>a:hover {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+  }
+
+  .categories .active {
+    font-weight: 600;
+  }
+
+  .categories .category-count {
+    color: rgba(0, 0, 0, 0.4);
+  }
+
+
+  @media(min-width: 768px) {
+    .posts-list .post-preview h2 {
+      font-size: 26px;
+    }
+    .posts-list .post-preview .thumbnail {
+      float: right;
+      width: 30%;
+      margin-bottom: 0;
+    }
+    .posts-list .post-preview .description {
+      float: left;
+      width: 45%;
+    }
+    .posts-list .post-preview .metadata {
+      float: left;
+      width: 20%;
+      margin-top: 8px;
+    }
+    .posts-list .post-preview p {
+      margin: 0 0 12px 0;
+      line-height: 1.5em;
+      font-size: 16px;
+    }
+    .posts-with-sidebar .posts-list {
+      float: left;
+      width: 75%;
+    }
+    .posts-with-sidebar .posts-sidebar {
+      float: right;
+      width: 20%;
+      margin-top: 60px;
+      padding-top: 24px;
+      padding-bottom: 24px;
+    }
+  }
+
+
+  /* Improve display for browsers without grid (IE/Edge <= 15) */
+
+  .downlevel {
+    line-height: 1.6em;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", Arial, sans-serif;
+    margin: 0;
+  }
+
+  .downlevel .d-title {
+    padding-top: 6rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .downlevel .d-title h1 {
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 1.1em;
+    margin: 0 0 0.5rem;
+  }
+
+  .downlevel .d-title p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    line-height: 1.55em;
+    margin-top: 0;
+  }
+
+  .downlevel .d-byline {
+    padding-top: 0.8em;
+    padding-bottom: 0.8em;
+    font-size: 0.8rem;
+    line-height: 1.8em;
+  }
+
+  .downlevel .section-separator {
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .downlevel .d-article {
+    font-size: 1.06rem;
+    line-height: 1.7em;
+    padding-top: 1rem;
+    padding-bottom: 2rem;
+  }
+
+
+  .downlevel .d-appendix {
+    padding-left: 0;
+    padding-right: 0;
+    max-width: none;
+    font-size: 0.8em;
+    line-height: 1.7em;
+    margin-bottom: 0;
+    color: rgba(0,0,0,0.5);
+    padding-top: 40px;
+    padding-bottom: 48px;
+  }
+
+  .downlevel .footnotes ol {
+    padding-left: 13px;
+  }
+
+  .downlevel .base-grid,
+  .downlevel .distill-header,
+  .downlevel .d-title,
+  .downlevel .d-abstract,
+  .downlevel .d-article,
+  .downlevel .d-appendix,
+  .downlevel .distill-appendix,
+  .downlevel .d-byline,
+  .downlevel .d-footnote-list,
+  .downlevel .d-citation-list,
+  .downlevel .distill-footer,
+  .downlevel .appendix-bottom,
+  .downlevel .posts-container {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+
+  @media(min-width: 768px) {
+    .downlevel .base-grid,
+    .downlevel .distill-header,
+    .downlevel .d-title,
+    .downlevel .d-abstract,
+    .downlevel .d-article,
+    .downlevel .d-appendix,
+    .downlevel .distill-appendix,
+    .downlevel .d-byline,
+    .downlevel .d-footnote-list,
+    .downlevel .d-citation-list,
+    .downlevel .distill-footer,
+    .downlevel .appendix-bottom,
+    .downlevel .posts-container {
+    padding-left: 150px;
+    padding-right: 150px;
+    max-width: 900px;
+  }
+  }
+
+  .downlevel pre code {
+    display: block;
+    border-left: 2px solid rgba(0, 0, 0, .1);
+    padding: 0 0 0 20px;
+    font-size: 14px;
+  }
+
+  .downlevel code, .downlevel pre {
+    color: black;
+    background: none;
+    font-family: Consolas, Monaco, 'Andale Mono', 'Ubuntu Mono', monospace;
+    text-align: left;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    word-wrap: normal;
+    line-height: 1.5;
+
+    -moz-tab-size: 4;
+    -o-tab-size: 4;
+    tab-size: 4;
+
+    -webkit-hyphens: none;
+    -moz-hyphens: none;
+    -ms-hyphens: none;
+    hyphens: none;
+  }
+
+  .downlevel .posts-list .post-preview {
+    color: inherit;
+  }
+
+
+
+  </style>
+
+  <script type="application/javascript">
+
+  function is_downlevel_browser() {
+    if (bowser.isUnsupportedBrowser({ msie: "12", msedge: "16"},
+                                   window.navigator.userAgent)) {
+      return true;
+    } else {
+      return window.load_distill_framework === undefined;
+    }
+  }
+
+  // show body when load is complete
+  function on_load_complete() {
+
+    // add anchors
+    if (window.anchors) {
+      window.anchors.options.placement = 'left';
+      window.anchors.add('d-article > h2, d-article > h3, d-article > h4, d-article > h5');
+    }
+
+
+    // set body to visible
+    document.body.style.visibility = 'visible';
+
+    // force redraw for leaflet widgets
+    if (window.HTMLWidgets) {
+      var maps = window.HTMLWidgets.findAll(".leaflet");
+      $.each(maps, function(i, el) {
+        var map = this.getMap();
+        map.invalidateSize();
+        map.eachLayer(function(layer) {
+          if (layer instanceof L.TileLayer)
+            layer.redraw();
+        });
+      });
+    }
+
+    // trigger 'shown' so htmlwidgets resize
+    $('d-article').trigger('shown');
+  }
+
+  function init_distill() {
+
+    init_common();
+
+    // create front matter
+    var front_matter = $('<d-front-matter></d-front-matter>');
+    $('#distill-front-matter').wrap(front_matter);
+
+    // create d-title
+    $('.d-title').changeElementType('d-title');
+
+    // create d-byline
+    var byline = $('<d-byline></d-byline>');
+    $('.d-byline').replaceWith(byline);
+
+    // create d-article
+    var article = $('<d-article></d-article>');
+    $('.d-article').wrap(article).children().unwrap();
+
+    // move posts container into article
+    $('.posts-container').appendTo($('d-article'));
+
+    // create d-appendix
+    $('.d-appendix').changeElementType('d-appendix');
+
+    // flag indicating that we have appendix items
+    var appendix = $('.appendix-bottom').children('h3').length > 0;
+
+    // replace footnotes with <d-footnote>
+    $('.footnote-ref').each(function(i, val) {
+      appendix = true;
+      var href = $(this).attr('href');
+      var id = href.replace('#', '');
+      var fn = $('#' + id);
+      var fn_p = $('#' + id + '>p');
+      fn_p.find('.footnote-back').remove();
+      var text = fn_p.html();
+      var dtfn = $('<d-footnote></d-footnote>');
+      dtfn.html(text);
+      $(this).replaceWith(dtfn);
+    });
+    // remove footnotes
+    $('.footnotes').remove();
+
+    // move refs into #references-listing
+    $('#references-listing').replaceWith($('#refs'));
+
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      var id = $(this).attr('id');
+      $('.d-contents a[href="#' + id + '"]').parent().remove();
+      appendix = true;
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('d-appendix'));
+    });
+
+    // show d-appendix if we have appendix content
+    $("d-appendix").css('display', appendix ? 'grid' : 'none');
+
+    // localize layout chunks to just output
+    $('.layout-chunk').each(function(i, val) {
+
+      // capture layout
+      var layout = $(this).attr('data-layout');
+
+      // apply layout to markdown level block elements
+      var elements = $(this).children().not('details, div.sourceCode, pre, script');
+      elements.each(function(i, el) {
+        var layout_div = $('<div class="' + layout + '"></div>');
+        if (layout_div.hasClass('shaded')) {
+          var shaded_content = $('<div class="shaded-content"></div>');
+          $(this).wrap(shaded_content);
+          $(this).parent().wrap(layout_div);
+        } else {
+          $(this).wrap(layout_div);
+        }
+      });
+
+
+      // unwrap the layout-chunk div
+      $(this).children().unwrap();
+    });
+
+    // remove code block used to force  highlighting css
+    $('.distill-force-highlighting-css').parent().remove();
+
+    // remove empty line numbers inserted by pandoc when using a
+    // custom syntax highlighting theme
+    $('code.sourceCode a:empty').remove();
+
+    // load distill framework
+    load_distill_framework();
+
+    // wait for window.distillRunlevel == 4 to do post processing
+    function distill_post_process() {
+
+      if (!window.distillRunlevel || window.distillRunlevel < 4)
+        return;
+
+      // hide author/affiliations entirely if we have no authors
+      var front_matter = JSON.parse($("#distill-front-matter").html());
+      var have_authors = front_matter.authors && front_matter.authors.length > 0;
+      if (!have_authors)
+        $('d-byline').addClass('hidden');
+
+      // article with toc class
+      $('.d-contents').parent().addClass('d-article-with-toc');
+
+      // strip links that point to #
+      $('.authors-affiliations').find('a[href="#"]').removeAttr('href');
+
+      // add orcid ids
+      $('.authors-affiliations').find('.author').each(function(i, el) {
+        var orcid_id = front_matter.authors[i].orcidID;
+        if (orcid_id) {
+          var a = $('<a></a>');
+          a.attr('href', 'https://orcid.org/' + orcid_id);
+          var img = $('<img></img>');
+          img.addClass('orcid-id');
+          img.attr('alt', 'ORCID ID');
+          img.attr('src','data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAA2ZpVFh0WE1MOmNvbS5hZG9iZS54bXAAAAAAADw/eHBhY2tldCBiZWdpbj0i77u/IiBpZD0iVzVNME1wQ2VoaUh6cmVTek5UY3prYzlkIj8+IDx4OnhtcG1ldGEgeG1sbnM6eD0iYWRvYmU6bnM6bWV0YS8iIHg6eG1wdGs9IkFkb2JlIFhNUCBDb3JlIDUuMC1jMDYwIDYxLjEzNDc3NywgMjAxMC8wMi8xMi0xNzozMjowMCAgICAgICAgIj4gPHJkZjpSREYgeG1sbnM6cmRmPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5LzAyLzIyLXJkZi1zeW50YXgtbnMjIj4gPHJkZjpEZXNjcmlwdGlvbiByZGY6YWJvdXQ9IiIgeG1sbnM6eG1wTU09Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9tbS8iIHhtbG5zOnN0UmVmPSJodHRwOi8vbnMuYWRvYmUuY29tL3hhcC8xLjAvc1R5cGUvUmVzb3VyY2VSZWYjIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtcE1NOk9yaWdpbmFsRG9jdW1lbnRJRD0ieG1wLmRpZDo1N0NEMjA4MDI1MjA2ODExOTk0QzkzNTEzRjZEQTg1NyIgeG1wTU06RG9jdW1lbnRJRD0ieG1wLmRpZDozM0NDOEJGNEZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wTU06SW5zdGFuY2VJRD0ieG1wLmlpZDozM0NDOEJGM0ZGNTcxMUUxODdBOEVCODg2RjdCQ0QwOSIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgQ1M1IE1hY2ludG9zaCI+IDx4bXBNTTpEZXJpdmVkRnJvbSBzdFJlZjppbnN0YW5jZUlEPSJ4bXAuaWlkOkZDN0YxMTc0MDcyMDY4MTE5NUZFRDc5MUM2MUUwNEREIiBzdFJlZjpkb2N1bWVudElEPSJ4bXAuZGlkOjU3Q0QyMDgwMjUyMDY4MTE5OTRDOTM1MTNGNkRBODU3Ii8+IDwvcmRmOkRlc2NyaXB0aW9uPiA8L3JkZjpSREY+IDwveDp4bXBtZXRhPiA8P3hwYWNrZXQgZW5kPSJyIj8+84NovQAAAR1JREFUeNpiZEADy85ZJgCpeCB2QJM6AMQLo4yOL0AWZETSqACk1gOxAQN+cAGIA4EGPQBxmJA0nwdpjjQ8xqArmczw5tMHXAaALDgP1QMxAGqzAAPxQACqh4ER6uf5MBlkm0X4EGayMfMw/Pr7Bd2gRBZogMFBrv01hisv5jLsv9nLAPIOMnjy8RDDyYctyAbFM2EJbRQw+aAWw/LzVgx7b+cwCHKqMhjJFCBLOzAR6+lXX84xnHjYyqAo5IUizkRCwIENQQckGSDGY4TVgAPEaraQr2a4/24bSuoExcJCfAEJihXkWDj3ZAKy9EJGaEo8T0QSxkjSwORsCAuDQCD+QILmD1A9kECEZgxDaEZhICIzGcIyEyOl2RkgwAAhkmC+eAm0TAAAAABJRU5ErkJggg==');
+          a.append(img);
+          $(this).append(a);
+        }
+      });
+
+      // hide elements of author/affiliations grid that have no value
+      function hide_byline_column(caption) {
+        $('d-byline').find('h3:contains("' + caption + '")').parent().css('visibility', 'hidden');
+      }
+
+      // affiliations
+      var have_affiliations = false;
+      for (var i = 0; i<front_matter.authors.length; ++i) {
+        var author = front_matter.authors[i];
+        if (author.affiliation !== "&nbsp;") {
+          have_affiliations = true;
+          break;
+        }
+      }
+      if (!have_affiliations)
+        $('d-byline').find('h3:contains("Affiliations")').css('visibility', 'hidden');
+
+      // published date
+      if (!front_matter.publishedDate)
+        hide_byline_column("Published");
+
+      // document object identifier
+      var doi = $('d-byline').find('h3:contains("DOI")');
+      var doi_p = doi.next().empty();
+      if (!front_matter.doi) {
+        // if we have a citation and valid citationText then link to that
+        if ($('#citation').length > 0 && front_matter.citationText) {
+          doi.html('Citation');
+          $('<a href="#citation"></a>')
+            .text(front_matter.citationText)
+            .appendTo(doi_p);
+        } else {
+          hide_byline_column("DOI");
+        }
+      } else {
+        $('<a></a>')
+           .attr('href', "https://doi.org/" + front_matter.doi)
+           .html(front_matter.doi)
+           .appendTo(doi_p);
+      }
+
+       // change plural form of authors/affiliations
+      if (front_matter.authors.length === 1) {
+        var grid = $('.authors-affiliations');
+        grid.children('h3:contains("Authors")').text('Author');
+        grid.children('h3:contains("Affiliations")').text('Affiliation');
+      }
+
+      // remove d-appendix and d-footnote-list local styles
+      $('d-appendix > style:first-child').remove();
+      $('d-footnote-list > style:first-child').remove();
+
+      // move appendix-bottom entries to the bottom
+      $('.appendix-bottom').appendTo('d-appendix').children().unwrap();
+      $('.appendix-bottom').remove();
+
+      // hoverable references
+      $('span.citation[data-cites]').each(function() {
+        var refs = $(this).attr('data-cites').split(" ");
+        var refHtml = refs.map(function(ref) {
+          return "<p>" + $('#ref-' + ref).html() + "</p>";
+        }).join("\n");
+        window.tippy(this, {
+          allowHTML: true,
+          content: refHtml,
+          maxWidth: 500,
+          interactive: true,
+          interactiveBorder: 10,
+          theme: 'light-border',
+          placement: 'bottom-start'
+        });
+      });
+
+      // clear polling timer
+      clearInterval(tid);
+
+      // show body now that everything is ready
+      on_load_complete();
+    }
+
+    var tid = setInterval(distill_post_process, 50);
+    distill_post_process();
+
+  }
+
+  function init_downlevel() {
+
+    init_common();
+
+     // insert hr after d-title
+    $('.d-title').after($('<hr class="section-separator"/>'));
+
+    // check if we have authors
+    var front_matter = JSON.parse($("#distill-front-matter").html());
+    var have_authors = front_matter.authors && front_matter.authors.length > 0;
+
+    // manage byline/border
+    if (!have_authors)
+      $('.d-byline').remove();
+    $('.d-byline').after($('<hr class="section-separator"/>'));
+    $('.d-byline a').remove();
+
+    // remove toc
+    $('.d-contents').remove();
+
+    // move appendix elements
+    $('h1.appendix, h2.appendix').each(function(i, val) {
+      $(this).changeElementType('h3');
+    });
+    $('h3.appendix').each(function(i, val) {
+      $(this).nextUntil($('h1, h2, h3')).addBack().appendTo($('.d-appendix'));
+    });
+
+
+    // inject headers into references and footnotes
+    var refs_header = $('<h3></h3>');
+    refs_header.text('References');
+    $('#refs').prepend(refs_header);
+
+    var footnotes_header = $('<h3></h3');
+    footnotes_header.text('Footnotes');
+    $('.footnotes').children('hr').first().replaceWith(footnotes_header);
+
+    // move appendix-bottom entries to the bottom
+    $('.appendix-bottom').appendTo('.d-appendix').children().unwrap();
+    $('.appendix-bottom').remove();
+
+    // remove appendix if it's empty
+    if ($('.d-appendix').children().length === 0)
+      $('.d-appendix').remove();
+
+    // prepend separator above appendix
+    $('.d-appendix').before($('<hr class="section-separator" style="clear: both"/>'));
+
+    // trim code
+    $('pre>code').each(function(i, val) {
+      $(this).html($.trim($(this).html()));
+    });
+
+    // move posts-container right before article
+    $('.posts-container').insertBefore($('.d-article'));
+
+    $('body').addClass('downlevel');
+
+    on_load_complete();
+  }
+
+
+  function init_common() {
+
+    // jquery plugin to change element types
+    (function($) {
+      $.fn.changeElementType = function(newType) {
+        var attrs = {};
+
+        $.each(this[0].attributes, function(idx, attr) {
+          attrs[attr.nodeName] = attr.nodeValue;
+        });
+
+        this.replaceWith(function() {
+          return $("<" + newType + "/>", attrs).append($(this).contents());
+        });
+      };
+    })(jQuery);
+
+    // prevent underline for linked images
+    $('a > img').parent().css({'border-bottom' : 'none'});
+
+    // mark non-body figures created by knitr chunks as 100% width
+    $('.layout-chunk').each(function(i, val) {
+      var figures = $(this).find('img, .html-widget');
+      if ($(this).attr('data-layout') !== "l-body") {
+        figures.css('width', '100%');
+      } else {
+        figures.css('max-width', '100%');
+        figures.filter("[width]").each(function(i, val) {
+          var fig = $(this);
+          fig.css('width', fig.attr('width') + 'px');
+        });
+
+      }
+    });
+
+    // auto-append index.html to post-preview links in file: protocol
+    // and in rstudio ide preview
+    $('.post-preview').each(function(i, val) {
+      if (window.location.protocol === "file:")
+        $(this).attr('href', $(this).attr('href') + "index.html");
+    });
+
+    // get rid of index.html references in header
+    if (window.location.protocol !== "file:") {
+      $('.distill-site-header a[href]').each(function(i,val) {
+        $(this).attr('href', $(this).attr('href').replace("index.html", "./"));
+      });
+    }
+
+    // add class to pandoc style tables
+    $('tr.header').parent('thead').parent('table').addClass('pandoc-table');
+    $('.kable-table').children('table').addClass('pandoc-table');
+
+    // add figcaption style to table captions
+    $('caption').parent('table').addClass("figcaption");
+
+    // initialize posts list
+    if (window.init_posts_list)
+      window.init_posts_list();
+
+    // implmement disqus comment link
+    $('.disqus-comment-count').click(function() {
+      window.headroom_prevent_pin = true;
+      $('#disqus_thread').toggleClass('hidden');
+      if (!$('#disqus_thread').hasClass('hidden')) {
+        var offset = $(this).offset();
+        $(window).resize();
+        $('html, body').animate({
+          scrollTop: offset.top - 35
+        });
+      }
+    });
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (is_downlevel_browser())
+      init_downlevel();
+    else
+      window.addEventListener('WebComponentsReady', init_distill);
+  });
+
+  </script>
+
+  <!--/radix_placeholder_distill-->
+  <script src="linear-and-logistic-regression-analysis_files/header-attrs-2.13/header-attrs.js"></script>
+  <script src="linear-and-logistic-regression-analysis_files/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+  <script src="linear-and-logistic-regression-analysis_files/popper-2.6.0/popper.min.js"></script>
+  <link href="linear-and-logistic-regression-analysis_files/tippy-6.2.7/tippy.css" rel="stylesheet" />
+  <link href="linear-and-logistic-regression-analysis_files/tippy-6.2.7/tippy-light-border.css" rel="stylesheet" />
+  <script src="linear-and-logistic-regression-analysis_files/tippy-6.2.7/tippy.umd.min.js"></script>
+  <script src="linear-and-logistic-regression-analysis_files/anchor-4.2.2/anchor.min.js"></script>
+  <script src="linear-and-logistic-regression-analysis_files/bowser-1.9.3/bowser.min.js"></script>
+  <script src="linear-and-logistic-regression-analysis_files/webcomponents-2.0.0/webcomponents.js"></script>
+  <script src="linear-and-logistic-regression-analysis_files/distill-2.2.21/template.v2.js"></script>
+  <!--radix_placeholder_site_in_header-->
+  <!--/radix_placeholder_site_in_header-->
+
+
+</head>
+
+<body>
+
+<!--radix_placeholder_front_matter-->
+
+<script id="distill-front-matter" type="text/json">
+{"title":"Linear and Logistic Regression Analysis","description":"A short description of the post.","authors":[{"author":"Peter Sullivan","authorURL":{},"affiliation":"&nbsp;","affiliationURL":"#","orcidID":""}],"publishedDate":"2022-04-17T00:00:00.000-04:00","citationText":"Sullivan, 2022"}
+</script>
+
+<!--/radix_placeholder_front_matter-->
+<!--radix_placeholder_navigation_before_body-->
+<!--/radix_placeholder_navigation_before_body-->
+<!--radix_placeholder_site_before_body-->
+<!--/radix_placeholder_site_before_body-->
+
+<div class="d-title">
+<h1>Linear and Logistic Regression Analysis</h1>
+<!--radix_placeholder_categories-->
+<!--/radix_placeholder_categories-->
+<p><p>A short description of the post.</p></p>
+</div>
+
+<div class="d-byline">
+  Peter Sullivan true 
+  
+<br/>2022-04-17
+</div>
+
+<div class="d-article">
+<h3 id="question-2.-exercise-1.">Question 2. Exercise 1.</h3>
+<p>For each of parts (a) through (d), indicate whether we would
+generally expect the performance of a flexible statistical learning
+method to be better or worse than an inflexible method. Justify your
+answer.</p>
+<h5 id="a">(a)</h5>
+<p>The sample size n is extremely large, and the number of predictors p
+is small.</p>
+<p>I would expect it to be better, as flexible models require lots of
+more data. So a large n would be beneficial for a flexible model.</p>
+<h5 id="b">(b)</h5>
+<p>The number of predictors p is extremely large, and the number of
+observations n is small.</p>
+<p>For this I would recommend a more rigid model with the small n. The
+large number of p is also worrying for a flexible model. As shown in the
+text book in figure 2.6, large amount of predictors can cause the model
+to overfit.</p>
+<h5 id="c">(c)</h5>
+<p>The relationship between the predictors and response is highly
+non-linear.</p>
+<p>I would expect a better performance form a flexible model. Lasso and
+least squares run better on linear data, which means the more flexible
+models will perform better.</p>
+<h5 id="d">(d)</h5>
+<p>The variance of the error terms, i.e. σ2 = Var(ϵ), is extremely
+high.</p>
+<p>High Variance means we will have a lot of points above and below the
+line of best fit. If we were to use a more flexible model, we would see
+something similar to the high predictors p, overfitting. So a more
+flexible model would perform worse.</p>
+<p><br /></p>
+<h3 id="islr-ch.-2-exercise-2">ISLR Ch. 2, exercise 2</h3>
+<p>Explain whether each scenario is a classification or regression
+problem, and indicate whether we are most interested in inference or
+prediction. Finally, provide n and p.</p>
+<h5 id="a-1">(a)</h5>
+<p>We collect a set of data on the top 500 firms in the US. For each
+firm we record profit, number of employees, industry and the CEO salary.
+We are interested in understanding which factors affect CEO salary.</p>
+<p>n = # of firms, 500 p = profit, # of employees, industry Regression
+Inference</p>
+<p>This is a regression problem. We are not trying to classify the CEO
+salary into bands, or group the company salarys to similar ones. We are
+trying to understand how these predictors correlate to the dependent
+variable, CEO salary. We are most interested in inference.</p>
+<h5 id="b-1">(b)</h5>
+<p>We are considering launching a new product and wish to know whether
+it will be a success or a failure. We collect data on 20 similar
+products that were previously launched. For each product we have
+recorded whether it was a success or failure, price charged for the
+product, marketing budget, competition price, and ten other
+variables.</p>
+<p>n = # of products, 20 p = price, marketing budget, competition price,
+ten other variables Classification Prediction</p>
+<p>This is a classification problem. We are trying to learn from the
+predictors to label a product as a success or failure. If we were trying
+to predict the probalitlity of success and failure, then I believe that
+would be a logit regression. We are most interested in prediction.</p>
+<h5 id="c-1">(c)</h5>
+<p>We are interested in predicting the % change in the USD/Euro exchange
+rate in relation to the weekly changes in the world stock markets. Hence
+we collect weekly data for all of 2012. For each week we record the %
+change in the USD/Euro, the % change in the US market, the % change in
+the British market, and the % change in the German market.</p>
+<p>n = # of weeks recorded, 1 year, 52 p = % change of us, british and
+german market</p>
+<p>This is a regression problem. We are trying to predict a number based
+on predictors. This is a prediciton problem.</p>
+<p><br /></p>
+<h3 id="islr-ch.-2-exercise-7">ISLR Ch. 2, exercise 7</h3>
+<p>The table below provides a training data set containing six
+observations, three predictors, and one qualitative response variable.
+<img src="H1_table.png" alt="observatoins" /></p>
+<p>Suppose we wish to use this data set to make a prediction for Y when
+X1 = X2 = X3 = 0 using K-nearest neighbors.</p>
+<h5 id="a-2">(a)</h5>
+<p><br /></p>
+<p>Compute the Euclidean distance between each observation and the test
+point, X1 = X2 = X3 = 0.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>dist</span><span class='op'>&lt;-</span> <span class='kw'>function</span><span class='op'>(</span><span class='va'>x</span>,<span class='va'>y</span>,<span class='va'>z</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>distance</span> <span class='op'>&lt;-</span> <span class='op'>(</span><span class='va'>x</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>+</span><span class='va'>y</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>+</span><span class='va'>z</span><span class='op'>^</span><span class='fl'>2</span><span class='op'>)</span><span class='op'>^</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>/</span><span class='fl'>2</span><span class='op'>)</span>
+ 
+<span class='op'>}</span>
+
+<span class='va'>o1</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>3</span>,<span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>o2</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='fl'>2</span>,<span class='fl'>0</span>,<span class='fl'>0</span><span class='op'>)</span>
+<span class='va'>o3</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>3</span><span class='op'>)</span>
+<span class='va'>o4</span><span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='fl'>0</span>,<span class='fl'>1</span>,<span class='fl'>2</span><span class='op'>)</span>
+<span class='va'>o5</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='op'>-</span><span class='fl'>1</span>,<span class='fl'>0</span>,<span class='fl'>1</span><span class='op'>)</span>
+<span class='va'>o6</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/dist.html'>dist</a></span><span class='op'>(</span><span class='fl'>1</span>,<span class='fl'>1</span>,<span class='fl'>1</span><span class='op'>)</span>
+
+
+<span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>o1</span>,<span class='va'>o2</span>, <span class='va'>o3</span>,<span class='va'>o4</span>,<span class='va'>o5</span>,<span class='va'>o6</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     o1 o2       o3       o4       o5       o6
+[1,]  3  2 3.162278 2.236068 1.414214 1.732051</code></pre>
+</div>
+<h5 id="b-2">(b)</h5>
+<p>What is our prediction with K = 1? Why?</p>
+<p>If we use K =1, then the nearest observation from 0,0,0 is the green
+observation at -1,0,1.</p>
+<p>Predict Green.</p>
+<h5 id="c-2">(c)</h5>
+<p>What is our prediction with K = 3? Why?</p>
+<p>We would use observations 2, 5, and 6 as they are the closest to the
+center point. These are red, green, and red. So, we would predict
+red.</p>
+<ol start="4" type="a">
+<li>If the Bayes decision boundary in this problem is highly nonlinear,
+then would we expect the best value for K to be large or small?
+Why?</li>
+</ol>
+<p>As the K value becomes large, we expect the model to become more
+linear. So a smaller K would work better for a highly nonlinear
+model.</p>
+<p><br /></p>
+<h3 id="islr-ch.-2-exercise-10">ISLR Ch. 2, exercise 10</h3>
+<p><br /></p>
+<p>This exercise involves the Boston housing data set. ##### (a) To
+begin, load in the Boston data set. The Boston data set is part of the
+ISLR2 library.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://www.statlearning.com'>ISLR2</a></span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     crim zn indus chas   nox    rm  age    dis rad tax ptratio lstat
+1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3  4.98
+2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8  9.14
+3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8  4.03
+4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7  2.94
+5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7  5.33
+6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7  5.21
+  medv
+1 24.0
+2 21.6
+3 34.7
+4 33.4
+5 36.2
+6 28.7</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#?Boston</span>
+</code></pre>
+</div>
+</div>
+<p>How many rows are in this data set? How many columns? What do the
+rows and columns represent?</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 506  13</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code> [1] &quot;crim&quot;    &quot;zn&quot;      &quot;indus&quot;   &quot;chas&quot;    &quot;nox&quot;     &quot;rm&quot;     
+ [7] &quot;age&quot;     &quot;dis&quot;     &quot;rad&quot;     &quot;tax&quot;     &quot;ptratio&quot; &quot;lstat&quot;  
+[13] &quot;medv&quot;   </code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#head(Boston)</span>
+</code></pre>
+</div>
+</div>
+<p>506 Rows of suburbs in Boston. 14 Predictors (columns)</p>
+<p>Each row is a case.</p>
+<h5 id="b-3">(b)</h5>
+<p>Make some pairwise scatterplots of the predictors (columns) in this
+data set. Describe your findings.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/graphics/pairs.html'>pairs</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-4-1.png" width="624" /></p>
+</div>
+<p>Initial Plot is hard to interpret. Lets trim down to these
+variables.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>columns</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>
+
+
+<span class='va'>x</span> <span class='op'>=</span> <span class='fl'>0</span>
+<span class='va'>group</span> <span class='op'>=</span> <span class='cn'>NULL</span>
+<span class='kw'>for</span><span class='op'>(</span><span class='va'>i</span> <span class='kw'>in</span> <span class='va'>columns</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='co'>#print(i)</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='va'>x</span><span class='op'>+</span><span class='fl'>1</span>
+  <span class='co'>#print(x)</span>
+  <span class='va'>group</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>cbind</a></span><span class='op'>(</span><span class='va'>group</span>,<span class='va'>i</span><span class='op'>)</span>
+  
+  <span class='kw'>if</span><span class='op'>(</span><span class='va'>x</span><span class='op'><a href='https://rdrr.io/r/base/Arithmetic.html'>%%</a></span><span class='fl'>3</span> <span class='op'>==</span> <span class='fl'>0</span><span class='op'>)</span><span class='op'>{</span>
+    <span class='co'>#print(x)</span>
+    <span class='co'>#pairs(group)</span>
+    <span class='co'>#print(group)</span>
+    <span class='va'>df</span> <span class='op'>&lt;-</span> <span class='va'>Boston</span><span class='op'>[</span>,<span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span> <span class='op'><a href='https://rdrr.io/r/base/match.html'>%in%</a></span> <span class='va'>group</span><span class='op'>]</span>
+    <span class='fu'><a href='https://rdrr.io/r/graphics/pairs.html'>pairs</a></span><span class='op'>(</span><span class='va'>df</span><span class='op'>)</span>
+    <span class='va'>group</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+    
+    
+  <span class='op'>}</span>
+  
+  
+<span class='op'>}</span>
+</code></pre>
+</div>
+<p><img src="linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-1.png" width="624" /><img src="linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-2.png" width="624" /><img src="linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-3.png" width="624" /><img src="linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-5-4.png" width="624" /></p>
+</div>
+<p>Possible Correlation between Age and dis, Zn and indus and possibly
+nox an rm.</p>
+<h5 id="c-3">(c)</h5>
+<p>Are any of the predictors associated with per capita crime rate? If
+so, explain the relationship. Lets try using the cor function.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/stats/cor.html'>cor</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>,<span class='fl'>1</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     crim         zn     indus        chas       nox         rm
+crim    1 -0.2004692 0.4065834 -0.05589158 0.4209717 -0.2192467
+           age        dis       rad       tax   ptratio     lstat
+crim 0.3527343 -0.3796701 0.6255051 0.5827643 0.2899456 0.4556215
+           medv
+crim -0.3883046</code></pre>
+</div>
+<p>Crim has the highest correlations with indus at .41, nox at .42, rad
+at .625, tax at .58, and lstat at .455. The two highes are lstat, and
+rad.</p>
+<h5 id="d-1">(d)</h5>
+<p>Do any of the census tracts of Boston appear to have particularly
+high crime rates? Tax rates? Pupil-teacher ratios? Comment on the range
+of each predictor.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>      crim                zn             indus      
+ Min.   : 0.00632   Min.   :  0.00   Min.   : 0.46  
+ 1st Qu.: 0.08205   1st Qu.:  0.00   1st Qu.: 5.19  
+ Median : 0.25651   Median :  0.00   Median : 9.69  
+ Mean   : 3.61352   Mean   : 11.36   Mean   :11.14  
+ 3rd Qu.: 3.67708   3rd Qu.: 12.50   3rd Qu.:18.10  
+ Max.   :88.97620   Max.   :100.00   Max.   :27.74  
+      chas              nox               rm             age        
+ Min.   :0.00000   Min.   :0.3850   Min.   :3.561   Min.   :  2.90  
+ 1st Qu.:0.00000   1st Qu.:0.4490   1st Qu.:5.886   1st Qu.: 45.02  
+ Median :0.00000   Median :0.5380   Median :6.208   Median : 77.50  
+ Mean   :0.06917   Mean   :0.5547   Mean   :6.285   Mean   : 68.57  
+ 3rd Qu.:0.00000   3rd Qu.:0.6240   3rd Qu.:6.623   3rd Qu.: 94.08  
+ Max.   :1.00000   Max.   :0.8710   Max.   :8.780   Max.   :100.00  
+      dis              rad              tax           ptratio     
+ Min.   : 1.130   Min.   : 1.000   Min.   :187.0   Min.   :12.60  
+ 1st Qu.: 2.100   1st Qu.: 4.000   1st Qu.:279.0   1st Qu.:17.40  
+ Median : 3.207   Median : 5.000   Median :330.0   Median :19.05  
+ Mean   : 3.795   Mean   : 9.549   Mean   :408.2   Mean   :18.46  
+ 3rd Qu.: 5.188   3rd Qu.:24.000   3rd Qu.:666.0   3rd Qu.:20.20  
+ Max.   :12.127   Max.   :24.000   Max.   :711.0   Max.   :22.00  
+     lstat            medv      
+ Min.   : 1.73   Min.   : 5.00  
+ 1st Qu.: 6.95   1st Qu.:17.02  
+ Median :11.36   Median :21.20  
+ Mean   :12.65   Mean   :22.53  
+ 3rd Qu.:16.95   3rd Qu.:25.00  
+ Max.   :37.97   Max.   :50.00  </code></pre>
+</div>
+<p>The max crime rate is at 88% with a min at .006%. The crime rate data
+is heavily skewed by outliers, this can be seen by the very low median
+and a very high mean. The range of tax rates are from 187 per $10000 to
+711. The pupil teacher ratio has a mean of 18.46 and a min of 12.6 and a
+max of 22.</p>
+<h5 id="e">(e)</h5>
+<p>How many of the census tracts in this data set bound the Charles
+river?</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/utils/head.html'>head</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     crim zn indus chas   nox    rm  age    dis rad tax ptratio lstat
+1 0.00632 18  2.31    0 0.538 6.575 65.2 4.0900   1 296    15.3  4.98
+2 0.02731  0  7.07    0 0.469 6.421 78.9 4.9671   2 242    17.8  9.14
+3 0.02729  0  7.07    0 0.469 7.185 61.1 4.9671   2 242    17.8  4.03
+4 0.03237  0  2.18    0 0.458 6.998 45.8 6.0622   3 222    18.7  2.94
+5 0.06905  0  2.18    0 0.458 7.147 54.2 6.0622   3 222    18.7  5.33
+6 0.02985  0  2.18    0 0.458 6.430 58.7 6.0622   3 222    18.7  5.21
+  medv
+1 24.0
+2 21.6
+3 34.7
+4 33.4
+5 36.2
+6 28.7</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>Boston</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>chas</span><span class='op'>==</span><span class='fl'>1</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 35 13</code></pre>
+</div>
+<p>There are 35 census tracts bound by the charles river.</p>
+<h5 id="f">(f)</h5>
+<p>What is the median pupil-teacher ratio among the towns in this data
+set?</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/stats/median.html'>median</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>$</span><span class='va'>ptratio</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 19.05</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>Boston</span><span class='op'>$</span><span class='va'>ptratio</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>   Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+  12.60   17.40   19.05   18.46   20.20   22.00 </code></pre>
+</div>
+<p>The Median pratio is 19.05.</p>
+<h5 id="g">(g)</h5>
+<p>Which census tract of Boston has lowest median value of owneroccupied
+homes? What are the values of the other predictors for that census
+tract, and how do those values compare to the overall ranges for those
+predictors? Comment on your findings.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># 2 census tracts with lowest median value of owner occupied homes</span>
+<span class='va'>Boston</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='va'>medv</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/slice.html'>slice</a></span><span class='op'>(</span><span class='fl'>1</span><span class='op'>:</span><span class='fl'>2</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>     crim zn indus chas   nox    rm age    dis rad tax ptratio lstat
+1 38.3518  0  18.1    0 0.693 5.453 100 1.4896  24 666    20.2 30.59
+2 67.9208  0  18.1    0 0.693 5.683 100 1.4254  24 666    20.2 22.98
+  medv
+1    5
+2    5</code></pre>
+</div>
+<p>I found 2 census tracts with the lowest median value of owner
+occupied homes at 5. The crime rates were relatively high at 38 and 67.
+The tax rates were also very high in this area, which is surprising with
+a very low median home value. Age also seems to be maxed out for these
+at the 100 value. So these are highly taxed, very old houses, with a
+high crime rate.</p>
+<h5 id="h">(h)</h5>
+<p>In this data set, how many of the census tracts average more than
+seven rooms per dwelling? More than eight rooms per dwelling? Comment on
+the census tracts that average more than eight rooms per dwelling.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># higher than 7 per dwelling</span>
+
+<span class='va'>Boston</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>rm</span> <span class='op'>&gt;=</span> <span class='fl'>7</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span>  <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 64 13</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'># higher then 8 per dwelling</span>
+
+
+<span class='va'>Boston</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>rm</span> <span class='op'>&gt;=</span> <span class='fl'>8</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/dim.html'>dim</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>[1] 13 13</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>Boston</span><span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/filter.html'>filter</a></span><span class='op'>(</span><span class='va'>rm</span> <span class='op'>&gt;=</span><span class='fl'>8</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>      crim               zn            indus             chas       
+ Min.   :0.02009   Min.   : 0.00   Min.   : 2.680   Min.   :0.0000  
+ 1st Qu.:0.33147   1st Qu.: 0.00   1st Qu.: 3.970   1st Qu.:0.0000  
+ Median :0.52014   Median : 0.00   Median : 6.200   Median :0.0000  
+ Mean   :0.71879   Mean   :13.62   Mean   : 7.078   Mean   :0.1538  
+ 3rd Qu.:0.57834   3rd Qu.:20.00   3rd Qu.: 6.200   3rd Qu.:0.0000  
+ Max.   :3.47428   Max.   :95.00   Max.   :19.580   Max.   :1.0000  
+      nox               rm             age             dis       
+ Min.   :0.4161   Min.   :8.034   Min.   : 8.40   Min.   :1.801  
+ 1st Qu.:0.5040   1st Qu.:8.247   1st Qu.:70.40   1st Qu.:2.288  
+ Median :0.5070   Median :8.297   Median :78.30   Median :2.894  
+ Mean   :0.5392   Mean   :8.349   Mean   :71.54   Mean   :3.430  
+ 3rd Qu.:0.6050   3rd Qu.:8.398   3rd Qu.:86.50   3rd Qu.:3.652  
+ Max.   :0.7180   Max.   :8.780   Max.   :93.90   Max.   :8.907  
+      rad              tax           ptratio          lstat     
+ Min.   : 2.000   Min.   :224.0   Min.   :13.00   Min.   :2.47  
+ 1st Qu.: 5.000   1st Qu.:264.0   1st Qu.:14.70   1st Qu.:3.32  
+ Median : 7.000   Median :307.0   Median :17.40   Median :4.14  
+ Mean   : 7.462   Mean   :325.1   Mean   :16.36   Mean   :4.31  
+ 3rd Qu.: 8.000   3rd Qu.:307.0   3rd Qu.:17.40   3rd Qu.:5.12  
+ Max.   :24.000   Max.   :666.0   Max.   :20.20   Max.   :7.44  
+      medv     
+ Min.   :21.9  
+ 1st Qu.:41.7  
+ Median :48.3  
+ Mean   :44.2  
+ 3rd Qu.:50.0  
+ Max.   :50.0  </code></pre>
+</div>
+<p>There are 64 census tracts that are 7 or more rooms per dwelling, but
+only 13 with 8 or more rooms per dwelling. For the 13 dwellings with 8
+or mor rooms per dweling I saw the following statistics: - max crime
+rate of 3.4, mean of .718 -max lstat of 7.44, mean of 4.3 - max mdv
+value of 50, average of 44</p>
+<p>These seem to be a safer neighborhood, with a higher status and more
+expensive homes.</p>
+<p><br /></p>
+<h3 id="islr-ch.-3-exercise-1">ISLR Ch. 3, exercise 1</h3>
+<p>Describe the null hypotheses to which the p-values given in Table 3.4
+correspond. Explain what conclusions you can draw based on these
+p-values. Your explanation should be phrased in terms of sales, TV,
+radio, and newspaper, rather than in terms of the coefficients of the
+linear model.</p>
+<p><img src="pics/table3.4.png" /></p>
+<p>All independent variables =0. Alternative hypothesis - at least one
+independent variable is non-zero.</p>
+<p>TV and radio are both statistically significant, which means the null
+hypothesis can be rejected. We can assume there is some correlation
+between TV and Radio. Newspaper’s pvalue is above .05 which means the
+independent variable is not statistically significant. Which means we
+accept the null hypothesis, and there is no correlation between
+newspaper and sales.</p>
+<p><br /></p>
+<h3 id="islr-ch.-3-exercise-3">ISLR Ch. 3, exercise 3</h3>
+<p>Suppose we have a data set with five predictors, X1 = GPA, X2 =IQ, X3
+= Level (1 for College and 0 for High School), X4 = Interaction between
+GPA and IQ, and X5 = Interaction between GPA and Level. The response is
+starting salary after graduation (in thousands of dollars). Suppose we
+use least squares to fit the model, and get βˆ0 = 50, βˆ1 = 20, βˆ2 =
+0.07, βˆ3 = 35, βˆ4 = 0.01, βˆ5 = −10.</p>
+<p>Salary = 50 + GPA * 20 + IQ +.07 + Level * 35 + .01 * GPA:IQ -10 *
+GPA:Level ##### (a) Which answer is correct, and why?</p>
+<h5 id="i.">i.</h5>
+<p>For a fixed value of IQ and GPA, high school graduates earn more, on
+average, than college graduates.</p>
+<p>fixed iq and gpa iq, gpa = 1 S = 70.08 + level* 35 -10 * level</p>
+<p>College = 1 highschool = 0</p>
+<p>college - S = 70.08 +35 - 10 Highschool - S = 70</p>
+<p><strong>This one is not true.</strong></p>
+<h5 id="ii.">ii.</h5>
+<p>For a fixed value of IQ and GPA, college graduates earn more, on
+average, than high school graduates.</p>
+<p><strong>This one is true based on the logic from above. On average,
+assuming that iq and GPA = 1. College grads will earch 20 thousand
+dollars more.</strong></p>
+<h5 id="iii.">iii.</h5>
+<p>For a fixed value of IQ and GPA, high school graduates earn more, on
+average, than college graduates provided that the GPA is high
+enough.</p>
+<p><strong>This one is wrong.</strong></p>
+<h6 id="iv.">iv.</h6>
+<p>For a fixed value of IQ and GPA, college graduates earn more, on
+average, than high school graduates provided that the GPA is high
+enough.</p>
+<p><strong>This one is wrong.</strong></p>
+<h5 id="b-4">(b)</h5>
+<p>Predict the salary of a college graduate with IQ of 110 and a GPA of
+4.0.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>GPA</span> <span class='op'>=</span> <span class='fl'>4</span>
+<span class='va'>IQ</span> <span class='op'>=</span><span class='fl'>110</span>
+<span class='va'>Level</span> <span class='op'>=</span> <span class='fl'>1</span>
+
+<span class='va'>Salary</span> <span class='op'>=</span> <span class='fl'>50</span> <span class='op'>+</span> <span class='va'>GPA</span> <span class='op'>*</span> <span class='fl'>20</span>  <span class='op'>+</span> <span class='va'>IQ</span> <span class='op'>+</span><span class='fl'>.07</span> <span class='op'>+</span> <span class='va'>Level</span> <span class='op'>*</span> <span class='fl'>35</span> <span class='op'>+</span> <span class='fl'>.01</span> <span class='op'>*</span> <span class='va'>GPA</span><span class='op'>*</span><span class='va'>IQ</span>  <span class='op'>-</span><span class='fl'>10</span> <span class='op'>*</span> <span class='va'>GPA</span><span class='op'>*</span><span class='va'>Level</span>
+
+<span class='va'>Salary</span>
+</code></pre>
+</div>
+<pre><code>[1] 239.47</code></pre>
+</div>
+<p>Salary = 239K</p>
+<h5 id="c-4">(c)</h5>
+<p>True or false: Since the coefficient for the GPA/IQ interaction term
+is very small, there is very little evidence of an interaction effect.
+Justify your answer.</p>
+<p>This is false. .01 is a relative term. for the problem above we had
+an IQ of 110. GPA ranging from 1 - 4 would give the range of 1.1K to 4.4
+K.</p>
+<p><br /></p>
+<h3 id="islr-ch.-3-exercise-15">ISLR Ch. 3, exercise 15</h3>
+<p>This problem involves the Boston data set, which we saw in the lab
+for this chapter. We will now try to predict per capita crime rate using
+the other variables in this data set. In other words, per capita crime
+rate is the response, and the other variables are the predictors.</p>
+<h5 id="a-3">(a)</h5>
+<p>For each predictor, fit a simple linear regression model to predict
+the response. Describe your results. In which of the models is there a
+statistically significant association between the predictor and the
+response? Create some plots to back up your assertions.</p>
+<p>Predict Crime Rate</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#Boston</span>
+<span class='co'>#colnames(Boston)</span>
+<span class='va'>Dependent_variable</span> <span class='op'>&lt;-</span> <span class='va'>Boston</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='va'>crim</span><span class='op'>)</span>
+<span class='va'>predictors</span> <span class='op'>&lt;-</span> <span class='va'>Boston</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'>dplyr</span><span class='fu'>::</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/select.html'>select</a></span><span class='op'>(</span><span class='op'>-</span><span class='va'>crim</span><span class='op'>)</span>
+<span class='co'>#Dependent_variable %&gt;% head()</span>
+<span class='co'>#predictors %&gt;% head()</span>
+
+
+<span class='va'>predictors_varname</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/colnames.html'>colnames</a></span><span class='op'>(</span><span class='va'>predictors</span><span class='op'>)</span>
+
+
+
+<span class='va'>outcome</span> <span class='op'>&lt;-</span> <span class='st'>"crim"</span>
+<span class='va'>models</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>outcome</span>,<span class='st'>" ~"</span>, <span class='va'>predictors_varname</span><span class='op'>)</span>, <span class='va'>as.formula</span><span class='op'>)</span>
+<span class='va'>y</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+
+
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>model</span> <span class='kw'>in</span> <span class='va'>models</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>linearmodel</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>model</span>, data <span class='op'>=</span> <span class='va'>Boston</span><span class='op'>)</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>linearmodel</span><span class='op'>)</span>
+  <span class='fu'><a href='https://rdrr.io/r/base/print.html'>print</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>)</span>
+  <span class='co'>#print(paste(format(model), "R^2 value: ", round(x$r.squared,3)*100, "%"))</span>
+  <span class='va'>y</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>y</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>variable <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>,
+              <span class='st'>"Rvalue_Percent"</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Round.html'>round</a></span><span class='op'>(</span><span class='va'>x</span><span class='op'>$</span><span class='va'>r.squared</span>,<span class='fl'>3</span><span class='op'>)</span><span class='op'>*</span><span class='fl'>100</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+</code></pre>
+</div>
+<pre><code>               Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept)  4.45369376  0.4172178 10.674746 4.037668e-24
+zn          -0.07393498  0.0160946 -4.593776 5.506472e-06
+              Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) -2.0637426 0.66722830 -3.093008 2.091266e-03
+indus        0.5097763 0.05102433  9.990848 1.450349e-21
+             Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept)  3.744447  0.3961111  9.453021 1.239505e-19
+chas        -1.892777  1.5061155 -1.256727 2.094345e-01
+             Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) -13.71988   1.699479 -8.072992 5.076814e-15
+nox          31.24853   2.999190 10.418989 3.751739e-23
+             Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) 20.481804  3.3644742  6.087669 2.272000e-09
+rm          -2.684051  0.5320411 -5.044819 6.346703e-07
+              Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) -3.7779063 0.94398472 -4.002084 7.221718e-05
+age          0.1077862 0.01273644  8.462825 2.854869e-16
+             Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept)  9.499262  0.7303972 13.005611 1.502748e-33
+dis         -1.550902  0.1683300 -9.213458 8.519949e-19
+              Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) -2.2871594 0.44347583 -5.157349 3.605846e-07
+rad          0.6179109 0.03433182 17.998199 2.693844e-56
+               Estimate  Std. Error   t value     Pr(&gt;|t|)
+(Intercept) -8.52836909 0.815809392 -10.45387 2.773600e-23
+tax          0.02974225 0.001847415  16.09939 2.357127e-47
+              Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) -17.646933  3.1472718 -5.607057 3.395255e-08
+ptratio       1.151983  0.1693736  6.801430 2.942922e-11
+              Estimate Std. Error   t value     Pr(&gt;|t|)
+(Intercept) -3.3305381 0.69375829 -4.800718 2.087022e-06
+lstat        0.5488048 0.04776097 11.490654 2.654277e-27
+              Estimate Std. Error  t value     Pr(&gt;|t|)
+(Intercept) 11.7965358 0.93418916 12.62757 5.934119e-32
+medv        -0.3631599 0.03839017 -9.45971 1.173987e-19</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>y</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://dplyr.tidyverse.org/reference/arrange.html'>arrange</a></span><span class='op'>(</span><span class='fu'><a href='https://dplyr.tidyverse.org/reference/desc.html'>desc</a></span><span class='op'>(</span><span class='va'>Rvalue_Percent</span><span class='op'>)</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>   variable Rvalue_Percent
+1       rad           39.1
+2       tax           34.0
+3     lstat           20.8
+4       nox           17.7
+5     indus           16.5
+6      medv           15.1
+7       dis           14.4
+8       age           12.4
+9   ptratio            8.4
+10       rm            4.8
+11       zn            4.0
+12     chas            0.3</code></pre>
+</div>
+<p>When predicting crime I found the following predictors statistically
+significant: - indus - zn - medv - lstat - pratio - tax - rad - dis -
+age - rm -nox</p>
+<p>The only one not statistically significant is nox.</p>
+<h5 id="b-5">(b)</h5>
+<p>Fit a multiple regression model to predict the response using all of
+the predictors. Describe your results. For which predictors can we
+reject the null hypothesis H0 : βj = 0?</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>lm.fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>Boston</span>, <span class='va'>crim</span> <span class='op'>~</span> <span class='va'>.</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>lm.fit</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = crim ~ ., data = Boston)
+
+Residuals:
+   Min     1Q Median     3Q    Max 
+-8.534 -2.248 -0.348  1.087 73.923 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 13.7783938  7.0818258   1.946 0.052271 .  
+zn           0.0457100  0.0187903   2.433 0.015344 *  
+indus       -0.0583501  0.0836351  -0.698 0.485709    
+chas        -0.8253776  1.1833963  -0.697 0.485841    
+nox         -9.9575865  5.2898242  -1.882 0.060370 .  
+rm           0.6289107  0.6070924   1.036 0.300738    
+age         -0.0008483  0.0179482  -0.047 0.962323    
+dis         -1.0122467  0.2824676  -3.584 0.000373 ***
+rad          0.6124653  0.0875358   6.997 8.59e-12 ***
+tax         -0.0037756  0.0051723  -0.730 0.465757    
+ptratio     -0.3040728  0.1863598  -1.632 0.103393    
+lstat        0.1388006  0.0757213   1.833 0.067398 .  
+medv        -0.2200564  0.0598240  -3.678 0.000261 ***
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 6.46 on 493 degrees of freedom
+Multiple R-squared:  0.4493,    Adjusted R-squared:  0.4359 
+F-statistic: 33.52 on 12 and 493 DF,  p-value: &lt; 2.2e-16</code></pre>
+</div>
+<p>For zn, dis, rad, and medv we can reject the null hypothesis that
+Beta = 0, as there is statistically significance and correlation between
+those variables and crime rate.</p>
+<h5 id="c-5">(c)</h5>
+<p>How do your results from (a) compare to your results from (b)? Create
+a plot displaying the univariate regression coefficients from (a) on the
+x-axis, and the multiple regression coefficients from (b) on the y-axis.
+That is, each predictor is displayed as a single point in the plot. Its
+coefficient in a simple linear regression model is shown on the x-axis,
+and its coefficient estimate in the multiple linear regression model is
+shown on the y-axis.</p>
+<p>First step is gathering the coefficients from each model.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>multiple</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>Boston</span>, <span class='va'>crim</span> <span class='op'>~</span> <span class='va'>.</span><span class='op'>)</span>
+<span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>multiple</span><span class='op'>)</span>
+
+
+
+<span class='va'>multi_coef</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>multi_coef <span class='op'>=</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span><span class='op'>:</span><span class='fl'>13</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span>
+<span class='co'>#multi_coef</span>
+
+<span class='co'>#now need coefficients from previous models</span>
+
+<span class='va'>outcome</span> <span class='op'>&lt;-</span> <span class='st'>"crim"</span>
+<span class='va'>models</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/lapply.html'>lapply</a></span><span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/paste.html'>paste</a></span><span class='op'>(</span><span class='va'>outcome</span>,<span class='st'>" ~"</span>, <span class='va'>predictors_varname</span><span class='op'>)</span>, <span class='va'>as.formula</span><span class='op'>)</span>
+<span class='va'>coef_matrix</span> <span class='op'>&lt;-</span> <span class='cn'>NULL</span>
+
+
+<span class='kw'>for</span> <span class='op'>(</span><span class='va'>model</span> <span class='kw'>in</span> <span class='va'>models</span><span class='op'>)</span><span class='op'>{</span>
+  <span class='va'>linearmodel</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span><span class='va'>model</span>, data <span class='op'>=</span> <span class='va'>Boston</span><span class='op'>)</span>
+  <span class='va'>x</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>linearmodel</span><span class='op'>)</span>
+  <span class='co'>#print(x$coefficients[2,4])</span>
+  
+  <span class='va'>coef_matrix</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/cbind.html'>rbind</a></span><span class='op'>(</span><span class='va'>coef_matrix</span>, <span class='fu'><a href='https://rdrr.io/r/base/data.frame.html'>data.frame</a></span><span class='op'>(</span>predictor <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/character.html'>as.character</a></span><span class='op'>(</span><span class='va'>model</span><span class='op'>[</span><span class='fl'>3</span><span class='op'>]</span><span class='op'>)</span>,
+              coef <span class='op'>=</span> <span class='va'>x</span><span class='op'>$</span><span class='va'>coefficients</span><span class='op'>[</span><span class='fl'>2</span>,<span class='fl'>1</span><span class='op'>]</span><span class='op'>)</span><span class='op'>)</span>
+<span class='op'>}</span>
+
+<span class='co'>#multi_coef</span>
+<span class='co'>#coef_matrix</span>
+
+<span class='fu'><a href='https://rdrr.io/r/graphics/plot.default.html'>plot</a></span><span class='op'>(</span><span class='va'>coef_matrix</span><span class='op'>$</span><span class='va'>coef</span>,<span class='va'>multi_coef</span><span class='op'>$</span><span class='va'>multi_coef</span>, xlab <span class='op'>=</span> <span class='st'>"Univariate Coefficients"</span>, ylab <span class='op'>=</span> <span class='st'>"multiple regression coefficients"</span><span class='op'>)</span>
+</code></pre>
+</div>
+<p><img src="linear-and-logistic-regression-analysis_files/figure-html5/unnamed-chunk-15-1.png" width="624" data-distill-preview=1 /></p>
+</div>
+<p><br /></p>
+<h5 id="d-2">(d)</h5>
+<p>Is there evidence of non-linear association between any of the
+predictors and the response? To answer this question, for each predictor
+X, fit a model of the form Y = β0 + β1X + β2X2 + β3X3 + ϵ.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='kw'><a href='https://rdrr.io/r/base/library.html'>library</a></span><span class='op'>(</span><span class='va'><a href='https://r-forge.r-project.org/projects/car/'>car</a></span><span class='op'>)</span>
+<span class='va'>lm.fit</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>Boston</span>, <span class='va'>crim</span> <span class='op'>~</span><span class='va'>.</span><span class='op'>)</span>
+<span class='fu'><a href='https://rdrr.io/pkg/car/man/vif.html'>vif</a></span><span class='op'>(</span><span class='va'>lm.fit</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>      zn    indus     chas      nox       rm      age      dis 
+2.323944 3.983627 1.093242 4.546642 2.201688 3.088678 4.280979 
+     rad      tax  ptratio    lstat     medv 
+7.029796 9.195493 1.969732 3.538098 3.663205 </code></pre>
+</div>
+<p>Possible non-linearity due to tax, and may rad.</p>
+<p>Another way to look into this is using the ploy function for each
+coefficient.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#practice</span>
+
+<span class='va'>lm.poly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>Boston</span>, <span class='va'>crim</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/poly.html'>poly</a></span><span class='op'>(</span><span class='va'>lstat</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>z</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='va'>lm.poly</span><span class='op'>)</span>
+<span class='co'>#data.frame(z$coefficients)</span>
+
+<span class='co'>#Boston %&gt;% colnames()</span>
+
+
+
+<span class='op'>(</span><span class='va'>lm.poly</span> <span class='op'>&lt;-</span> <span class='fu'><a href='https://rdrr.io/r/stats/lm.html'>lm</a></span><span class='op'>(</span>data <span class='op'>=</span> <span class='va'>Boston</span>, <span class='va'>crim</span> <span class='op'>~</span> <span class='fu'><a href='https://rdrr.io/r/stats/poly.html'>poly</a></span><span class='op'>(</span><span class='va'>lstat</span>,<span class='fl'>5</span><span class='op'>)</span><span class='op'>)</span><span class='op'>)</span> <span class='op'><a href='https://magrittr.tidyverse.org/reference/pipe.html'>%&gt;%</a></span> <span class='fu'><a href='https://rdrr.io/r/base/summary.html'>summary</a></span><span class='op'>(</span><span class='op'>)</span>
+</code></pre>
+</div>
+<pre><code>
+Call:
+lm(formula = crim ~ poly(lstat, 5), data = Boston)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-13.682  -1.848  -0.547  -0.049  82.707 
+
+Coefficients:
+                Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)       3.6135     0.3368  10.729   &lt;2e-16 ***
+poly(lstat, 5)1  88.0697     7.5758  11.625   &lt;2e-16 ***
+poly(lstat, 5)2  15.8882     7.5758   2.097   0.0365 *  
+poly(lstat, 5)3 -11.5740     7.5758  -1.528   0.1272    
+poly(lstat, 5)4  15.5158     7.5758   2.048   0.0411 *  
+poly(lstat, 5)5  16.8403     7.5758   2.223   0.0267 *  
+---
+Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+
+Residual standard error: 7.576 on 500 degrees of freedom
+Multiple R-squared:  0.232, Adjusted R-squared:  0.2243 
+F-statistic:  30.2 on 5 and 500 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(zn,5))) %&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(indus,5))) %&gt;% summary()</span>
+<span class='co'>#lm.poly &lt;- lm(data = Boston, crim ~ poly(chas,2)) Won't let me run poly</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(nox,5))) %&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(rm,5))) %&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(age,5)))%&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(dis,5))) %&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(rad,5))) %&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(tax,5)))%&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(ptratio,5)))%&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(black,5))) %&gt;% summary()</span>
+<span class='co'>#(lm.poly &lt;- lm(data = Boston, crim ~ poly(medv,5))) %&gt;% summary()</span>
+</code></pre>
+</div>
+</div>
+<p>I originally ran the summar on each model using the polystat. I then
+commented the code after, since there is no need to have 14 summarys in
+a row on the html document.</p>
+<p>Using Polystat, and observing the pvalues, here are the results : -
+lstat is linear - zn is linear, but could be quadratic - indus is
+statistically significant for 1,2,and 3 degrees -nox is nonlinear, with
+the 3 degree being the most significant -rm is linear -medv may be non
+linear</p>
+<p><br /></p>
+<h3 id="islr-ch.-4-exercise-4">ISLR Ch. 4, exercise 4</h3>
+<p>When the number of features p is large, there tends to be a
+deterioration in the performance of KNN and other local approaches that
+perform prediction using only observations that are near the test
+observation for which a prediction must be made. This phenomenon is
+known as the curse of dimensionality, and it ties into the fact that
+curse of dimensionality non-parametric approaches often perform poorly
+when p is large. We will now investigate this curse.</p>
+<h5 id="a-instructors-answer-via-piazza-helped-answer-this-problem.">(a)
+Instructors answer via Piazza helped answer this problem.</h5>
+<p>Suppose that we have a set of observations, each with measurements on
+p = 1 feature, X. We assume that X is uniformly (evenly) distributed on
+[0, 1]. Associated with each observationis a response value. Suppose
+that we wish to predict a test observation’s response using only
+observations that are within 10 % of the range of X closest to that test
+observation. For instance, inorder to predict the response for a test
+observation with X = 0.6, we will use observations in the range [0.55,
+0.65]. On average, what fraction of the available observations will we
+use to make the prediction?</p>
+<p>– p =1, x uniformly distributed Observations are in the range of .55
+to .65. This means that observations .45 to .55 is just as likely. .65
+-.55 = .1. 1/10 of the available observations we will use to make the
+predcition.</p>
+<h5 id="b---aanchal-setia-from-piazza-discussion">B - Aanchal Setia from
+Piazza discussion</h5>
+<p>Now suppose that we have a set of observations, each with
+measurements on p = 2 features, X1 and X2. We assume that (X1, X2) are
+uniformly distributed on [0, 1] × [0, 1]. We wish to predict a test
+observation’s response using only observations that are within 10 % of
+the range of X1 and within 10 % of the range of X2 closest to that test
+observation. For instance, in order to predict the response for a test
+observation with X1 = 0.6 and X2 = 0.35, we will use observations in the
+range [0.55, 0.65] for X1 and in the range [0.3, 0.4] for X2. On
+average, what fraction of the available observations will we use to make
+the prediction?</p>
+<p>For x1 we will use 10% range, and for x2 we will also use a 10%
+range.Therefore, on average we will have 10% of 10% of observations.</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='fl'>.1</span><span class='op'>*</span><span class='fl'>.1</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.01</code></pre>
+</div>
+<h5 id="c-6">C</h5>
+<p>Now suppose that we have a set of observations on p = 100 features.
+Again the observations are uniformly distributed on each feature, and
+again each feature ranges in value from 0 to 1. We wish to predict a
+test observation’s response using observations within the 10 % of each
+feature’s range that is closest to that test observation. What fraction
+of the available observations will we use to make the prediction?</p>
+<p>P = 100 , range 0 to 1. Assuming that each response is using the 10%
+range p = 1 — .1 p =2 —- .1<em>.1 p = 3 —- .1 </em>.1 *.1 p = n —-
+.1^n</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>p</span> <span class='op'>=</span> <span class='fl'>100</span>
+
+<span class='fl'>.1</span><span class='op'>^</span><span class='va'>p</span>
+</code></pre>
+</div>
+<pre><code>[1] 1e-100</code></pre>
+</div>
+<p>There 1 E-100 of the available observations will be used to make the
+prediction.</p>
+<h5 id="d-3">D</h5>
+<p>Using your answers to parts (a)–(c), argue that a drawback of KNN
+when p is large is that there are very few training observations “near”
+any given test observation.</p>
+<p>Based on the above results, if we have 100 features, we would need an
+extremely large data set to get point that are with in the 10% range of
+each other.</p>
+<h3 id="islr-ch.-4-exercise-6">ISLR Ch. 4, exercise 6</h3>
+<p>Suppose we collect data for a group of students in a statistics class
+with variables X1 = hours studied, X2 = undergrad GPA, and Y = receive
+an A. We fit a logistic regression and produce estimated coefficient,
+βˆ0 = −6, βˆ1 = 0.05, βˆ2 = 1.</p>
+<h5 id="a-4">(a)</h5>
+<p>Estimate the probability that a student who studies for 40 h and has
+an undergrad GPA of 3.5 gets an A in the class.</p>
+<figure>
+<img src="logisticfunction.png" alt="Logistic Funciton" />
+<figcaption aria-hidden="true">Logistic Funciton</figcaption>
+</figure>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>b_0</span> <span class='op'>=</span> <span class='op'>-</span><span class='fl'>6</span>
+<span class='va'>b_1</span> <span class='op'>=</span> <span class='fl'>.05</span>
+<span class='va'>b_2</span> <span class='op'>=</span> <span class='fl'>1</span>
+<span class='va'>x1</span> <span class='op'>=</span> <span class='fl'>40</span>
+<span class='va'>x2</span> <span class='op'>=</span> <span class='fl'>3.5</span>
+
+<span class='va'>prob</span> <span class='op'>=</span> <span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>b_0</span><span class='op'>+</span><span class='va'>b_1</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>+</span><span class='va'>b_2</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>)</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>+</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>exp</a></span><span class='op'>(</span><span class='va'>b_0</span><span class='op'>+</span><span class='va'>b_1</span><span class='op'>*</span><span class='va'>x1</span><span class='op'>*</span><span class='fl'>1</span><span class='op'>+</span><span class='va'>b_2</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>)</span><span class='op'>)</span>
+<span class='va'>prob</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.3775407</code></pre>
+</div>
+<p>There is a 37% probablity of receiving an A in this class assuming a
+3.5 gpa and 40 hours of studying.</p>
+<h5 id="b-6">(b)</h5>
+<p>How many hours would the student in part (a) need to study to have a
+50 % chance of getting an A in the class?</p>
+<p>Manipulate the above equaiton to solve for x1.</p>
+<figure>
+<img src="log2.png" alt="Log Odds" />
+<figcaption aria-hidden="true">Log Odds</figcaption>
+</figure>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>b_0</span> <span class='op'>=</span> <span class='op'>-</span><span class='fl'>6</span>
+<span class='va'>b_1</span> <span class='op'>=</span> <span class='fl'>.05</span>
+<span class='va'>b_2</span> <span class='op'>=</span> <span class='fl'>1</span>
+<span class='va'>prob</span> <span class='op'>=</span> <span class='fl'>.5</span>
+<span class='va'>x2</span> <span class='op'>=</span> <span class='fl'>3.5</span>
+
+<span class='va'>x1</span> <span class='op'>=</span> <span class='op'>(</span><span class='fu'><a href='https://rdrr.io/r/base/Log.html'>log</a></span><span class='op'>(</span><span class='va'>prob</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>prob</span><span class='op'>)</span><span class='op'>)</span><span class='op'>-</span> <span class='va'>b_0</span> <span class='op'>-</span> <span class='va'>b_2</span><span class='op'>*</span><span class='va'>x2</span><span class='op'>)</span><span class='op'>/</span><span class='va'>b_1</span>
+<span class='va'>x1</span>
+</code></pre>
+</div>
+<pre><code>[1] 50</code></pre>
+</div>
+<p>Assuming the 3.5 gpa, we will need to study 50 hours to have a
+probability of getting an A at 50%.</p>
+<h3 id="islr-ch.-4-exercise-9">ISLR Ch. 4, exercise 9</h3>
+<p>This problem has to do with odds.</p>
+<h5 id="a-5">(a)</h5>
+<p>On average, what fraction of people with an odds of 0.37 of
+defaulting on their credit card payment will in fact default?</p>
+<p>Odds = P(X)/1-P(X) <br /> odds* (1-P(X)) = P(x) <br /> odds -
+odds*p(x) = P(x)<br /> odds = p(x)(1+odds)<br /> p(x) =
+odds/(1+odds)<br /></p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>odds</span> <span class='op'>=</span> <span class='fl'>.37</span>
+<span class='va'>x</span>  <span class='op'>=</span> <span class='va'>odds</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>+</span><span class='va'>odds</span><span class='op'>)</span>
+<span class='va'>x</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.270073</code></pre>
+</div>
+<p>.27 of people with an odds of .37 will default</p>
+<h5 id="b-7">(b)</h5>
+<p>Suppose that an individual has a 16 % chance of defaulting on her
+credit card payment. What are the odds that she will default? P(x) = .16
+odds = P(x)/(1-P(x))</p>
+<div class="layout-chunk" data-layout="l-body">
+<div class="sourceCode">
+<pre class="sourceCode r"><code class="sourceCode r"><span class='va'>x</span> <span class='op'>=</span> <span class='fl'>.16</span>
+<span class='va'>odds</span> <span class='op'>=</span> <span class='va'>x</span><span class='op'>/</span><span class='op'>(</span><span class='fl'>1</span><span class='op'>-</span><span class='va'>x</span><span class='op'>)</span>
+<span class='va'>odds</span>
+</code></pre>
+</div>
+<pre><code>[1] 0.1904762</code></pre>
+</div>
+<p>16 % of the people with an odds of .19 will default.</p>
+<div class="sourceCode" id="cb27"><pre
+class="sourceCode r distill-force-highlighting-css"><code class="sourceCode r"></code></pre></div>
+<!--radix_placeholder_article_footer-->
+<!--/radix_placeholder_article_footer-->
+</div>
+
+<div class="d-appendix">
+</div>
+
+
+<!--radix_placeholder_site_after_body-->
+<!--/radix_placeholder_site_after_body-->
+<!--radix_placeholder_appendices-->
+<div class="appendix-bottom"></div>
+<!--/radix_placeholder_appendices-->
+<!--radix_placeholder_navigation_after_body-->
+<!--/radix_placeholder_navigation_after_body-->
+
+</body>
+
+</html>

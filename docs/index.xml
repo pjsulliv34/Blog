@@ -7,7 +7,16 @@
     <description>Projects
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sat, 16 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 17 Apr 2022 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Linear and Logistic Regression Analysis</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/2022-04-17-linear-and-logistic-regression-analysis</link>
+      <description>A short description of the post.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/2022-04-17-linear-and-logistic-regression-analysis</guid>
+      <pubDate>Sun, 17 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://pjsulliv34.github.io/Blog/posts/2022-04-17-linear-and-logistic-regression-analysis/preview.png" medium="image" type="image/png" width="900" height="581"/>
+    </item>
     <item>
       <title>Unsupervised Learning</title>
       <dc:creator>Peter Sullivan</dc:creator>
