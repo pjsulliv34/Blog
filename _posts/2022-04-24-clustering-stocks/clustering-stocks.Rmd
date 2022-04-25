@@ -1,0 +1,335 @@
+---
+title: "Clustering Stocks"
+description: |
+  A closer look into the S&P 500 stocks
+author:
+  - name: Peter Sullivan
+    url: {}
+date: 2022-04-24
+preview: preview.png
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE)
+library(tidyverse)
+library(tidyquant)
+library(igraph)
+library(knitr)
+```
+
+
+## Gather DATA
+
+```{r}
+
+library(rvest)
+
+
+   url <- "https://www.slickcharts.com/sp500"
+   x<-   read_html(url) %>% html_nodes("table") %>% html_table()
+  symbols <-  x[[1]]$Symbol
+  symbols %>% head()%>% kable(caption = "Stock symbols")
+  
+
+  
+```
+
+
+Slickcharts.com has a table with the full list of S and P 500 companies. To pull the stock symbols, I used the read_html fuction from the rvest package. Next I need to pull price data for each stock. 
+
+I plan to gather all sock prices for the last year using the tidyquant package.
+
+```{r, eval=FALSE}
+
+
+
+data <- c()
+close_data <- c()
+symbols_names <- c()
+symbols <- symbols[!symbols %in% c("BRK.B","CEG","BF.B","EMBC","PEG")]
+symbols %>% length()
+
+
+
+
+for (stock in symbols){
+  #print(stock)
+  stock_price <-tq_get(stock, get = "stock.prices", from = "2021-01-01", to = "2021-12-31")
+
+  close_data <- cbind(close_data,stock_price$close)
+  symbols_names <- rbind(symbols_names,stock)
+
+}
+
+
+saveRDS(close_data, file = "Stock_data.RDS")
+saveRDS(symbols_names, file = "Symbol_names.RDS")
+
+
+```
+
+
+```{r}
+
+close_data<- readRDS("Stock_data.RDS")
+symbols_names <- readRDS("Symbol_names.RDS")
+
+
+
+```
+
+
+
+
+```{r}
+close_data %>% dim()
+close_data[1:5,1:10] 
+
+```
+
+
+
+The for loop above loops through all stock symbols that I pulled earlier. I noticed that as I looped through pulling the data from yahoo, that the following symbols did not work when pulling with the tq_get() function: "BRK.B","CEG","BF.B","EMBC","PEG". I omitted these symbols, and the loop funciton was able to finish with out any more errors. I also then saved the object, so that I wouldn't have to keep re-running this for loop. 
+
+As I looped through and pulled each stocks data, I added that data to a matrix as a column. Each column represents a stocks price data for the dates specified above. For this example, I only looked at the close price. The close data column has 500 variables, which means we have stock data for 500 stocks.
+
+It looks like the data we currently have is missing the stock names, so I'll have to re add these to the matrix.To make sure I was attaching the correct name to stock in the matrix, I created a vector named symbol names that added the stock to the vector every time I pulled the data from yahoo.
+
+
+
+
+```{r}
+
+## renaming the columns
+colnames(close_data)<- symbols_names
+close_data <- data.frame(close_data)
+close_data[1:10,1:10]
+
+
+
+```
+
+
+We can now see that we have a data frame with the stock names on the appropriate columsn. Now I will need to create a network data set with this data. I will use the cor funciton to create a correlation matrix based on each stock.
+
+
+
+
+
+```{r}
+cor_data <-cor(close_data)
+
+cor_data[1:10,1:10] %>% kable(caption = "Correlation Matrix")
+
+```
+
+
+
+Since the matrix is so large I"m only showing the first 10 stocks. Lets see where the stocks correlation falls compared to each other. To do this, I will use the hist function. I will first set the diagonals to 0 since I don't care about stocks being correlated to themselves.
+
+
+```{r}
+## histogram
+
+
+diag(cor_data)<- 0
+hist(cor_data)
+
+
+```
+
+
+There is definitely a skew to towards 1. Meaning most stocks are correlated. For my ties in my nextwork, I will look at only 5 percent of the population. To identify what I should set as my limit in correlation (specfically at 5%), I will use the quantile funciton.
+
+
+
+
+
+```{r}
+quantile(as.numeric(cor_data), probs = c(.90,0.95,.98))
+
+
+
+```
+
+
+To get ties for 5 percent of the population, I will use the metric of .88 as my slicer. I will now rename all corelations .88 or above to 1 and below to 0. A 1 represents a tie. 
+
+
+```{r}
+
+cor_small <-cor_data
+
+## Specifying 
+cor_data[cor_data>=.89]<-1
+cor_data[cor_data<.89]<-0
+cor_data[1:10,1:10] %>% kable(caption = "Correlation Matrix")
+
+cor_small[cor_small >= .98] <- 1
+cor_small[cor_small <.98] <- 0
+
+
+```
+
+Now we have a adjaceny matrix showing our ties for our network. If I were to create a network object now with this data, I would get a very large amount of stocks with out ties, and these would be seen as isolates. As these isolates will not be helpful in the analysis, I will now remove all isolates from the matrix before creating a network object.
+
+
+```{r}
+
+correlated <- cor_data
+
+x <- (colSums(correlated, na.rm = TRUE)) !=0
+x[1:10] %>% kable(caption = "Stocks that have a TIE")
+correlated = correlated[x,x]
+
+
+y <- (colSums(cor_small, na.rm = TRUE)) !=0
+y[1:10] %>% kable(caption = "Stocks that have a TIE")
+cor_small = cor_small[y,y]
+
+correlated %>% dim()
+cor_small %>% dim()
+
+network_igraph <- graph.adjacency(correlated, mode = "undirected", weighted = NULL)
+plot(network_igraph, vertex.label = NA)
+
+network_small <- graph.adjacency(cor_small, mode = "undirected", weighted = NULL)
+
+plot(network_small, vertex.color = "skyblue3",vertex.label = NA, vertex.size = 20, layout = layout_with_fr)
+as_edgelist(network_igraph)[1:10,]
+as_edgelist(network_small)[1:10,]
+
+
+```
+
+
+I now have two network I graphs. One with 334 nodes and one with 32 nodes.
+
+
+
+## Inspect Network Structure
+```{r}
+vcount(network_igraph)
+ecount(network_igraph)
+
+vcount(network_small)
+ecount(network_small)
+
+is_bipartite(network_igraph)
+is_directed(network_igraph)
+is_weighted(network_igraph)
+
+vertex_attr_names(network_igraph)
+edge_attr_names(network_igraph)
+
+V(network_igraph)$name[1:10]
+```
+The large network has many more ties then the small network. I checked to see if the object is a bipartite, directed or weighted. As expected, the network is single mode, undirected and unweighted. The network seems like it was set up correctly!
+
+## Fast and Greedy Detection
+
+```{r}
+
+large.fg <- cluster_fast_greedy(network_igraph)
+small.fg <- cluster_fast_greedy(network_small)
+
+names(small.fg)
+small.fg
+
+igraph::groups(large.fg)[1:2]
+igraph::groups(small.fg)[1:2]
+
+```
+
+When looking at the large network, most stocks are in the 1st group. Surprisingly APPL is not included with google and microsoft, when I would have assumed those to be highly correlated together.
+
+
+### Community Membership
+
+```{r}
+
+membership(small.fg)
+
+```
+
+
+
+## Plot Network Community
+
+```{r}
+
+
+plot(large.fg,network_igraph, vertex.label = NA)
+plot(small.fg,network_small)
+
+```
+
+I removed the vertex labels from the large igraph object since there are so many stocks in that group.
+
+## Waltrap Detection
+
+```{r}
+
+large.wt <- walktrap.community(network_igraph)
+small.wt <- walktrap.community(network_small)
+
+groups(large.wt)[1:5]
+groups(small.wt)[1:5]
+
+
+plot(large.wt, network_igraph, vertex.label = NA)
+plot(small.wt, network_small)
+
+```
+
+### Adding in Steps
+
+```{r}
+
+##10 steps
+
+large.wt.10 <- walktrap.community(network_igraph,steps = 10)
+small.wt.10 <- walktrap.community(network_small, steps = 10)
+
+##100 steps
+large.wt.100 <- walktrap.community(network_igraph,steps = 100)
+small.wt.100 <- walktrap.community(network_small, steps = 100)
+
+## Plots
+
+plot(large.wt.10, network_igraph, vertex.label = NA)
+plot(large.wt.100, network_igraph, vertex.label = NA)
+
+
+plot(small.wt.10, network_small)
+plot(small.wt.100, network_small)
+
+```
+
+## Edge Betweeness
+
+```{r}
+
+large.ed <- label.propagation.community(network_igraph)
+small.ed <- label.propagation.community(network_small)
+
+
+plot(large.ed, network_igraph,vertex.label = NA)
+plot(small.ed, network_small)
+
+```
+## eigenvector community
+
+```{r}
+large.eig<- leading.eigenvector.community(network_igraph)
+small.egi <- leading.eigenvector.community(network_small)
+
+
+plot(large.eig,network_igraph, vertex.label = NA)
+plot(small.egi, network_small)
+```
+

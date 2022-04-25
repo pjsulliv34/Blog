@@ -93,8 +93,8 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 
 
   <!--  https://schema.org/Article -->
-  <meta property="article:published" itemprop="datePublished" content="2022-04-17"/>
-  <meta property="article:created" itemprop="dateCreated" content="2022-04-17"/>
+  <meta property="article:published" itemprop="datePublished" content="2022-04-24"/>
+  <meta property="article:created" itemprop="dateCreated" content="2022-04-24"/>
 
   <!--  https://developers.facebook.com/docs/sharing/webmasters#markup -->
   <meta property="og:title" content="Project List: HW 1 Network Analysis"/>
@@ -112,7 +112,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   <!--radix_placeholder_rmarkdown_metadata-->
 
   <script type="text/json" id="radix-rmarkdown-metadata">
-  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output"]}},"value":[{"type":"character","attributes":{},"value":["HW 1 Network Analysis"]},{"type":"character","attributes":{},"value":["A closer look into Airport Data.\n"]},{"type":"character","attributes":{},"value":["2022-04-17"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
+  {"type":"list","attributes":{"names":{"type":"character","attributes":{},"value":["title","description","date","output"]}},"value":[{"type":"character","attributes":{},"value":["HW 1 Network Analysis"]},{"type":"character","attributes":{},"value":["A closer look into Airport Data.\n"]},{"type":"character","attributes":{},"value":["2022-04-24"]},{"type":"character","attributes":{},"value":["distill::distill_article"]}]}
   </script>
   <!--/radix_placeholder_rmarkdown_metadata-->
   <!--radix_placeholder_navigation_in_header-->
@@ -2060,7 +2060,7 @@ code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
 <!--radix_placeholder_front_matter-->
 
 <script id="distill-front-matter" type="text/json">
-{"title":"HW 1 Network Analysis","description":"A closer look into Airport Data.","authors":[],"publishedDate":"2022-04-17T00:00:00.000-04:00"}
+{"title":"HW 1 Network Analysis","description":"A closer look into Airport Data.","authors":[],"publishedDate":"2022-04-24T00:00:00.000-04:00"}
 </script>
 
 <!--/radix_placeholder_front_matter-->
@@ -2122,67 +2122,20 @@ in DATA. This is the Airport DATA from the Google drive.</h4>
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/r/base/ls.html'>ls</a></span><span class='op'>(</span><span class='op'>)</span>
 </code></pre>
 </div>
-<pre><code>  [1] &quot;acc&quot;                    &quot;alpha.fn&quot;              
-  [3] &quot;alpha.median&quot;           &quot;alpha.quantile&quot;        
-  [5] &quot;bag.boston&quot;             &quot;bag.hitters&quot;           
-  [7] &quot;bag_data&quot;               &quot;boost.Hitters&quot;         
-  [9] &quot;boost_df&quot;               &quot;boost_df_test&quot;         
- [11] &quot;Boston&quot;                 &quot;boston.response&quot;       
- [13] &quot;boston.response_test&quot;   &quot;Boston.test&quot;           
- [15] &quot;boston.train&quot;           &quot;clusters&quot;              
- [17] &quot;College.response&quot;       &quot;College.test&quot;          
- [19] &quot;college.train&quot;          &quot;Cols&quot;                  
- [21] &quot;correlations&quot;           &quot;current&quot;               
- [23] &quot;cv.oj&quot;                  &quot;cv.out&quot;                
- [25] &quot;Data&quot;                   &quot;Data.response&quot;         
- [27] &quot;Data.test&quot;              &quot;df&quot;                    
- [29] &quot;file&quot;                   &quot;forecast1daymodel&quot;     
- [31] &quot;forecast1weekmodel&quot;     &quot;forecast2monthmodel&quot;   
- [33] &quot;forecast2weekmodel&quot;     &quot;forecast4monthmodel&quot;   
- [35] &quot;forecastmonthmodel&quot;     &quot;glm.fits&quot;              
- [37] &quot;glm.pred&quot;               &quot;glm.probs&quot;             
- [39] &quot;grid&quot;                   &quot;group&quot;                 
- [41] &quot;hc.complete&quot;            &quot;Hitters.response&quot;      
- [43] &quot;Hitters.test&quot;           &quot;Hitters.train&quot;         
- [45] &quot;Hitters.train.response&quot; &quot;Hitters_new&quot;           
- [47] &quot;i&quot;                      &quot;km.out&quot;                
- [49] &quot;knn.pred&quot;               &quot;lamda.coef&quot;            
- [51] &quot;lamda_best&quot;             &quot;lasso.mod&quot;             
- [53] &quot;lasso.pred&quot;             &quot;lasso_mse&quot;             
- [55] &quot;lda.class&quot;              &quot;lda.fit&quot;               
- [57] &quot;lda.pred&quot;               &quot;lm.fit&quot;                
- [59] &quot;lm.pred&quot;                &quot;lm_mse&quot;                
- [61] &quot;loadings&quot;               &quot;lowerbound&quot;            
- [63] &quot;mean_boot&quot;              &quot;mse_1&quot;                 
- [65] &quot;MSE_dataframe&quot;          &quot;nb.class&quot;              
- [67] &quot;nb.fit&quot;                 &quot;network_edgelist&quot;      
- [69] &quot;network_igraph&quot;         &quot;network_nodes&quot;         
- [71] &quot;network_statnet&quot;        &quot;new_stock_data&quot;        
- [73] &quot;OJ.response&quot;            &quot;OJ.test&quot;               
- [75] &quot;OJ.train&quot;               &quot;OJ.train.response&quot;     
- [77] &quot;out&quot;                    &quot;pcr.fit&quot;               
- [79] &quot;pcr.pred&quot;               &quot;pcr_mse&quot;               
- [81] &quot;plot&quot;                   &quot;pls.fit&quot;               
- [83] &quot;pls.pred_7&quot;             &quot;pls.pred_8&quot;            
- [85] &quot;pls_mse&quot;                &quot;pr.out&quot;                
- [87] &quot;pr.var&quot;                 &quot;Prediction_Accuracy&quot;   
- [89] &quot;Predictions_cor&quot;        &quot;prune.oj&quot;              
- [91] &quot;prune.oj.pred&quot;          &quot;prune.test.pred&quot;       
- [93] &quot;pve&quot;                    &quot;retrieval_date&quot;        
- [95] &quot;ridge.mod&quot;              &quot;ridge.pred&quot;            
- [97] &quot;ridge_mse&quot;              &quot;rows&quot;                  
- [99] &quot;scaled&quot;                 &quot;sd_error&quot;              
-[101] &quot;start_date&quot;             &quot;std.boot&quot;              
-[103] &quot;Stock&quot;                  &quot;Stock_data&quot;            
-[105] &quot;sum_sq&quot;                 &quot;test.response&quot;         
-[107] &quot;test.x&quot;                 &quot;top_eq&quot;                
-[109] &quot;train&quot;                  &quot;train.response&quot;        
-[111] &quot;train.x&quot;                &quot;tree.oj&quot;               
-[113] &quot;tree.pred&quot;              &quot;u_&quot;                    
-[115] &quot;unscaled&quot;               &quot;upperbound&quot;            
-[117] &quot;US_arrest_mat&quot;          &quot;US_mat_scale&quot;          
-[119] &quot;x&quot;                      &quot;y&quot;                     
-[121] &quot;yhat.bag&quot;               &quot;yhat.boost&quot;            </code></pre>
+<pre><code> [1] &quot;b_0&quot;                &quot;b_1&quot;                &quot;b_2&quot;               
+ [4] &quot;coef_matrix&quot;        &quot;columns&quot;            &quot;Dependent_variable&quot;
+ [7] &quot;df&quot;                 &quot;dist&quot;               &quot;GPA&quot;               
+[10] &quot;group&quot;              &quot;i&quot;                  &quot;IQ&quot;                
+[13] &quot;Level&quot;              &quot;linearmodel&quot;        &quot;lm.fit&quot;            
+[16] &quot;lm.poly&quot;            &quot;model&quot;              &quot;models&quot;            
+[19] &quot;multi_coef&quot;         &quot;multiple&quot;           &quot;network_edgelist&quot;  
+[22] &quot;network_igraph&quot;     &quot;network_nodes&quot;      &quot;network_statnet&quot;   
+[25] &quot;o1&quot;                 &quot;o2&quot;                 &quot;o3&quot;                
+[28] &quot;o4&quot;                 &quot;o5&quot;                 &quot;o6&quot;                
+[31] &quot;odds&quot;               &quot;outcome&quot;            &quot;p&quot;                 
+[34] &quot;predictors&quot;         &quot;predictors_varname&quot; &quot;prob&quot;              
+[37] &quot;Salary&quot;             &quot;x&quot;                  &quot;x1&quot;                
+[40] &quot;x2&quot;                 &quot;y&quot;                  &quot;z&quot;                 </code></pre>
 <div class="sourceCode">
 <pre class="sourceCode r"><code class="sourceCode r"><span class='fu'><a href='https://rdrr.io/pkg/igraph/man/gorder.html'>vcount</a></span><span class='op'>(</span><span class='va'>network_igraph</span><span class='op'>)</span>
 </code></pre>
