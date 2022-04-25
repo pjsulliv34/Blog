@@ -18,6 +18,15 @@
       <media:content url="https://pjsulliv34.github.io/Blog/posts/2022-04-24-clustering-stocks/preview.png" medium="image" type="image/png" width="900" height="525"/>
     </item>
     <item>
+      <title>Inferential Network Statistics</title>
+      <dc:creator>Peter Sullivan</dc:creator>
+      <link>https://pjsulliv34.github.io/Blog/posts/2022-04-24-inferential-network-statistics</link>
+      <description>A closer look into the S&amp;P 500 stock network properties.</description>
+      <guid>https://pjsulliv34.github.io/Blog/posts/2022-04-24-inferential-network-statistics</guid>
+      <pubDate>Sun, 24 Apr 2022 00:00:00 +0000</pubDate>
+      <media:content url="https://pjsulliv34.github.io/Blog/posts/2022-04-24-inferential-network-statistics/inferential-network-statistics_files/figure-html5/unnamed-chunk-1-1.png" medium="image" type="image/png" width="1248" height="768"/>
+    </item>
+    <item>
       <title>Linear and Logistic Regression Analysis</title>
       <dc:creator>Peter Sullivan</dc:creator>
       <link>https://pjsulliv34.github.io/Blog/posts/2022-04-17-linear-and-logistic-regression-analysis</link>

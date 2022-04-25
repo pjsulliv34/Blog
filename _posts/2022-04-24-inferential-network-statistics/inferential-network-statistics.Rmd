@@ -1,0 +1,119 @@
+---
+title: "Inferential Network Statistics"
+description: |
+  A closer look into the S&P 500 stock network properties.
+author:
+  - name: Peter Sullivan
+    url: {}
+date: 2022-04-24
+preview: preview.png
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning =  FALSE)
+library(tidyverse)
+library(tidyquant)
+library(igraph)
+library(knitr)
+library(statnet)
+
+
+small_network <- readRDS("Smallnetwork.RDS")
+
+
+```
+
+
+This is the same network that I used for Hw 7. The small network above is a filtered correlation network created from the S&P 500. I grabbed the close prices from all s&p 500 stocks for 2021. I then created a correlation matrix from those prices. I then created ties for stocks that were 98% correlated. This filtered down the list of 500 stocks to 32 stocks. I then filtered out any isolates.
+
+
+## CUG-tests to Test Network Properties
+
+
+I first need to change my network objects into adjacency matrixs.
+
+```{r}
+
+
+small.mat <- as.matrix(as_adjacency_matrix(small_network))
+
+
+
+small.cug <- sna::cug.test(small.mat,FUN=gtrans,mode="digraph",cmode="size", reps = 100)
+
+
+small.cug
+plot(small.cug)
+
+
+paste("The T stat: ",(small.cug$obs.stat-mean(small.cug$rep.stat))/sd(small.cug$rep.stat))
+
+```
+
+There is a low probability the transitivity can be randomly generated.
+
+## Creating T stat funciton
+
+```{r}
+cug.t<-function(cug.object){
+  (cug.object$obs.stat-mean(cug.object$rep.stat))/sd(cug.object$rep.stat)
+}
+```
+
+
+
+## Cug test to different Network Properties
+
+### Degree
+
+```{r}
+small.cug <-cug.test(small.mat,FUN=centralization,  FUN.arg=list(FUN=degree, cmode="indegree"), mode="digraph", cmode="size") 
+#plot vs simulation results
+plot(small.cug)
+
+paste("T Statistic: ",cug.t(small.cug))
+
+```
+There is a good probability that the degree could be randomly generated.
+
+
+### Betweenness
+
+```{r}
+
+
+small.bet <-cug.test(small.mat,FUN=centralization,  FUN.arg=list(FUN=betweenness, cmode="directed"), mode="digraph", cmode="size", reps=100) 
+#plot vs simulation results
+plot(small.bet)
+
+paste("T stat: ", cug.t(small.bet))
+```
+There is a very small probability that the betweeness could be randomly generated.
+
+
+### Transitivity
+
+```{r}
+
+small.trans <- cug.test(small.mat,FUN=gtrans,mode="digraph",cmode="dyad")
+small.trans
+plot(small.trans)
+paste("T stat: ", cug.t(small.trans))
+```
+
+### Edges
+
+```{r}
+
+small.edge<-cug.test(small.mat,FUN=gtrans,mode="digraph",cmode="edges", reps=100)
+small.edge
+plot(small.edge)
+paste("T stat: ", cug.t(small.edge))
+
+```
+
